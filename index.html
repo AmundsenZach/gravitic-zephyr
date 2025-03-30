@@ -1,54 +1,24 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <title>Gravitic Zephyr</title>
-        <link rel="stylesheet" href="resources/styles/main.css">
     </head>
 
     <body>
         <canvas id="gameCanvas"></canvas>
+        
+        <div class="userInterface">
+            <div id="userStats">
+                STATS
+            </div>
 
-        <div class="uiElements">
-            <div id="ui">
-                Orbital Velocity: <span id="orbitalVelocity">0</span> m/s<br>
-                Altitude: <span id="altitude">0</span> km<br>
-                Orbital Period: <span id="orbitalPeriod">0</span> s<br>
-                Time Warp: <span id="timeWarp">1.00x</span><br>
-                Status: <span id="status">Flying</span>
+            <div id="userControls">
+                CONTROLS
             </div>
-            <button id="resetButton">Reset</button>
-            <div id="controls">
-                Controls:<br>
-                ↑: Thrust<br>
-                ← / →: Rotate<br>
-                [ / ]: Time Warp<br>
-                T / t: Toggle View<br>
-                Mouse Wheel: Zoom
-            </div>
-            <a id="githubLink" href="https://github.com/AmundsenZach/gravitic-zephyr/" target="blank">VISIT THE GITHUB PROJECT PAGE</a>
         </div>
 
-        <div class="scripts">
-            <!-- Utils -->
-            <script src="resources/js/utils/MathUtils.js"></script>
-            <script src="resources/js/utils/TouchControls.js"></script>
-            <script src="resources/js/utils/InputManager.js"></script>
-            
-            <!-- UI -->
-            <script src="resources/js/ui/UIManager.js"></script>
-            
-            <!-- Game Core -->
-            <script src="resources/js/game/Camera.js"></script>
-            <script src="resources/js/game/GameState.js"></script>
-            <script src="resources/js/game/RenderStarfield.js"></script>
-            
-            <!-- Entities -->
-            <script src="resources/js/entities/CelestialBody.js"></script>
-            <script src="resources/js/entities/Spacecraft.js"></script>
-            <script src="resources/js/entities/OrbitPredictor.js"></script>
-            
-            <!-- Main -->
-            <script src="resources/js/main.js"></script>
+        <div id="scripts">
+            <script src="gameStart.js"></script>
         </div>
     </body>
-</html>
+
