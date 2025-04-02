@@ -59,15 +59,12 @@ class CelestialBody {
         ctx.arc(screenX, screenY, this.radius * camera.zoom, 0, Math.PI * 2);
         ctx.stroke();
 
-        // Optionally draw sphere of influence indicator
-        if (GameState.showSphereOfInfluence) {
-            ctx.setLineDash([5, 15]); // Dashed line pattern
-            ctx.strokeStyle = this.color + '44'; // Semi-transparent
-            ctx.beginPath();
-            ctx.arc(screenX, screenY, this.sphereOfInfluence * camera.zoom, 0, Math.PI * 2);
-            ctx.stroke();
-            ctx.setLineDash([]); // Reset line style
-        }
+        ctx.setLineDash([5, 15]); // Dashed line pattern
+        ctx.strokeStyle = this.color + '44'; // Semi-transparent
+        ctx.beginPath();
+        ctx.arc(screenX, screenY, this.sphereOfInfluence * camera.zoom, 0, Math.PI * 2);
+        ctx.stroke();
+        ctx.setLineDash([]); // Reset line style
     }
 
     // Check if spacecraft has collided with this body
