@@ -1,3 +1,5 @@
+// Initiation of the game assets and game loop
+
 const GameStart = {
     init() {
         // Canvas Initiation
