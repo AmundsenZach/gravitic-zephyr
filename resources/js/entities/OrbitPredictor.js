@@ -243,7 +243,7 @@ class OrbitPredictor {
         if (this.positions.length < 2) return;
 
         // Simple white orbit line when sphere of influence display is off
-        if (!GameState.showSphereOfInfluence) {
+        if (GameState.showSphereOfInfluence) {
             // Start a new path for the orbital prediction
             ctx.beginPath();
             // Set line style to white with thin width
