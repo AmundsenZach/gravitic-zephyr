@@ -1,19 +1,18 @@
 // Creates the planet framework
 
-class celestialAsset {
+class CelestialAsset {
     // Configurations are currently stored in "celestialDebug"
     constructor(config) {
-        // Identification
         this.id = config.id; // Identifying name of body
     }
 
-    // Creates a visible planet
+    // Creates a visible body
     setVisibleBody(radius, mass, outerColor, innerColor) {
-        // Base Planetary Characteristics
+        // Base body characteristics
         this.radius = radius;
         this.mass = mass;
 
-        // Visual Planetary Characteristics
+        // Base visual characteristics
         this.outerColor = outerColor; // Color of crust
         this.innerColor = innerColor; // Color of body
     }
@@ -24,6 +23,7 @@ class celestialAsset {
         this.y = y;
     }
 
+    // Creates orbital characteristics of orbiting bodies
     setOrbitalBody(parent, height, speed, angle, eccentricity) {
         this.parent = parent;
         this.height = height;
@@ -32,6 +32,7 @@ class celestialAsset {
         this.eccentricity = eccentricity;
     }
 
+    // Returns the position of body, for parent-child coordination
     getOrbitalPosition() {
         return {
             x: this.x,
@@ -39,3 +40,5 @@ class celestialAsset {
         }
     }
 }
+
+window.CelestialAsset = CelestialAsset;
