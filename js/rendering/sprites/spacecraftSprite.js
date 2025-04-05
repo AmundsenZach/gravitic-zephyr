@@ -1,0 +1,1 @@
+// Sprite creating the spacecraft

@@ -1,1 +1,3 @@
 Will be documentation of trials, tests, and approaches
+
+Planets will be procedural, but for now planets will be manually created in "celestialConfig.js"
