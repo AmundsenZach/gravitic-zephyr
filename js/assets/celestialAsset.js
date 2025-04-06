@@ -1,7 +1,7 @@
 // Creates the planet framework
 
 class CelestialAsset {
-    // Configurations are currently stored in "celestialDebug"
+    // Hard-coded bodies are currently stored in "celestialDebug"
     constructor(config) {
         this.id = config.id; // Identifying name of body
     }
@@ -26,8 +26,13 @@ class CelestialAsset {
     // Creates orbital characteristics of orbiting bodies
     setOrbitalBody(parent, height, speed, angle, eccentricity) {
         this.parent = parent;
+
+        // Orbital parameters
         this.height = height;
         this.speed = speed;
+        
+        // Angle is a value 0 to 359 of a starting position
+        // 90 is directly right of the parent
         this.angle = angle;
         this.eccentricity = eccentricity;
     }

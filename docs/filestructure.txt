@@ -22,7 +22,6 @@ gravitic-zephyr/
     │   └── debug.js
     ├── game/
     │   ├── gameConfig.js
-    │   ├── gameEvent.js
     │   ├── gameLoop.js
     │   └── gameStart.js
     ├── input/
@@ -37,6 +36,7 @@ gravitic-zephyr/
     │   │   ├── arcSprite.js
     │   │   ├── celestialSprite.js
     │   │   └── spacecraftSprite.js
+    │   ├── camera.js
     │   └── rendering.js
     └── /utilities
         └── celestialConfig.js

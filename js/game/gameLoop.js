@@ -1,8 +1,11 @@
 // Primary game loop
 
 class GameLoop {
+    constructor() {
+        // Any initialization can go here
+    }
+    
     loop() {
-        gameEvent;
         Rendering.render();
 
         requestAnimationFrame(() => this.loop());

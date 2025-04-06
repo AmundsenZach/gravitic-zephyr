@@ -8,12 +8,19 @@ const GameStart = {
         this.canvas.width = window.innerWidth;
         this.canvas.height = window.innerHeight;
 
+        // Initialize the rendering system
+        Rendering.init();
+
         // Canvas State Change
         window.addEventListener('resize', () => {
             this.canvas.width = window.innerWidth;
             this.canvas.height = window.innerHeight;
             this.ctx = this.canvas.getContext('2d');
         });
+
+        // Start game loop
+        const gameLoop = new GameLoop();
+        gameLoop.loop();
     }
 }
 

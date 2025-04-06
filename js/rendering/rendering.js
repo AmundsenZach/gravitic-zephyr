@@ -1,23 +1,25 @@
 // Central rendering system, to be called by the game loop
 
 class Rendering {
+    static init() {
+        this.ctx = GameStart.ctx;
+        this.canvas = GameStart.canvas;
+        this.camera = new Camera();
+    }
+
     // Clears the screen to black
     static clearScreen() {
-        const ctx = GameStart.ctx;
-        const canvas = GameStart.canvas;
-        
-        ctx.save();
-        ctx.fillStyle = 'black';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        ctx.restore();
+        this.ctx.save();
+        this.ctx.fillStyle = 'black';
+        this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
+        this.ctx.restore();
     }
   
     // Renders the starfield background
     static renderBackground() {
-        const ctx = GameStart.ctx;
-        ctx.save();
-        RenderStarfield.drawStarfield(ctx, this.camera);
-        ctx.restore();
+        this.ctx.save();
+        RenderStarfield.drawStarfield(this.ctx, this.camera);
+        this.ctx.restore();
     }
   
     // Main render function that calls the sub-functions
