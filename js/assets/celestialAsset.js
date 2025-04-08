@@ -1,7 +1,7 @@
 // Creates the planet framework
 
 class CelestialAsset {
-    // Hard-coded bodies are currently stored in "celestialDebug"
+    // Hard-coded bodies will be stored in "celestialDebug"
     constructor(config) {
         this.id = config.id; // Identifying name of body
     }

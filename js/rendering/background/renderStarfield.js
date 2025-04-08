@@ -19,8 +19,8 @@ class RenderStarfield {
             // Calculate y position similarly using cosine wave
             const y = ((Math.cos(i) * 10000 - camera.y * 0.1) % ctx.canvas.height + ctx.canvas.height) % ctx.canvas.height;
         
-            // 10% chance for a larger 2px star, otherwise 1px
-            const size = Math.random() < 0.1 ? 2 : 1;
+            // 5% chance for a larger 2px star, otherwise 1px
+            const size = Math.random() < 0.05 ? 2 : 1;
         
             // Draw the star as a rectangle
             ctx.fillRect(x, y, size, size);
