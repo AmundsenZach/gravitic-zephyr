@@ -1,4 +1,4 @@
-// File to contain the background of the game
+// V2 - File to contain the background of the game
 
 class RenderStarfield {
     // Draws a parallax scrolling starfield background

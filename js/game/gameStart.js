@@ -1,4 +1,4 @@
-// Initiation of the game assets and game loop
+//V2 - Initiation of the game assets and game loop
 
 const GameStart = {
     init() {

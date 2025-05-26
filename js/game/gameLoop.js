@@ -1,4 +1,4 @@
-// Primary game loop
+// V2 - Primary game loop
 
 class GameLoop {
     constructor() {

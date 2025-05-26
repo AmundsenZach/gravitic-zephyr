@@ -1,4 +1,4 @@
-// Creates the planet framework
+// V2 - Creates the planet framework
 
 class CelestialAsset {
     // Hard-coded bodies will be stored in "celestialDebug"

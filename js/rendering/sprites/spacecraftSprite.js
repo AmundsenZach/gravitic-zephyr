@@ -1,1 +1,1 @@
-// Sprite creating the spacecraft
+// V2 - Sprite creating the spacecraft

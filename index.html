@@ -2,8 +2,8 @@
 <html lang="en">
     <head>
         <title>Gravitic Zephyr</title>
+        <link rel="stylesheet" href="style/main.css">
     </head>
-
     <body>
         <canvas id="gameCanvas"></canvas>
         
@@ -11,19 +11,31 @@
             <div id="userStats">
                 <!--STATS-->
             </div>
-
+            
             <div id="userControls">
                 <!--CONTROLS-->
             </div>
         </div>
-
+        
         <div id="scripts">
+            <!-- Core systems first -->
             <script src="js/rendering/camera.js"></script>
-            <script src="js/rendering/rendering.js"></script>
+            
+            <!-- Input systems -->
+            <script src="js/input/method/keyboardInput.js"></script>
+            <script src="js/input/method/mouseInput.js"></script>
+            <script src="js/input/method/touchInput.js"></script>
+            <script src="js/input/inputManager.js"></script>
+            
+            <!-- Rendering components -->
             <script src="js/rendering/background/renderStarfield.js"></script>
+            <script src="js/rendering/rendering.js"></script>
+            
+            <!-- Game systems -->
             <script src="js/game/gameLoop.js"></script>
             <script src="js/game/gameStart.js"></script>
-
+            
+            <!-- Primary entry point -->
             <script src="js/main.js"></script>
         </div>
     </body>
