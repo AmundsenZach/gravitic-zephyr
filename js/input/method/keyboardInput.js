@@ -8,7 +8,7 @@ class KeyboardInput {
         this.actionMappings = {
             // Movement controls (for future spacecraft)
             'thrustForward': ['ArrowUp', 'w'],
-            'thrustBackward': ['ArrowDown', 's'],
+            //'thrustBackward': ['ArrowDown', 's'],
             'rotateLeft': ['ArrowLeft', 'a'],
             'rotateRight': ['ArrowRight', 'd'],
             

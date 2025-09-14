@@ -1,8 +1,8 @@
 // V2 - Updated Rendering System with Input Integration
 class Rendering {
     static init() {
-        this.ctx = GameStart.ctx;
-        this.canvas = GameStart.canvas;
+        this.ctx = EngineStart.ctx;
+        this.canvas = EngineStart.canvas;
         this.camera = new Camera();
         
         // Initialize input systems
