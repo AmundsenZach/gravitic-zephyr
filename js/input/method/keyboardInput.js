@@ -1,4 +1,4 @@
-// V2 - Enhanced Keyboard Input with Camera Controls
+// Enhanced Keyboard Input with Camera Controls
 class KeyboardInput {
     constructor() {
         // Raw key state tracking
@@ -28,7 +28,7 @@ class KeyboardInput {
         
         // Continuous vs one-shot actions
         this.continuousActions = [
-            'thrustForward', 'thrustBackward',
+            'thrustForward',
             'rotateLeft', 'rotateRight',
             'cameraMoveUp', 'cameraMoveDown', 'cameraMoveLeft', 'cameraMoveRight',
             'zoomIn', 'zoomOut'

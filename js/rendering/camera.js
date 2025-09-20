@@ -1,4 +1,4 @@
-// V2 - Enhanced Camera with Input Integration
+// Enhanced Camera with Input Integration
 class Camera {
     constructor() {
         // Position of camera

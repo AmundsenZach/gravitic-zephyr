@@ -1,4 +1,4 @@
-// V2 - Mobile Camera Controls
+// Mobile Camera Controls
 class TouchInput {
     constructor(canvas, camera) {
         this.canvas = canvas;

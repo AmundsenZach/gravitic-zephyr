@@ -1,4 +1,4 @@
-// V2 - Updated Rendering System with Input Integration
+// Updated Rendering System with Input Integration
 class Rendering {
     static init() {
         this.ctx = EngineStart.ctx;
