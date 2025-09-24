@@ -21,20 +21,21 @@ class CelestialAsset {
     setOrbitalStationary(x, y) {
         this.x = x;
         this.y = y;
+        this.parent = null;
     }
 
     // Creates orbital characteristics of orbiting bodies
-    setOrbitalBody(parent, height, speed, angle, eccentricity) {
+    setOrbitalBody(parent, height, speed, startAngle = 0, eccentricity = 0) {
         this.parent = parent;
 
         // Orbital parameters
-        this.height = height;
-        this.speed = speed;
-        
-        // Angle is a value 0 to 359 of a starting position
-        // 90 is directly right of the parent
-        this.angle = angle;
-        this.eccentricity = eccentricity;
+        this.height = height; // semi-major axis (pixels)
+        this.angularSpeed = speed; // radians per second
+        this.angle = (startAngle % 360) * Math.PI / 180; // stored in radians
+        this.eccentricity = Math.max(0, Math.min(0.999, eccentricity));
+
+        // initialize position
+        this.updatePosition(0);
     }
 
     // Returns the position of body, for parent-child coordination

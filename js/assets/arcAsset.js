@@ -1,4 +1,4 @@
-// q    Contains the asset for the orbital guide arc
+// Contains the asset for the orbital guide arc
 
 class OrbitPredictor {
     // Initialize predictor with default settings for accuracy and visualization

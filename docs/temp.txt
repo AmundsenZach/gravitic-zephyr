@@ -1,0 +1,17 @@
+    // Advance orbital angle and compute x,y. Call once per frame.
+    // deltaTimeSeconds: seconds since last frame
+    updatePosition(deltaTimeSeconds = 1 / 60) {
+        if (!this.parent) return; // stationary or not initialized
+
+        // advance angle
+        this.angle = (this.angle + this.angularSpeed * deltaTimeSeconds) % (Math.PI * 2);
+
+        // radial distance for ellipse: r(θ) = a*(1 - e^2)/(1 + e*cos(θ))
+        const a = this.height;
+        const e = this.eccentricity || 0;
+        const r = e > 0 ? (a * (1 - e * e) / (1 + e * Math.cos(this.angle))) : a;
+
+        // convert to cartesian relative to parent
+        this.x = this.parent.x + Math.cos(this.angle) * r;
+        this.y = this.parent.y + Math.sin(this.angle) * r;
+    }
