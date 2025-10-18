@@ -38,6 +38,26 @@ class Rendering {
         RenderStarfield.drawStarfield(this.ctx, this.camera);
         this.ctx.restore();
     }
+
+    // Renders all celestial sprites (planets/moons)
+    static renderCelestials() {
+        if (!window.celestialSprites || window.celestialSprites.length === 0) return;
+
+        this.ctx.save();
+        // Apply camera transform so celestial sprites are drawn in world space
+        this.applyTransform();
+
+        // Ensure assets sync to sprites (use zero dt if caller doesn't supply one)
+        if (typeof window.updateCelestials === 'function') window.updateCelestials(0);
+
+        for (const sprite of window.celestialSprites) {
+            if (typeof sprite.draw === 'function') {
+                sprite.draw(this.ctx, this.camera);
+            }
+        }
+
+        this.ctx.restore();
+    }
     
     // Renders debug elements when debug mode is active
     static renderDebug() {
@@ -121,6 +141,9 @@ class Rendering {
         
         // Then render the background
         this.renderBackground();
+        
+        // Render celestial bodies
+        this.renderCelestials();
         
         // Render debug elements
         this.renderDebug();

@@ -37,7 +37,7 @@ class Camera {
             
             // Zoom controls
             if (inputManager.isActionActive('zoomIn')) {
-                this.targetZoom *= 1.02; // Smooth continuous zoom
+                this.targetZoom *= 1.02;
             }
             if (inputManager.isActionActive('zoomOut')) {
                 this.targetZoom *= 0.98;
@@ -89,7 +89,7 @@ class Camera {
     // Handle mouse wheel zoom (called from rendering system)
     handleMouseWheel(deltaY) {
         this.targetZoom *= deltaY > 0 ? 0.9 : 1.1;
-        this.targetZoom = Math.max(0.1, Math.min(this.targetZoom, 5));
+        this.targetZoom = Math.max(0.1, Math.min(this.targetZoom, 10));
     }
     
     // Get screen position from world position
