@@ -1,5 +1,3 @@
-// Sprite creating the planets
-
 // Class representing a planet or moon in the game
 class CelestialBody {
     constructor(config) {

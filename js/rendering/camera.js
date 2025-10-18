@@ -43,14 +43,14 @@ class Camera {
                 this.targetZoom *= 0.98;
             }
             
-            // Reset camera position
+            // Reset camera position (change to target when implemented)
             if (inputManager.isActionJustPressed('cameraReset')) {
                 this.x = 0;
                 this.y = 0;
                 this.targetZoom = 1;
             }
             
-            // Toggle follow mode (when you eventually have a target)
+            // Toggle follow mode (when implemented)
             if (inputManager.isActionJustPressed('toggleFollow')) {
                 this.isFollowing = !this.isFollowing;
             }

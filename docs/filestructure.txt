@@ -10,9 +10,12 @@ gravitic-zephyr/
 ├── index.html
 ├── docs/
 │   ├── documentation.txt
-│   └── filestructure.txt
+│   ├── filestructure.txt
+│   ├── LICENSE
+│   ├── README.md
+│   └── temp.txt
 ├── style/
-│   └── main.css
+│   └── style.css
 └── js/
     ├── assets/
     │   ├── arcAsset.js
@@ -21,12 +24,15 @@ gravitic-zephyr/
     ├── debug/
     │   └── debug.js
     ├── game/
-    │   ├── gameConfig.js
-    │   ├── gameLoop.js
-    │   └── gameStart.js
+    │   ├── engineAssets.js
+    │   ├── engineConfig.js    
+    │   ├── engineEvent.js
+    │   ├── engineLoop.js
+    │   └── engineStart.js
     ├── input/
     │   ├── method/
     │   │   ├── keyboardInput.js
+    │   │   ├── mouseInput.js    
     │   │   └── touchInput.js
     │   └── inputManager.js
     ├── rendering/
@@ -38,5 +44,7 @@ gravitic-zephyr/
     │   │   └── spacecraftSprite.js
     │   ├── camera.js
     │   └── rendering.js
-    └── /utilities
-        └── celestialConfig.js
+    ├── /utilities
+    │   ├── celestialConfig.js
+    │   └── mathUtils.js
+    └── main.js
