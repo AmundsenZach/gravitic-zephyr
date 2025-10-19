@@ -58,6 +58,18 @@ const redPlanet = createCelestial({
     y: 0
 });
 
+// Build one red stationary planet centered at world (0,0)
+const bluePlanet = createCelestial({
+    id: 'blue-planet',
+    radius: 60,
+    mass: 1000,
+    outerColor: '#0000ff',
+    innerColor: '#0000ff',
+    stationary: true,
+    x: -100,
+    y: -100
+});
+
 // Export/update helper: sync sprites from assets each frame
 window.updateCelestials = function (dt) {
     for (let i = 0; i < window.celestialAssets.length; i++) {

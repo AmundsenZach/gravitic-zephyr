@@ -12,8 +12,7 @@ gravitic-zephyr/
 │   ├── documentation.txt
 │   ├── filestructure.txt
 │   ├── LICENSE
-│   ├── README.md
-│   └── temp.txt
+│   └── README.md
 ├── style/
 │   └── style.css
 └── js/
@@ -22,7 +21,9 @@ gravitic-zephyr/
     │   ├── celestialAsset.js
     │   └── spacecraftAsset.js
     ├── debug/
-    │   └── debug.js
+    │   ├── debug.js
+    │   └── renderDebug.js
+    │ 
     ├── game/
     │   ├── engineAssets.js
     │   ├── engineConfig.js    

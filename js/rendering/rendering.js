@@ -9,8 +9,8 @@ class Rendering {
         this.keyboardInput = new KeyboardInput();
         this.mobileControls = new TouchInput(this.canvas, this.camera);
         
-        // Initialize debug mode
-        this.debugMode = true;
+    // Initialize debug module
+    this.debug = new RenderDebug(this);
         
         // Setup mouse wheel zoom control
         this.setupMouseControls();
@@ -59,47 +59,10 @@ class Rendering {
         this.ctx.restore();
     }
     
-    // Renders debug elements when debug mode is active
+    // Renders debug elements via RenderDebug instance
     static renderDebug() {
-        if (!this.debugMode) return;
-        
-        this.ctx.save();
-        
-        // Apply camera transform
-        this.applyTransform();
-        this.ctx.restore();
-        
-        // Show active controls (helpful for debugging input)
-        this.renderControlsDebug();
-    }
-    
-    // Show active input actions for debugging
-    static renderControlsDebug() {
-        const activeActions = this.keyboardInput.getActiveActions();
-        if (activeActions.length === 0) return;
-        
-        this.ctx.save();
-        this.ctx.setTransform(1, 0, 0, 1, 0, 0); // Reset to screen coordinates
-        
-        const x = this.canvas.width - 200;
-        const y = 120;
-        
-        // Background
-        this.ctx.fillStyle = 'rgba(0, 0, 0, 0.7)';
-        this.ctx.fillRect(x - 10, y - 10, 190, activeActions.length * 20 + 20);
-        
-        // Title
-        this.ctx.fillStyle = 'white';
-        this.ctx.font = '14px monospace';
-        this.ctx.textAlign = 'left';
-        this.ctx.fillText('Active Controls:', x, y);
-        
-        // Active actions
-        activeActions.forEach((action, index) => {
-            this.ctx.fillText(`• ${action}`, x, y + 20 + (index * 20));
-        });
-        
-        this.ctx.restore();
+        if (!this.debug) return;
+        this.debug.render();
     }
     
     // Apply camera transform to context
@@ -123,8 +86,8 @@ class Rendering {
     // Handle input and update camera
     static updateSystems() {
         // Handle debug toggle
-        if (this.keyboardInput.isActionJustPressed('toggleDebug')) {
-            this.debugMode = !this.debugMode;
+        if (this.keyboardInput.isActionJustPressed('toggleDebug') && this.debug) {
+            this.debug.toggle();
         }
         
         // Update camera with input
@@ -151,7 +114,7 @@ class Rendering {
     
     // Toggle debug mode on/off
     static toggleDebug() {
-        this.debugMode = !this.debugMode;
+        if (this.debug) !this.debug.toggle();
     }
     
     // Utility function to get world position from mouse/touch position

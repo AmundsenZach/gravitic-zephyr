@@ -15,8 +15,8 @@ class CelestialBody {
             screenX, screenY, this.radius * camera.zoom
         );
         
-        gradient.addColorStop(0, this.color + '33'); // Semi-transparent inner
-        gradient.addColorStop(1, this.color + '00'); // Transparent outer
+        gradient.addColorStop(0, this.color + '75'); // Semi-transparent inner
+        gradient.addColorStop(1, this.color + '50'); // Transparent outer
 
         // Draw the glow
         ctx.fillStyle = gradient;
