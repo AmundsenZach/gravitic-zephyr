@@ -1,5 +1,5 @@
 // Class representing a planet or moon in the game
-class CelestialBody {
+class CelestialSprite {
     constructor(config) {
         this.id = config.id;
     }
@@ -44,4 +44,4 @@ class CelestialBody {
     }
 }
 
-window.CelestialBody = CelestialBody;
+window.CelestialSprite = CelestialSprite;

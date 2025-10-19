@@ -1,6 +1,6 @@
 // Contains the spacecraft asset
 
-class Spacecraft {
+class SpacecraftAsset {
     // Initialize spacecraft with position and movement properties
     constructor(x, y) {
         this.x = x;
@@ -81,60 +81,6 @@ class Spacecraft {
             size: 2 + Math.random()
         });
     }
-
-    // Render spacecraft and engine effects
-    draw(ctx, camera) {
-        // Update and draw thrust particles
-        this.thrustHistory.forEach(particle => {
-            particle.x += particle.vx;
-            particle.y += particle.vy;
-        
-            // Convert to screen coordinates
-            const screenX = (particle.x - camera.x) * camera.zoom + ctx.canvas.width/2;
-            const screenY = (particle.y - camera.y) * camera.zoom + ctx.canvas.height/2;
-        
-            // Fade out particle over time
-            const opacity = particle.life / 15;
-            ctx.fillStyle = `rgba(255, 255, 255, ${opacity})`;
-            ctx.beginPath();
-            ctx.arc(screenX, screenY, particle.size * camera.zoom, 0, Math.PI * 2);
-            ctx.fill();
-        
-            particle.life -= 0.7;
-        });
-
-        // Remove dead particles
-        this.thrustHistory = this.thrustHistory.filter(p => p.life > 0);
-
-        // Draw spacecraft triangle
-        const screenX = (this.x - camera.x) * camera.zoom + ctx.canvas.width/2;
-        const screenY = (this.y - camera.y) * camera.zoom + ctx.canvas.height/2;
-
-        ctx.save();
-        ctx.translate(screenX, screenY);
-        ctx.rotate(this.rotation);
-    
-        // Change color to red if crashed
-        ctx.strokeStyle = this.crashed ? 'red' : 'white';
-        ctx.lineWidth = 2;
-    
-        // Draw triangular spacecraft shape
-        ctx.beginPath();
-        ctx.moveTo(10 * camera.zoom, 0);
-        ctx.lineTo(-5 * camera.zoom, 5 * camera.zoom);
-        ctx.lineTo(-5 * camera.zoom, -5 * camera.zoom);
-        ctx.closePath();
-        ctx.stroke();
-
-        // Add glow effect if not crashed
-        if (!this.crashed) {
-            ctx.strokeStyle = 'rgba(255, 255, 255, 0.2)';
-            ctx.lineWidth = 4;
-            ctx.stroke();
-        }
-        
-        ctx.restore();
-    }
 }
 
-window.Spacecraft = Spacecraft;
+window.SpacecraftAsset = SpacecraftAsset;

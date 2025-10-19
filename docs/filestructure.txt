@@ -37,8 +37,9 @@ gravitic-zephyr/
     │   │   └── touchInput.js
     │   └── inputManager.js
     ├── rendering/
-    │   ├── background/
-    │   │   └── renderStarfield.js   
+    │   ├── agents/
+    │   │   ├── renderCelestial.js
+    │   │   └── renderStarfield.js
     │   ├── sprites/
     │   │   ├── arcSprite.js
     │   │   ├── celestialSprite.js

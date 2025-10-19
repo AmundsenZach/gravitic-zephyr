@@ -31,7 +31,7 @@ function createCelestial(options) {
 
     asset.updatePosition(0);
 
-    const sprite = new CelestialBody({ id: asset.id });
+    const sprite = new CelestialSprite({ id: asset.id });
     sprite.x = asset.x;
     sprite.y = asset.y;
     sprite.radius = asset.radius;

@@ -1,7 +1,7 @@
 // Sprite creating the guide arc for spacecraft trajectory
 
 // Class responsible for predicting spacecraft orbital paths and identifying gravitational influences
-class OrbitPredictor {
+class ArcSprite {
     // Initialize predictor with default settings for accuracy and visualization
     constructor() {
         // Array to store predicted future positions of spacecraft
@@ -331,4 +331,4 @@ class OrbitPredictor {
     }
 }
 
-window.OrbitPredictor = OrbitPredictor;
+window.ArcSprite = ArcSprite;
