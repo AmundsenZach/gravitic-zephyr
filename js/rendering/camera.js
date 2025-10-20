@@ -8,7 +8,7 @@ class Camera {
         // Zoom level and adjustments
         this.zoom = 1;
         this.targetZoom = 1;
-        this.zoomSpeed = 0.05;
+        this.zoomSpeed = 0.025;
         
         // Camera movement for manual control
         this.moveSpeed = 5; // Base movement speed
@@ -60,8 +60,8 @@ class Camera {
         this.zoom += (this.targetZoom - this.zoom) * this.zoomSpeed;
         
         // Clamp zoom levels
-        this.targetZoom = Math.max(0.1, Math.min(this.targetZoom, 5));
-        
+        this.targetZoom = Math.max(0.5, Math.min(this.targetZoom, 2));
+
         // Update input manager for next frame
         if (inputManager) {
             inputManager.update();

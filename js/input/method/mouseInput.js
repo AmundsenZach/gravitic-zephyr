@@ -1,4 +1,3 @@
-// Minimal mouse input focusing on zoom functionality
 class MouseInput {
     constructor(canvas, camera) {
         this.canvas = canvas;

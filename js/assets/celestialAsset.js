@@ -1,5 +1,3 @@
-// Creates the planet framework
-
 class CelestialAsset {
     // Hard-coded bodies will be stored in "celestialDebug"
     constructor(config) {

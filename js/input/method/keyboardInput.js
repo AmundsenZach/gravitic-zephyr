@@ -1,4 +1,3 @@
-// Enhanced Keyboard Input with Camera Controls
 class KeyboardInput {
     constructor() {
         // Raw key state tracking

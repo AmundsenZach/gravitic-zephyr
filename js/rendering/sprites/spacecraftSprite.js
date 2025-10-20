@@ -1,5 +1,3 @@
-// Sprite creating the spacecraft
-
 class Spacecraft {
     // Initialize spacecraft with position and movement properties
     constructor(x, y) {

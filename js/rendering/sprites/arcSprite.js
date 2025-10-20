@@ -1,6 +1,3 @@
-// Sprite creating the guide arc for spacecraft trajectory
-
-// Class responsible for predicting spacecraft orbital paths and identifying gravitational influences
 class ArcSprite {
     // Initialize predictor with default settings for accuracy and visualization
     constructor() {

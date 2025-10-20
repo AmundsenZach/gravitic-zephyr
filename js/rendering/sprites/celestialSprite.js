@@ -1,4 +1,3 @@
-// Class representing a planet or moon in the game
 class CelestialSprite {
     constructor(config) {
         this.id = config.id;
@@ -30,11 +29,11 @@ class CelestialSprite {
         ctx.arc(screenX, screenY, this.radius * camera.zoom, 0, Math.PI * 2);
         ctx.stroke();
 
-        ctx.setLineDash([5, 15]); // Dashed line pattern
+        //ctx.setLineDash([5, 15]); // Dashed line pattern
         //ctx.lineWidth = 1;
         // increase stroke weight (scaled by camera.zoom so it stays proportional)
         const prevLineWidth = ctx.lineWidth;
-        ctx.lineWidth = Math.max(1, 2 * camera.zoom); // adjust "2" to taste
+        ctx.lineWidth = Math.max(1, 3 * camera.zoom); // adjust "3" to taste
         ctx.strokeStyle = this.color + '44'; // Semi-transparent
         ctx.beginPath();
         ctx.arc(screenX, screenY, this.sphereOfInfluence * camera.zoom, 0, Math.PI * 2);

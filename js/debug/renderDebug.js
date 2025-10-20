@@ -1,4 +1,3 @@
-// RenderDebug: extract of debug rendering and input-display logic
 class RenderDebug {
     constructor(rendering) {
         this.rendering = rendering;

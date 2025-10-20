@@ -46,19 +46,19 @@ function createCelestial(options) {
     return asset;
 }
 
-// Build one red stationary planet centered at world (0,0)
-const redPlanet = createCelestial({
-    id: 'red-planet',
+// Build one orange stationary planet centered at world (0,0)
+const orangePlanet = createCelestial({
+    id: 'orange-planet',
     radius: 60,
     mass: 1000,
-    outerColor: '#ff5555',
-    innerColor: '#ff0000',
+    outerColor: '#ff6600',
+    innerColor: '#ff6600',
     stationary: true,
     x: 0,
     y: 0
 });
 
-// Build one red stationary planet centered at world (0,0)
+// Build one  stationary planet centered at world (0,0)
 const bluePlanet = createCelestial({
     id: 'blue-planet',
     radius: 60,

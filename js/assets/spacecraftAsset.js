@@ -1,5 +1,3 @@
-// Contains the spacecraft asset
-
 class SpacecraftAsset {
     // Initialize spacecraft with position and movement properties
     constructor(x, y) {

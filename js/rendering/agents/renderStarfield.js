@@ -1,5 +1,3 @@
-// File to contain the background of the game
-
 class RenderStarfield {
     // Draws a parallax scrolling starfield background
     static drawStarfield(ctx, camera) {
