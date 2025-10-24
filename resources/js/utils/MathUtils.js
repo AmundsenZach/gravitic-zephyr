@@ -103,16 +103,16 @@ const MathUtils = {
         }
 
         // Returns the length (uses expsensive sqrt calculation)
-        distance(v) {
-            const dx = this.x - v.x;
-            const dy = this.y - v.y;
+        static distance(v1, v2) {
+            const dx = v1.x - v2.x;
+            const dy = v1.y - v2.y;
             return Math.sqrt(dx * dx + dy * dy);
         }
 
         // Returns the squared distance to another vector (avoids sqrt for efficiency)
-        distanceSquared(v) {
-            const dx = this.x - v.x;
-            const dy = this.y - v.y;
+        static distanceSquared(v1, v2) {
+            const dx = v1.x - v2.x;
+            const dy = v1.y - v2.y;
             return dx * dx + dy * dy;
         }
 
