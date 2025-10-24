@@ -22,6 +22,11 @@ const MathUtils = {
             return new Vector2(this.x * scalar, this.y * scalar);
         }
 
+        // Returns a new vector that is this vector divided by a scalar value
+        divide(scalar) {
+            return new Vector2(this.x / scalar, this.y / scalar);
+        }
+
         // Adds v to this vector in-place (avoids allocation)
         addInPlace(v) {
             this.x += v.x;
@@ -95,6 +100,38 @@ const MathUtils = {
         // Static helper to create a vector from an angle and optional length
         static fromAngle(angle, length = 1) {
             return new Vector2(Math.cos(angle) * length, Math.sin(angle) * length);
+        }
+
+        // Returns the length (uses expsensive sqrt calculation)
+        distance(v) {
+            const dx = this.x - v.x;
+            const dy = this.y - v.y;
+            return Math.sqrt(dx * dx + dy * dy);
+        }
+
+        // Returns the squared distance to another vector (avoids sqrt for efficiency)
+        distanceSquared(v) {
+            const dx = this.x - v.x;
+            const dy = this.y - v.y;
+            return dx * dx + dy * dy;
+        }
+
+        limit(max) {
+            const magSq = this.lengthSquared();
+            if (magSq > max * max) {
+                return this.normalize().multiply(max);
+            }
+            return this.clone();
+        }
+
+        // Get angle in radians to another vector
+        angleTo(v) {
+            return Math.atan2(v.y - this.y, v.x - this.x);
+        }
+
+        // Or angle of this vector from positive x-axis
+        heading() {
+            return Math.atan2(this.y, this.x);
         }
     }
 };
