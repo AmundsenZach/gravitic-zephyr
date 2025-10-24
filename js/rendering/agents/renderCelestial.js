@@ -35,7 +35,7 @@ function createCelestial(options) {
     sprite.x = asset.x;
     sprite.y = asset.y;
     sprite.radius = asset.radius;
-    sprite.color = asset.innerColor || asset.outerColor || '#ff0000';
+    sprite.color = asset.innerColor || asset.outerColor //|| '#ff0000';
     sprite.sphereOfInfluence = asset.sphereOfInfluence || (asset.radius * 10);
 
     asset._sprite = sprite;
@@ -63,8 +63,8 @@ const bluePlanet = createCelestial({
     id: 'blue-planet',
     radius: 60,
     mass: 1000,
-    outerColor: '#0000ff',
-    innerColor: '#0000ff',
+    outerColor: '#396aff',
+    innerColor: '#396aff',
     stationary: true,
     x: -100,
     y: -100
