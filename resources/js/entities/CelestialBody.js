@@ -70,12 +70,11 @@ class CelestialBody {
     // Check if spacecraft has collided with this body
     checkCollision(spacecraft) {
         // Calculate distance between body and spacecraft
-        //const dx = this.x - spacecraft.x;
-        //const dy = this.y - spacecraft.y;
         const distance = MathUtils.Vector2.distance(
             new MathUtils.Vector2(this.x, this.y),
             new MathUtils.Vector2(spacecraft.x, spacecraft.y)
         );
+        
         // Collision occurs if distance is less than body's radius
         return distance <= this.radius;
     }

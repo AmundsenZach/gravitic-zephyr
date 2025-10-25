@@ -28,9 +28,10 @@ class OrbitPredictor {
         const smallPlanet = planets.find(p => p.isOrbiting);
         if (smallPlanet) {
             // Calculate distance to the orbiting body
-            const dx = smallPlanet.x - x;
-            const dy = smallPlanet.y - y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
+            const distance = MathUtils.Vector2.distance(
+                new MathUtils.Vector2(smallPlanet.x, smallPlanet.y),
+                new MathUtils.Vector2(x, y)
+            );
                 
             // If point is within sphere of influence, this body dominates
             // regardless of the main planet's pull
@@ -43,9 +44,10 @@ class OrbitPredictor {
         const mainPlanet = planets.find(p => !p.isOrbiting);
         if (mainPlanet) {
             // Calculate distance to the main body
-            const dx = mainPlanet.x - x;
-            const dy = mainPlanet.y - y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
+            const distance = MathUtils.Vector2.distance(
+                new MathUtils.Vector2(mainPlanet.x, mainPlanet.y),
+                new MathUtils.Vector2(x, y)
+            );
                 
             // If point is within main planet's sphere of influence,
             // it dominates (unless already in smaller body's SOI)
@@ -61,9 +63,10 @@ class OrbitPredictor {
         
         // Check each planet and find the nearest one
         for (const planet of planets) {
-            const dx = planet.x - x;
-            const dy = planet.y - y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
+            const distance = MathUtils.Vector2.distance(
+                new MathUtils.Vector2(planet.x, planet.y),
+                new MathUtils.Vector2(x, y)
+            );
             
             // Update closest if this planet is nearer than previous
             if (distance < minDistance) {
@@ -86,10 +89,11 @@ class OrbitPredictor {
         // Check gravitational force from each planet
         for (const planet of planets) {
             // Calculate distance vector components
-            const dx = planet.x - spacecraft.x;
-            const dy = planet.y - spacecraft.y; 
-            // Get total distance using Pythagorean theorem
-            const distance = Math.sqrt(dx * dx + dy * dy);
+            const distance = MathUtils.Vector2.distance(
+                new MathUtils.Vector2(planet.x, planet.y),
+                new MathUtils.Vector2(spacecraft.x, spacecraft.y)
+            );
+
             // Calculate gravitational force using inverse square law
             const gravity = planet.mass / (distance * distance);
             
@@ -104,10 +108,11 @@ class OrbitPredictor {
         if (!dominantPlanet) return 50000;
 
         // Calculate distance to dominant planet
-        const dx = dominantPlanet.x - spacecraft.x;
-        const dy = dominantPlanet.y - spacecraft.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
-        
+        const distance = MathUtils.Vector2.distance(
+            new MathUtils.Vector2(dominantPlanet.x, dominantPlanet.y),
+            new MathUtils.Vector2(spacecraft.x, spacecraft.y)
+        );
+
         // Calculate orbital period using Kepler's Third Law: T = 2π√(r³/GM)
         // 0.01 factor adjusts mass to match game physics scale
         const period = 2 * Math.PI * Math.sqrt((distance * distance * distance) / (dominantPlanet.mass * 0.01));
