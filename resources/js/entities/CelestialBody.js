@@ -35,8 +35,8 @@ class CelestialBody {
     // Render the celestial body
     draw(ctx, camera) {
         // Convert world coordinates to screen coordinates
-        const screenX = (this.x - camera.x) * camera.zoom + ctx.canvas.width/2;
-        const screenY = (this.y - camera.y) * camera.zoom + ctx.canvas.height/2;
+        const screenX = (this.x - camera.x) * camera.zoom + ctx.canvas.width / 2;
+        const screenY = (this.y - camera.y) * camera.zoom + ctx.canvas.height / 2;
 
         // Create glowing effect using radial gradient
         const gradient = ctx.createRadialGradient(
@@ -70,9 +70,11 @@ class CelestialBody {
     // Check if spacecraft has collided with this body
     checkCollision(spacecraft) {
         // Calculate distance between body and spacecraft
-        const dx = this.x - spacecraft.x;
-        const dy = this.y - spacecraft.y;
-        const distance = Math.sqrt(dx * dx + dy * dy);
+        const distance = MathUtilities.Vector2.distance(
+            new MathUtilities.Vector2(this.x, this.y),
+            new MathUtilities.Vector2(spacecraft.x, spacecraft.y)
+        );
+
         // Collision occurs if distance is less than body's radius
         return distance <= this.radius;
     }

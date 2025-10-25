@@ -64,12 +64,12 @@ const GameState = {
     // Create and setup initial game state
     initializeGame() {
         // Create main planet at center
-        this.mainPlanet = new CelestialBody(this.canvas.width/2, this.canvas.height/2, 120, 8000, false, this.canvas);
+        this.mainPlanet = new CelestialBody(this.canvas.width / 2, this.canvas.height / 2, 120, 8000, false, this.canvas);
          
         // Create orbiting planet
         this.planet = new CelestialBody(
-            this.canvas.width/2 + this.ORBIT_RADIUS,
-            this.canvas.height/2,
+            this.canvas.width / 2 + this.ORBIT_RADIUS,
+            this.canvas.height / 2,
             40,
             2000,
             true,
@@ -78,7 +78,7 @@ const GameState = {
         this.planet.color = '#4ecdc4';
 
         // Create player spacecraft
-        this.spacecraft = new Spacecraft(this.canvas.width/2 + this.ORBIT_RADIUS, this.canvas.height/2 - 150);
+        this.spacecraft = new Spacecraft(this.canvas.width / 2 + this.ORBIT_RADIUS, this.canvas.height / 2 - 150);
          
         // Calculate stable orbital velocity for initial orbit
         const initialDistance = Math.sqrt(
