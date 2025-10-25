@@ -1,4 +1,4 @@
-const MathUtils = {
+const MathUtilities = {
     Vector2: class Vector2 {
         // CONSTRUCTION & INITIALIZATION
         
@@ -370,4 +370,4 @@ const MathUtils = {
     }
 };
 
-window.MathUtils = MathUtilits;
+window.MathUtilities = MathUtilities;
