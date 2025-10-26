@@ -58,12 +58,16 @@ class CelestialBody {
         ctx.arc(screenX, screenY, this.radius * camera.zoom, 0, Math.PI * 2);
         ctx.stroke();
 
+        // Make dashed sphere-of-influence ring bolder
+        const prevLineWidth = ctx.lineWidth;
         ctx.setLineDash([5, 15]); // Dashed line pattern
-        ctx.strokeStyle = this.color + '44'; // Semi-transparent
+        ctx.lineWidth = Math.max(2, 3 * camera.zoom); // Thicker line (scaled with zoom)
+        ctx.strokeStyle = this.color + '88'; // More opaque dashed ring
         ctx.beginPath();
         ctx.arc(screenX, screenY, this.sphereOfInfluence * camera.zoom, 0, Math.PI * 2);
         ctx.stroke();
         ctx.setLineDash([]); // Reset line style
+        ctx.lineWidth = prevLineWidth; // Restore previous width
     }
 
     // Check if spacecraft has collided with this body

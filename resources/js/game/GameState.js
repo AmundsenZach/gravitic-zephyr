@@ -13,11 +13,11 @@ const GameState = {
         
         // Initialize core game systems
         this.inputManager = new InputManager();
+        this.touchControls = new TouchControls();
+
         this.camera = new Camera();
         this.orbitPredictor = new OrbitPredictor();
 
-        this.touchControls = new TouchControls();
-        
         // Handle window resizing to maintain fullscreen
         window.addEventListener('resize', () => {
             this.canvas.width = window.innerWidth;
@@ -73,7 +73,7 @@ const GameState = {
             this.canvas
         );
          
-        // Create orbiting planet
+        // Create orbiting body
         this.moon = new CelestialBody(
             this.canvas.width / 2 + this.ORBIT_RADIUS,
             this.canvas.height / 2,
@@ -96,6 +96,7 @@ const GameState = {
         
         const orbitalVelocity = Math.sqrt((this.moon.mass * 0.01) / initialDistance);
         this.spacecraft.vx = orbitalVelocity;
+        this.spacecraft.vy = orbitalVelocity;
 
         // Reset time settings
         this.timeWarp = 1.0;
@@ -124,10 +125,6 @@ const GameState = {
                 this.spacecraft.vy += Math.sin(this.spacecraft.rotation) * this.spacecraft.thrustPower * this.timeWarp;
                 this.spacecraft.addThrustParticle();
             }
-            
-            // Note: Touch controls are handled directly in the TouchControls class
-            // and modify the spacecraft properties directly, so we don't need
-            // additional handling here
         }
     
         // Update game objects
