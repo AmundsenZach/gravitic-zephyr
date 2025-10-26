@@ -1,4 +1,3 @@
-// Class representing a planet or moon in the game
 class CelestialBody {
     // Initialize celestial body with position, size, mass and orbital properties
     constructor(x, y, radius, mass, isOrbiting = false, gameCanvas) {

@@ -1,4 +1,3 @@
-// Camera class to handle view positioning and zoom
 class Camera {
     // Initialize camera at origin with default zoom settings
     constructor() {
