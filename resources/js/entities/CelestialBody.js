@@ -16,8 +16,8 @@ class CelestialBody {
         // Only set orbital radius if body is orbiting
         this.orbitalRadius = isOrbiting ? GameState.ORBIT_RADIUS : 0;
         // Center point of orbit
-        this.centerX = gameCanvas.width/2;
-        this.centerY = gameCanvas.height/2;
+        this.centerX = gameCanvas.width / 2;
+        this.centerY = gameCanvas.height / 2;
     }
 
     // Update position if body is in orbit

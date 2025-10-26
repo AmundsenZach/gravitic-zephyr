@@ -64,10 +64,17 @@ const GameState = {
     // Create and setup initial game state
     initializeGame() {
         // Create main planet at center
-        this.mainPlanet = new CelestialBody(this.canvas.width / 2, this.canvas.height / 2, 120, 8000, false, this.canvas);
+        this.planet = new CelestialBody(
+            this.canvas.width / 2, 
+            this.canvas.height / 2, 
+            120, 
+            8000, 
+            false, 
+            this.canvas
+        );
          
         // Create orbiting planet
-        this.planet = new CelestialBody(
+        this.moon = new CelestialBody(
             this.canvas.width / 2 + this.ORBIT_RADIUS,
             this.canvas.height / 2,
             40,
@@ -75,17 +82,19 @@ const GameState = {
             true,
             this.canvas
         );
-        this.planet.color = '#4ecdc4';
+        
+        this.moon.color = '#4ecdc4';
 
         // Create player spacecraft
         this.spacecraft = new Spacecraft(this.canvas.width / 2 + this.ORBIT_RADIUS, this.canvas.height / 2 - 150);
          
         // Calculate stable orbital velocity for initial orbit
-        const initialDistance = Math.sqrt(
-            Math.pow(this.spacecraft.x - this.planet.x, 2) +
-            Math.pow(this.spacecraft.y - this.planet.y, 2)
+        const initialDistance = MathUtilities.Vector2.distance(
+            new MathUtilities.Vector2(this.spacecraft.x, this.spacecraft.y),
+            new MathUtilities.Vector2(this.moon.x, this.moon.y)
         );
-        const orbitalVelocity = Math.sqrt((this.planet.mass * 0.01) / initialDistance);
+        
+        const orbitalVelocity = Math.sqrt((this.moon.mass * 0.01) / initialDistance);
         this.spacecraft.vx = orbitalVelocity;
 
         // Reset time settings
@@ -122,8 +131,8 @@ const GameState = {
         }
     
         // Update game objects
-        this.orbitPredictor.predict(this.spacecraft, [this.mainPlanet, this.planet], this.timeWarp);
-        this.spacecraft.update([this.mainPlanet, this.planet], this.timeWarp);
+        this.orbitPredictor.predict(this.spacecraft, [this.planet, this.moon], this.timeWarp);
+        this.spacecraft.update([this.planet, this.moon], this.timeWarp);
         this.camera.follow(this.spacecraft);
     },
 
@@ -143,9 +152,9 @@ const GameState = {
 
         // Render game objects
         ctx.save();
-        this.mainPlanet.draw(ctx, this.camera);
-        this.planet.update(this.timeWarp);
         this.planet.draw(ctx, this.camera);
+        this.moon.update(this.timeWarp);
+        this.moon.draw(ctx, this.camera);
         this.orbitPredictor.draw(ctx, this.camera);
         this.spacecraft.draw(ctx, this.camera);
         ctx.restore();
@@ -160,4 +169,3 @@ const GameState = {
  };
 
  window.GameState = GameState;
- 
