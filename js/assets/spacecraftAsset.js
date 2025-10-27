@@ -6,7 +6,7 @@ class SpacecraftAsset {
         this.vx = 0;                    // Velocity X component
         this.vy = 0;                    // Velocity Y component
         this.rotation = 0;              // Current rotation angle
-        this.thrustPower = 0.001;       // Engine power
+        this.thrustPower = 0.0005;      // Engine power
         this.rotationSpeed = 0.03;      // Turn rate
         this.thrustHistory = [];        // Array tracking engine particles
         this.crashed = false;           // Crash state
@@ -26,35 +26,42 @@ class SpacecraftAsset {
             }
 
             // Calculate gravitational force
-            const dx = planet.x - this.x;
-            const dy = planet.y - this.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-            const force = (planet.mass / (distance * distance)) * 0.01 * timeWarp;
-            const angle = Math.atan2(dy, dx);
-        
-            // Apply gravitational acceleration
-            this.vx += Math.cos(angle) * force;
-            this.vy += Math.sin(angle) * force;
+
+            const shipPos = new MathUtilities.Vector2(this.x, this.y);
+            const planetPos = new MathUtilities.Vector2(planet.x, planet.y);
+            const delta = MathUtilities.Vector2.subtract(planetPos, shipPos); // vector from ship -> planet
+            const distance = delta.length();
+
+            if (distance > 0) {
+                const force = (planet.mass / (distance * distance)) * 0.01 * timeWarp;
+                const accel = delta.normalize().multiply(force); // acceleration vector
+                this.vx += accel.x;
+                this.vy += accel.y;
+            }
+
         }
 
         // Update position based on velocity
-        this.x += this.vx * timeWarp;
-        this.y += this.vy * timeWarp;
+        this.x += MathUtilities.Vector2.multiply(new MathUtilities.Vector2(this.vx, this.vy), timeWarp).x;
+        this.y += MathUtilities.Vector2.multiply(new MathUtilities.Vector2(this.vx, this.vy), timeWarp).y;
 
         // Calculate and display current velocity
-        const orbitalVelocity = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+        const orbitalVelocity = new MathUtilities.Vector2(this.vx, this.vy).length();
         UIManager.updateOrbitalVelocity(orbitalVelocity);
 
         // Find distance to nearest planet surface
         let closestDistance = Infinity;
         for (const planet of planets) {
-            const dx = planet.x - this.x;
-            const dy = planet.y - this.y;
-            const distance = Math.sqrt(dx * dx + dy * dy) - planet.radius;
+            const distance = MathUtilities.Vector2.distance(
+                new MathUtilities.Vector2(this.x, this.y),
+                new MathUtilities.Vector2(planet.x, planet.y)
+            ) - planet.radius;
+
             if (distance < closestDistance) {
                 closestDistance = distance;
             }
         }
+
         UIManager.updateAltitude(closestDistance);
     }
 

@@ -1,13 +1,12 @@
-class Spacecraft {
+class SpacecraftSprite {
     // Initialize spacecraft with position and movement properties
     constructor(x, y) {
         this.x = x;
         this.y = y;
         this.vx = 0;                    // Velocity X component
         this.vy = 0;                    // Velocity Y component
-        
         this.rotation = 0;              // Current rotation angle
-        this.thrustPower = 0.001;       // Engine power
+        this.thrustPower = 0.0005;      // Engine power
         this.rotationSpeed = 0.03;      // Turn rate
         this.thrustHistory = [];        // Array tracking engine particles
         this.crashed = false;           // Crash state
@@ -43,8 +42,8 @@ class Spacecraft {
             particle.y += particle.vy;
         
             // Convert to screen coordinates
-            const screenX = (particle.x - camera.x) * camera.zoom + ctx.canvas.width/2;
-            const screenY = (particle.y - camera.y) * camera.zoom + ctx.canvas.height/2;
+            const screenX = (particle.x - camera.x) * camera.zoom + ctx.canvas.width / 2;
+            const screenY = (particle.y - camera.y) * camera.zoom + ctx.canvas.height / 2;
         
             // Fade out particle over time
             const opacity = particle.life / 15;
@@ -60,8 +59,8 @@ class Spacecraft {
         this.thrustHistory = this.thrustHistory.filter(p => p.life > 0);
 
         // Draw spacecraft triangle
-        const screenX = (this.x - camera.x) * camera.zoom + ctx.canvas.width/2;
-        const screenY = (this.y - camera.y) * camera.zoom + ctx.canvas.height/2;
+        const screenX = (this.x - camera.x) * camera.zoom + ctx.canvas.width / 2;
+        const screenY = (this.y - camera.y) * camera.zoom + ctx.canvas.height / 2;
 
         ctx.save();
         ctx.translate(screenX, screenY);
@@ -90,4 +89,4 @@ class Spacecraft {
     }
 }
 
-window.Spacecraft = Spacecraft;
+window.SpacecraftSprite = SpacecraftSprite;
