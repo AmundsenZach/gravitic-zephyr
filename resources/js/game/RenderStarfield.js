@@ -1,4 +1,3 @@
-// Static class handling game rendering operations
 class RenderStarfield {
     // Draws a parallax scrolling starfield background
     static drawStarfield(ctx, camera) {

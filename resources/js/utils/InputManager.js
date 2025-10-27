@@ -1,4 +1,3 @@
-// Input Manager
 class InputManager {
     constructor() {
         this.keys = {};

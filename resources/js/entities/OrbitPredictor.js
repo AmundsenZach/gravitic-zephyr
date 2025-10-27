@@ -1,4 +1,3 @@
-// Class responsible for predicting spacecraft orbital paths and identifying gravitational influences
 class OrbitPredictor {
     // Initialize predictor with default settings for accuracy and visualization
     constructor() {

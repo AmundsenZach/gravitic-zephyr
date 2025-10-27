@@ -1,4 +1,3 @@
-// Class representing the player's spacecraft
 class Spacecraft {
     // Initialize spacecraft with position and movement properties
     constructor(x, y) {
@@ -27,35 +26,42 @@ class Spacecraft {
             }
 
             // Calculate gravitational force
-            const dx = planet.x - this.x;
-            const dy = planet.y - this.y;
-            const distance = Math.sqrt(dx * dx + dy * dy);
-            const force = (planet.mass / (distance * distance)) * 0.01 * timeWarp;
-            const angle = Math.atan2(dy, dx);
-        
-            // Apply gravitational acceleration
-            this.vx += Math.cos(angle) * force;
-            this.vy += Math.sin(angle) * force;
+
+            const shipPos = new MathUtilities.Vector2(this.x, this.y);
+            const planetPos = new MathUtilities.Vector2(planet.x, planet.y);
+            const delta = MathUtilities.Vector2.subtract(planetPos, shipPos); // vector from ship -> planet
+            const distance = delta.length();
+
+            if (distance > 0) {
+                const force = (planet.mass / (distance * distance)) * 0.01 * timeWarp;
+                const accel = delta.normalize().multiply(force); // acceleration vector
+                this.vx += accel.x;
+                this.vy += accel.y;
+            }
+
         }
 
         // Update position based on velocity
-        this.x += this.vx * timeWarp;
-        this.y += this.vy * timeWarp;
+        this.x += MathUtilities.Vector2.multiply(new MathUtilities.Vector2(this.vx, this.vy), timeWarp).x;
+        this.y += MathUtilities.Vector2.multiply(new MathUtilities.Vector2(this.vx, this.vy), timeWarp).y;
 
         // Calculate and display current velocity
-        const orbitalVelocity = Math.sqrt(this.vx * this.vx + this.vy * this.vy);
+        const orbitalVelocity = new MathUtilities.Vector2(this.vx, this.vy).length();
         UIManager.updateOrbitalVelocity(orbitalVelocity);
 
         // Find distance to nearest planet surface
         let closestDistance = Infinity;
         for (const planet of planets) {
-            const dx = planet.x - this.x;
-            const dy = planet.y - this.y;
-            const distance = Math.sqrt(dx * dx + dy * dy) - planet.radius;
+            const distance = MathUtilities.Vector2.distance(
+                new MathUtilities.Vector2(this.x, this.y),
+                new MathUtilities.Vector2(planet.x, planet.y)
+            ) - planet.radius;
+
             if (distance < closestDistance) {
                 closestDistance = distance;
             }
         }
+
         UIManager.updateAltitude(closestDistance);
     }
 
@@ -89,8 +95,8 @@ class Spacecraft {
             particle.y += particle.vy;
         
             // Convert to screen coordinates
-            const screenX = (particle.x - camera.x) * camera.zoom + ctx.canvas.width/2;
-            const screenY = (particle.y - camera.y) * camera.zoom + ctx.canvas.height/2;
+            const screenX = (particle.x - camera.x) * camera.zoom + ctx.canvas.width / 2;
+            const screenY = (particle.y - camera.y) * camera.zoom + ctx.canvas.height / 2;
         
             // Fade out particle over time
             const opacity = particle.life / 15;
@@ -106,8 +112,8 @@ class Spacecraft {
         this.thrustHistory = this.thrustHistory.filter(p => p.life > 0);
 
         // Draw spacecraft triangle
-        const screenX = (this.x - camera.x) * camera.zoom + ctx.canvas.width/2;
-        const screenY = (this.y - camera.y) * camera.zoom + ctx.canvas.height/2;
+        const screenX = (this.x - camera.x) * camera.zoom + ctx.canvas.width / 2;
+        const screenY = (this.y - camera.y) * camera.zoom + ctx.canvas.height / 2;
 
         ctx.save();
         ctx.translate(screenX, screenY);

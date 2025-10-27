@@ -1,4 +1,3 @@
-// In UIManager.js
 class UIManager {
     static updateOrbitalVelocity(value) {
         document.getElementById('orbitalVelocity').textContent = value.toFixed(2);

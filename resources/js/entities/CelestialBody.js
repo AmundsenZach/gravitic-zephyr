@@ -1,4 +1,3 @@
-// Class representing a planet or moon in the game
 class CelestialBody {
     // Initialize celestial body with position, size, mass and orbital properties
     constructor(x, y, radius, mass, isOrbiting = false, gameCanvas) {
@@ -17,8 +16,8 @@ class CelestialBody {
         // Only set orbital radius if body is orbiting
         this.orbitalRadius = isOrbiting ? GameState.ORBIT_RADIUS : 0;
         // Center point of orbit
-        this.centerX = gameCanvas.width/2;
-        this.centerY = gameCanvas.height/2;
+        this.centerX = gameCanvas.width / 2;
+        this.centerY = gameCanvas.height / 2;
     }
 
     // Update position if body is in orbit
@@ -59,12 +58,16 @@ class CelestialBody {
         ctx.arc(screenX, screenY, this.radius * camera.zoom, 0, Math.PI * 2);
         ctx.stroke();
 
+        // Make dashed sphere-of-influence ring bolder
+        const prevLineWidth = ctx.lineWidth;
         ctx.setLineDash([5, 15]); // Dashed line pattern
-        ctx.strokeStyle = this.color + '44'; // Semi-transparent
+        ctx.lineWidth = Math.max(2, 3 * camera.zoom); // Thicker line (scaled with zoom)
+        ctx.strokeStyle = this.color + '88'; // More opaque dashed ring
         ctx.beginPath();
         ctx.arc(screenX, screenY, this.sphereOfInfluence * camera.zoom, 0, Math.PI * 2);
         ctx.stroke();
         ctx.setLineDash([]); // Reset line style
+        ctx.lineWidth = prevLineWidth; // Restore previous width
     }
 
     // Check if spacecraft has collided with this body
