@@ -6,7 +6,7 @@ class Spacecraft {
         this.vx = 0;                    // Velocity X component
         this.vy = 0;                    // Velocity Y component
         this.rotation = 0;              // Current rotation angle
-        this.thrustPower = 0.001;       // Engine power
+        this.thrustPower = 0.0005;      // Engine power
         this.rotationSpeed = 0.03;      // Turn rate
         this.thrustHistory = [];        // Array tracking engine particles
         this.crashed = false;           // Crash state
