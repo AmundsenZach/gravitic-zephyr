@@ -38,7 +38,5 @@ This is a primarily an experimental project, but contributions are welcome! Whet
 ## Roadmap
 Development of this `archive` branch has slowed or ceased. Further developmental resources will be directed towards branches `main` and `development`, with issues noted in the tracker being addressed there. When it reaches feature parity, it will replace `archive` as the Pages and AWS references with the release of Version 2.
 
-Development of the `archive` branch has slowed or ceased. F
-
 ## License
 This project is licensed under the MIT License.
