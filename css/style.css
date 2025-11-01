@@ -15,54 +15,22 @@ body {
     left: 0; 
 }
 
-#ui { 
+#userStats { 
     position: fixed; 
     top: 10px; 
     left: 10px; 
     color: white; 
     z-index: 1; 
-    background: rgba(0, 0, 0, 0.5); 
     padding: 10px; 
     border-radius: 5px; 
 }
 
-#resetButton { 
-    position: fixed; 
-    top: 10px; 
-    right: 10px; 
-    padding: 10px 20px; 
-    background: #333; 
-    color: white; 
-    border: 1px solid #666; 
-    cursor: pointer; 
-    z-index: 1; 
-    border-radius: 5px; 
-    font-family: monospace; 
-    transition: background 0.2s; 
-}
-
-#resetButton:hover { 
-    background: #444; 
-}
-
-#controls { 
+#userControls { 
     position: fixed; 
     bottom: 10px; 
     left: 10px; 
     color: white; 
-    background: rgba(0, 0, 0, 0.5); 
+    z-index: 1; 
     padding: 10px; 
     border-radius: 5px; 
-    font-family: monospace; 
-}
-
-#githubLink { 
-    position: fixed; 
-    bottom: 10px; 
-    right: 10px; 
-    color: white; 
-    background: rgba(0, 0, 0, 0.5); 
-    padding: 10px; 
-    border-radius: 5px; 
-    font-family: monospace; 
 }
