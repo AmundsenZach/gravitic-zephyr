@@ -2,33 +2,51 @@ Pull Request Tags:
 release/ # Version state at release (combined with tags) 
 feature/ # Specific feature added to the codebase
 bugfix/  # Fix of specific bugs and issues
+test/    # Creation of new components or systems
 docs/    # Creation or changes to documentation (instead of direct main merger)
 
 File Structure:
 gravitic-zephyr/
-├── index.html                     # Main game page
-├── .github/workflows/
-│   ├── aws.yml                    # AWS S3 action
-│   └── static.yml                 # GitHub Pages implementation
-├── styles/
-│   └── main.css                   # Style file
+├── index.html
 ├── docs/
-│   ├── filestructure.txt          # Current file
-│   ├── LICENSE                    # Project license file
-│   └── README.MD                  # Project README file
+│   ├── documentation.txt
+│   ├── filestructure.txt
+│   ├── LICENSE
+│   └── README.md
+├── style/
+│   └── style.css
 └── js/
-    ├── main.js                    # Game initialization and loop
-    ├── utils/
-    │   ├── MathUtilities.js       # Vector2 class for math operations
-    │   ├── TouchControls.js       # Mobile input handling
-    │   └── InputManager.js        # Keyboard and mouse input handling
-    ├── ui/
-    │   └── UIManager.js           # UI updates and management
+    ├── assets/
+    │   ├── arcAsset.js
+    │   ├── celestialAsset.js
+    │   └── spacecraftAsset.js
+    ├── debug/
+    │   ├── debug.js
+    │   └── renderDebug.js
+    │ 
     ├── game/
-    │   ├── Camera.js              # Camera controls and viewport management
-    │   ├── GameState.js           # Main game state and controller
-    │   └── RenderStarfield.js     # Background starfield rendering
-    └── entities/
-        ├── CelestialBody.js       # Planet and moon class
-        ├── Spacecraft.js          # Player spacecraft class
-        └── OrbitPredictor.js      # Orbital path prediction
+    │   ├── engineAssets.js
+    │   ├── engineConfig.js    
+    │   ├── engineEvent.js
+    │   ├── engineLoop.js
+    │   └── engineStart.js
+    ├── input/
+    │   ├── method/
+    │   │   ├── keyboardInput.js
+    │   │   ├── mouseInput.js    
+    │   │   └── touchInput.js
+    │   └── inputManager.js
+    ├── rendering/
+    │   ├── agents/
+    │   │   ├── renderCelestial.js
+    │   │   └── renderStarfield.js
+    │   ├── sprites/
+    │   │   ├── arcSprite.js
+    │   │   ├── celestialSprite.js
+    │   │   └── spacecraftSprite.js
+    │   ├── camera.js
+    │   └── rendering.js
+    ├── /utilities
+    │   ├── celestialConfig.js
+    │   └── mathUtils.js
+    └── main.js

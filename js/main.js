@@ -1,3 +1,2 @@
-// Initialize and start the game
-GameState.init();
-GameState.gameLoop();
+// Primary game initiation file for running the codebase
+EngineStart.init()

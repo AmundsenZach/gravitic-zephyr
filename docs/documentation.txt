@@ -1,0 +1,16 @@
+Will be documentation of trials, tests, and approaches
+
+STEPS;
+1 (DONE): Get game-loop and background functioning
+1.5: Add support for keyboard / mobile scaling
+2: Create a single base (stationary) planet
+3: Work at implimenting the SOI system, based on planet mass
+4: Add a moon, with a high eccentricity
+5: Impliment the 200% SOI crossover region, scaling with distance
+6: Work on implimenting Verlet physics for the spacecraft
+
+TESTS:
+1: The mouse acts as a spacecraft, returns the SOI it's currently in; must work with multiple layers
+
+NOTES:
+1: Planets will be procedural, but for now planets will be manually created in "celestialConfig.js"

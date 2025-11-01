@@ -1,53 +1,55 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
     <head>
         <title>Gravitic Zephyr</title>
-        <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="style/style.css">
     </head>
-
     <body>
         <canvas id="gameCanvas"></canvas>
-
-        <div class="uiElements">
-            <div id="ui">
-                Orbital Velocity: <span id="orbitalVelocity">0</span> m/s<br>
-                Altitude: <span id="altitude">0</span> km<br>
-                Orbital Period: <span id="orbitalPeriod">0</span> s<br>
-                Time Warp: <span id="timeWarp">1.00x</span><br>
-                Status: <span id="status">Flying</span>
+        
+        <div class="userInterface">
+            <div id="userStats">
+                Flight:<br>
             </div>
-            <button id="resetButton">Reset</button>
-            <div id="controls">
+            <div id="userControls">
                 Controls:<br>
-                ↑: Thrust<br>
-                ← / →: Rotate<br>
-                [ / ]: Time Warp<br>
-                T / t: Toggle View<br>
-                Mouse Wheel: Zoom
             </div>
-            <a id="githubLink" href="https://github.com/AmundsenZach/gravitic-zephyr/" target="blank">VISIT THE GITHUB PROJECT PAGE</a>
         </div>
+        
+        <div id="scripts">
+            <!-- assets -->
+            <script src="js/assets/celestialAsset.js"></script>
 
-        <div class="scripts">
-            <!-- Utils -->
-            <script src="js/utils/MathUtilities.js"></script>
-            <script src="js/utils/TouchControls.js"></script>
-            <script src="js/utils/InputManager.js"></script>
+            <!-- debug -->
+            <script src="js/debug/renderDebug.js"></script>
 
-            <!-- UI -->
-            <script src="js/ui/UIManager.js"></script>
+            <!-- engine -->
+            <script src="js/engine/engineAssets.js"></script>
+            <script src="js/engine/engineConfig.js"></script>
+            <script src="js/engine/engineEvent.js"></script>
+            <script src="js/engine/engineLoop.js"></script>
+            <script src="js/engine/engineStart.js"></script>
 
-            <!-- Game Core -->
-            <script src="js/game/Camera.js"></script>
-            <script src="js/game/GameState.js"></script>
-            <script src="js/game/RenderStarfield.js"></script>
+            <!-- input -->
+            <script src="js/input/method/keyboardInput.js"></script>
+            <script src="js/input/method/mouseInput.js"></script>
+            <script src="js/input/method/touchInput.js"></script>
 
-            <!-- Entities -->
-            <script src="js/entities/CelestialBody.js"></script>
-            <script src="js/entities/Spacecraft.js"></script>
-            <script src="js/entities/OrbitPredictor.js"></script>
+            <script src="js/input/inputManager.js"></script>
 
-            <!-- Main -->
+            <!-- rendering -->
+            <script src="js/rendering/sprites/celestialSprite.js"></script>
+
+            <script src="js/rendering/agents/renderCelestial.js"></script>
+            <script src="js/rendering/agents/renderStarfield.js"></script>
+
+            <script src="js/rendering/camera.js"></script>
+            <script src="js/rendering/rendering.js"></script>
+
+            <!-- utilites -->
+            <script src="js/utilities/mathUtilities.js"></script>
+            
+            <!-- main -->
             <script src="js/main.js"></script>
         </div>
     </body>
