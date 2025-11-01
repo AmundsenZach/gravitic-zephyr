@@ -36,7 +36,7 @@ This is a primarily an experimental project, but contributions are welcome! Whet
 * **Line-of-Sight Guidance Techniques for Manned Orbital Rendezvous** by Buzz Aldrin: The fundamental principles of this PhD thesis still underpin modern orbital mechanics
 
 ## Roadmap
-Development of the `main` branch has slowed or ceased. Further developmental resources will be directed towards branch `test/rewrite`, with issues noted in the tracker being addressed there. When it reaches feature parity, it will replace `main`.
+Previous development of this project can be found in branch `archive`, or in the most recent `v1.X.X` release. Development resources are going to `v2.0.0` in the `main` branch.
 
 ## License
 This project is licensed under the MIT License.
