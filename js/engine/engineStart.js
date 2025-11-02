@@ -4,21 +4,32 @@ const EngineStart = {
         this.canvas = document.getElementById('gameCanvas');
         this.ctx = this.canvas.getContext('2d');
 
-        this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerHeight;
-
-        // Canvas State Change via EngineEvent
+        // Create global instances
         window.engineEvent = new EngineEvent();
+        window.keyboardInput = new KeyboardInput();
+        window.mouseInput = new MouseInput(this.canvas);
+
+        // Set initial canvas size and emit event
+        this.updateCanvasSize();
         window.addEventListener('resize', () => {
-            window.engineEvent.emit('canvasResize', {
-                width: window.innerWidth,
-                height: window.innerHeight
-            });
+            this.updateCanvasSize();
         });
 
         // Start the main engine loop
         const engineLoop = new EngineLoop();
         engineLoop.loop();
+    },
+
+    // Update canvas size and notify all systems via event
+    updateCanvasSize() {
+        const width = window.innerWidth;
+        const height = window.innerHeight;
+        
+        this.canvas.width = width;
+        this.canvas.height = height;
+        
+        // Emit so camera and rendering can adjust
+        window.engineEvent.emit('canvasResize', { width, height });
     }
 }
 

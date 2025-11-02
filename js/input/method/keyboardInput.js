@@ -1,138 +1,105 @@
 class KeyboardInput {
     constructor() {
-        // Raw key state tracking
         this.keys = {};
         
-        // Action mapping system
         this.actionMappings = {
-            // Movement controls (for future spacecraft)
             'thrustForward': ['ArrowUp', 'w'],
-            //'thrustBackward': ['ArrowDown', 's'],
             'rotateLeft': ['ArrowLeft', 'a'],
             'rotateRight': ['ArrowRight', 'd'],
-            
-            // Camera controls
+
             'cameraMoveUp': ['i', 'I'],
             'cameraMoveDown': ['k', 'K'],
             'cameraMoveLeft': ['j', 'J'],
             'cameraMoveRight': ['l', 'L'],
             'cameraReset': ['c', 'C'],
-            'toggleFollow': ['f', 'F'],
+
             'zoomIn': ['+', '='],
             'zoomOut': ['-', '_'],
-            
-            // Debug and UI
+
+            'toggleFollow': ['f', 'F'],
             'toggleDebug': ['`', '~']
         };
         
-        // Continuous vs one-shot actions
-        this.continuousActions = [
-            'thrustForward',
-            'rotateLeft', 'rotateRight',
-            'cameraMoveUp', 'cameraMoveDown', 'cameraMoveLeft', 'cameraMoveRight',
-            'zoomIn', 'zoomOut'
-        ];
-        
-        // Store the last frame's actions to detect one-shot events
-        this.previousActions = {};
-        this.currentActions = {};
-        
-        // Set up event listeners
         this.setupEventListeners();
     }
     
     setupEventListeners() {
-        // Key press event
+        // Handle keydown - emit actionStart once
         document.addEventListener('keydown', (e) => {
-            // Only register the keydown once (not for key repeat)
             if (!this.keys[e.key]) {
                 this.keys[e.key] = true;
+                this.emitActionEvent(e.key, 'actionStart');
                 
-                // Prevent default browser behavior for game controls
-                // but be careful not to block important shortcuts
-                if (Object.values(this.actionMappings).flat().includes(e.key) && !e.ctrlKey && !e.metaKey) {
+                if (this.shouldPreventDefault(e.key, e)) {
                     e.preventDefault();
                 }
             }
         });
         
-        // Key release event
+        // Handle keyup - emit actionStop once
         document.addEventListener('keyup', (e) => {
-            this.keys[e.key] = false;
+            if (this.keys[e.key]) {
+                this.keys[e.key] = false;
+                this.emitActionEvent(e.key, 'actionStop');
+            }
         });
         
-        // Handle page visibility changes (stop input when tab not visible)
+        // Handle continuous input - emit actionActive every frame
+        window.engineEvent.on('gameTick', () => {
+            this.emitHeldActions();
+        });
+        
+        // Clear all keys when window loses focus
         document.addEventListener('visibilitychange', () => {
             if (document.hidden) {
                 this.clearAllKeys();
             }
         });
         
-        // Handle window blur (stop input when window loses focus)
         window.addEventListener('blur', () => {
             this.clearAllKeys();
         });
     }
     
-    // Stop all inputs when focus is lost
-    clearAllKeys() {
-        this.keys = {};
-    }
-    
-    // Update action states based on current key states
-    update() {
-        // Store previous actions for one-shot detection
-        this.previousActions = {...this.currentActions};
-        
-        // Reset current actions
-        this.currentActions = {};
-        
-        // Check each action mapping against current key states
-        for (const [action, keys] of Object.entries(this.actionMappings)) {
-            // An action is active if ANY of its mapped keys are pressed
-            this.currentActions[action] = keys.some(key => this.keys[key]);
+    // Emit actionActive for all currently held keys
+    emitHeldActions() {
+        for (const [key, isHeld] of Object.entries(this.keys)) {
+            if (isHeld) {
+                this.emitActionEvent(key, 'actionActive');
+            }
         }
     }
     
-    // Check if an action is currently active
-    isActionActive(action) {
-        return this.currentActions[action] || false;
+    // Check if this key maps to an action and emit the appropriate event
+    emitActionEvent(key, eventType) {
+        for (const [action, keys] of Object.entries(this.actionMappings)) {
+            if (keys.includes(key)) {
+                window.engineEvent.emit(eventType, { action, key });
+            }
+        }
     }
     
-    // For continuous actions (like movement)
-    isActionContinuous(action) {
-        return this.continuousActions.includes(action);
+    // Determine if we should prevent default browser behavior
+    shouldPreventDefault(key, event) {
+        const mappedKeys = Object.values(this.actionMappings).flat();
+        return mappedKeys.includes(key) && !event.ctrlKey && !event.metaKey;
     }
     
-    // Check if an action was just pressed this frame (for one-shot actions)
-    isActionJustPressed(action) {
-        return this.currentActions[action] && !this.previousActions[action];
+    // Clear all tracked keys (used when focus is lost)
+    clearAllKeys() {
+        for (const key of Object.keys(this.keys)) {
+            if (this.keys[key]) {
+                this.keys[key] = false;
+                this.emitActionEvent(key, 'actionStop');
+            }
+        }
     }
     
-    // Check if an action was just released this frame
-    isActionJustReleased(action) {
-        return !this.currentActions[action] && this.previousActions[action];
-    }
-    
-    // Allow runtime remapping of keys
+    // Runtime remapping for user-customizable controls
     remapAction(action, newKeys) {
         if (this.actionMappings[action]) {
             this.actionMappings[action] = Array.isArray(newKeys) ? newKeys : [newKeys];
         }
-    }
-    
-    // Add a new action mapping
-    addActionMapping(action, keys, isContinuous = false) {
-        this.actionMappings[action] = Array.isArray(keys) ? keys : [keys];
-        
-        if (isContinuous && !this.continuousActions.includes(action)) {
-            this.continuousActions.push(action);
-        }
-    }
-    
-    // Get a list of all currently active actions (useful for debugging)
-    getActiveActions() {
-        return Object.keys(this.currentActions).filter(action => this.currentActions[action]);
     }
 }
 
