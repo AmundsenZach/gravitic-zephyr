@@ -33,7 +33,33 @@
         "parentId": "0000",
         "height": 500,
         "speed": 0.0007,
+        "startAngle": 90
+      }
+    },
+    {
+      "id": "0003",
+      "name": "planet-purple",
+      "radius": 35,
+      "mass": 800,
+      "color": "#a020f0",
+      "orbit": {
+        "parentId": "0000",
+        "height": 500,
+        "speed": 0.0007,
         "startAngle": 180
+      }
+    },
+    {
+      "id": "0004",
+      "name": "planet-green",
+      "radius": 35,
+      "mass": 800,
+      "color": "#00ff00",
+      "orbit": {
+        "parentId": "0000",
+        "height": 500,
+        "speed": 0.0007,
+        "startAngle": 270
       }
     }
   ]

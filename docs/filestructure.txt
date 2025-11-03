@@ -1,11 +1,5 @@
-Pull Request Tags:
-release/ # Version state at release (combined with tags) 
-feature/ # Specific feature added to the codebase
-bugfix/  # Fix of specific bugs and issues
-test/    # Creation of new components or systems
-docs/    # Creation or changes to documentation (instead of direct main merger)
-
 File Structure:
+
 gravitic-zephyr/
 ├── index.html
 ├── css/
@@ -17,32 +11,24 @@ gravitic-zephyr/
 │   └── README.md
 └── js/
     ├── assets/
-    │   ├── arcAsset.js
     │   ├── celestialAsset.js
     │   └── spacecraftAsset.js
-    │ 
     ├── engine/
-    │   ├── engineAssets.js
-    │   ├── engineConfig.js    
+    │   ├── engineAssets.js 
     │   ├── engineEvent.js
     │   ├── engineLoop.js
     │   └── engineStart.js
     ├── game/
-    │   └── gameController.js
+    │   └── gameStart.js
     ├── input/
-    │   ├── method/
-    │   │   ├── keyboardInput.js
-    │   │   ├── mouseInput.js    
-    │   │   └── touchInput.js
-    │   └── inputManager.js
+    │   ├── keyboardInput.js
+    │   ├── mouseInput.js    
+    │   └── touchInput.js
     ├── rendering/
-    │   ├── agents/
-    │   │   ├── renderCelestial.js
-    │   │   └── renderStarfield.js
     │   ├── sprites/
-    │   │   ├── arcSprite.js
     │   │   ├── celestialSprite.js
     │   │   └── spacecraftSprite.js
+    │   ├── background.js
     │   ├── camera.js
     │   └── rendering.js
     ├── /utilities
