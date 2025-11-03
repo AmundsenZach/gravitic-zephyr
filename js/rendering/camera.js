@@ -1,109 +1,151 @@
-// Enhanced Camera with Input Integration
 class Camera {
     constructor() {
-        // Position of camera
+        this.initProperties();
+        this.setupEventListeners();
+    }
+
+    initProperties() {
         this.x = 0;
         this.y = 0;
-        
-        // Zoom level and adjustments
+
         this.zoom = 1;
+        this.minZoom = 0.1;
+        this.maxZoom = 5;
+
+        this.keyboardZoomIn = 1.02;
+        this.keyboardZoomOut = 0.98;
+
+        this.mouseZoomIn = 1.1;
+        this.mouseZoomOut = 0.9;
+
         this.targetZoom = 1;
         this.zoomSpeed = 0.025;
         
-        // Camera movement for manual control
-        this.moveSpeed = 5; // Base movement speed
-        this.target = null; // Optional target to follow
+        this.moveSpeed = 5;
         this.isFollowing = false;
+        this.target = null;
     }
 
-    update(inputManager) {
-        // Handle keyboard camera controls if not following a target
-        if (!this.isFollowing && inputManager) {
-            const moveSpeed = this.moveSpeed / this.zoom; // Adjust speed based on zoom
-            
-            // Camera movement
-            if (inputManager.isActionActive('cameraMoveUp')) {
-                this.y -= moveSpeed;
-            }
-            if (inputManager.isActionActive('cameraMoveDown')) {
-                this.y += moveSpeed;
-            }
-            if (inputManager.isActionActive('cameraMoveLeft')) {
-                this.x -= moveSpeed;
-            }
-            if (inputManager.isActionActive('cameraMoveRight')) {
-                this.x += moveSpeed;
+    get adjustedMoveSpeed() {
+        return this.moveSpeed / this.zoom;
+    }
+    
+    setupEventListeners() {
+        // Main update loop - runs every frame
+        window.engineEvent.on('gameTick', () => {
+            // If following a target, update camera position
+            if (this.isFollowing && this.target) {
+                this.follow(this.target);
             }
             
-            // Zoom controls
-            if (inputManager.isActionActive('zoomIn')) {
-                this.targetZoom *= 1.02;
-            }
-            if (inputManager.isActionActive('zoomOut')) {
-                this.targetZoom *= 0.98;
-            }
-            
-            // Reset camera position (change to target when implemented)
-            if (inputManager.isActionJustPressed('cameraReset')) {
-                this.x = 0;
-                this.y = 0;
-                this.targetZoom = 1;
-            }
-            
-            // Toggle follow mode (when implemented)
-            if (inputManager.isActionJustPressed('toggleFollow')) {
-                this.isFollowing = !this.isFollowing;
-            }
-        }
+            // Always update zoom (works in both modes)
+            this.updateZoom();
+        });
         
-        // Smoothly interpolate zoom
-        this.zoom += (this.targetZoom - this.zoom) * this.zoomSpeed;
+        // Continuous actions (held keys) - only process if not following
+        window.engineEvent.on('actionActive', (data) => {
+            if (!this.isFollowing) {
+                this.handleContinuousAction(data.action);
+            }
+        });
         
-        // Clamp zoom levels
-        this.targetZoom = Math.max(0.5, Math.min(this.targetZoom, 2));
+        // One-shot actions (key press events)
+        window.engineEvent.on('actionStart', (data) => {
+            this.handleAction(data.action);
+        });
+        
+        // Mouse wheel zoom
+        window.engineEvent.on('mouseWheel', (data) => {
+            this.handleMouseWheel(data.deltaY);
+        });
+    }
+    
+    handleContinuousAction(action) {
+        // Camera movement
+        if (action === 'cameraMoveUp') this.y -= this.adjustedMoveSpeed;
+        if (action === 'cameraMoveDown') this.y += this.adjustedMoveSpeed;
+        if (action === 'cameraMoveLeft') this.x -= this.adjustedMoveSpeed;
+        if (action === 'cameraMoveRight') this.x += this.adjustedMoveSpeed;
 
-        // Update input manager for next frame
-        if (inputManager) {
-            inputManager.update();
+        // Zoom
+        if (action === 'zoomIn') {
+            this.targetZoom *= this.keyboardZoomIn;
+        }
+        if (action === 'zoomOut') {
+            this.targetZoom *= this.keyboardZoomOut;
         }
     }
     
-    // Set a target to follow (for later when you have spacecraft)
+    handleAction(action) {
+        // Camera reset works in both modes
+        if (action === 'cameraReset') {
+            this.reset();
+        }
+        
+        // Toggle following mode
+        if (action === 'toggleFollow') {
+            this.isFollowing = !this.isFollowing;
+            console.log(`Camera following: ${this.isFollowing}`);
+        }
+    }
+    
+    updateZoom() {
+        // Smooth zoom interpolation
+        this.targetZoom = Math.max(this.minZoom, Math.min(this.targetZoom, this.maxZoom));
+        this.zoom += (this.targetZoom - this.zoom) * this.zoomSpeed;
+        this.zoom = Math.max(this.minZoom, Math.min(this.zoom, this.maxZoom));
+    }
+    
+    reset() {
+        this.x = 0;
+        this.y = 0;
+        this.targetZoom = 1;
+        console.log('Camera reset to origin');
+    }
+    
     setTarget(target) {
         this.target = target;
     }
     
-    // Enable/disable following
     setFollowing(following) {
         this.isFollowing = following;
     }
     
     // Moves camera to target position (when following)
     follow(target) {
-        if (target && this.isFollowing) {
+        if (target && target.x !== undefined && target.y !== undefined) {
             this.x = target.x;
             this.y = target.y;
         }
     }
     
-    // Handle mouse wheel zoom (called from rendering system)
+    // Handle mouse wheel zoom
     handleMouseWheel(deltaY) {
-        this.targetZoom *= deltaY > 0 ? 0.9 : 1.1;
-        this.targetZoom = Math.max(0.1, Math.min(this.targetZoom, 10));
+        // Zoom in when scrolling up (negative deltaY)
+        // Zoom out when scrolling down (positive deltaY)
+        this.targetZoom *= deltaY > 0 ? this.mouseZoomOut : this.mouseZoomIn;
     }
     
     // Get screen position from world position
     worldToScreen(worldX, worldY, canvas) {
         const screenX = (worldX - this.x) * this.zoom + canvas.width / 2;
         const screenY = (worldY - this.y) * this.zoom + canvas.height / 2;
-        return { x: screenX, y: screenY };
+
+        return { 
+            x: screenX, 
+            y: screenY 
+        };
     }
     
     // Get world position from screen position
     screenToWorld(screenX, screenY, canvas) {
         const worldX = (screenX - canvas.width / 2) / this.zoom + this.x;
         const worldY = (screenY - canvas.height / 2) / this.zoom + this.y;
-        return { x: worldX, y: worldY };
+        
+        return { 
+            x: worldX, 
+            y: worldY 
+        };
     }
 }
 
