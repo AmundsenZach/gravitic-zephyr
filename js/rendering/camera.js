@@ -91,8 +91,9 @@ class Camera {
     
     updateZoom() {
         // Smooth zoom interpolation
-        this.zoom += (this.targetZoom - this.zoom) * this.zoomSpeed;
         this.targetZoom = Math.max(this.minZoom, Math.min(this.targetZoom, this.maxZoom));
+        this.zoom += (this.targetZoom - this.zoom) * this.zoomSpeed;
+        this.zoom = Math.max(this.minZoom, Math.min(this.zoom, this.maxZoom));
     }
     
     reset() {
@@ -129,14 +130,22 @@ class Camera {
     worldToScreen(worldX, worldY, canvas) {
         const screenX = (worldX - this.x) * this.zoom + canvas.width / 2;
         const screenY = (worldY - this.y) * this.zoom + canvas.height / 2;
-        return { x: screenX, y: screenY };
+
+        return { 
+            x: screenX, 
+            y: screenY 
+        };
     }
     
     // Get world position from screen position
     screenToWorld(screenX, screenY, canvas) {
         const worldX = (screenX - canvas.width / 2) / this.zoom + this.x;
         const worldY = (screenY - canvas.height / 2) / this.zoom + this.y;
-        return { x: worldX, y: worldY };
+        
+        return { 
+            x: worldX, 
+            y: worldY 
+        };
     }
 }
 

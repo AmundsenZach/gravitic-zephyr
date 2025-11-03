@@ -25,8 +25,8 @@ const EngineStart = {
         const width = window.innerWidth;
         const height = window.innerHeight;
         
-        this.canvas.width = width;
-        this.canvas.height = height;
+        EngineStart.canvas.width = width;
+        EngineStart.canvas.height = height;
         
         // Emit so camera and rendering can adjust
         window.engineEvent.emit('canvasResize', { width, height });

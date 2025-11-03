@@ -94,13 +94,6 @@ class KeyboardInput {
             }
         }
     }
-    
-    // Runtime remapping for user-customizable controls
-    remapAction(action, newKeys) {
-        if (this.actionMappings[action]) {
-            this.actionMappings[action] = Array.isArray(newKeys) ? newKeys : [newKeys];
-        }
-    }
 }
 
 window.KeyboardInput = KeyboardInput;
