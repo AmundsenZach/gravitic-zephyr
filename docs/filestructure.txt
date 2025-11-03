@@ -8,28 +8,27 @@ docs/    # Creation or changes to documentation (instead of direct main merger)
 File Structure:
 gravitic-zephyr/
 ├── index.html
+├── css/
+│   └── style.css
 ├── docs/
 │   ├── documentation.txt
 │   ├── filestructure.txt
 │   ├── LICENSE
 │   └── README.md
-├── style/
-│   └── style.css
 └── js/
     ├── assets/
     │   ├── arcAsset.js
     │   ├── celestialAsset.js
     │   └── spacecraftAsset.js
-    ├── debug/
-    │   ├── debug.js
-    │   └── renderDebug.js
     │ 
-    ├── game/
+    ├── engine/
     │   ├── engineAssets.js
     │   ├── engineConfig.js    
     │   ├── engineEvent.js
     │   ├── engineLoop.js
     │   └── engineStart.js
+    ├── game/
+    │   └── gameController.js
     ├── input/
     │   ├── method/
     │   │   ├── keyboardInput.js
@@ -47,6 +46,5 @@ gravitic-zephyr/
     │   ├── camera.js
     │   └── rendering.js
     ├── /utilities
-    │   ├── celestialConfig.js
     │   └── mathUtils.js
     └── main.js
