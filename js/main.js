@@ -1,2 +1,3 @@
 // Primary game initiation file for running the codebase
-EngineStart.init()
+EngineStart.init();
+GameStart.init();

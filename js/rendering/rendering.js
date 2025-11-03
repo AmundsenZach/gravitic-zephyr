@@ -30,7 +30,7 @@ class Rendering {
     // Renders the starfield background
     static renderBackground() {
         this.ctx.save();
-        RenderStarfield.drawStarfield(this.ctx, this.camera);
+        Background.drawStarfield(this.ctx, this.camera);
         this.ctx.restore();
     }
 
@@ -41,10 +41,23 @@ class Rendering {
         // Apply camera transform so celestial sprites are drawn in world space
         this.applyTransform();
 
-        // Ensure assets sync to sprites (use zero dt if caller doesn't supply one)
-        if (typeof window.updateCelestials === 'function') window.updateCelestials(0);
-
         for (const sprite of window.celestialSprites) {
+            if (typeof sprite.draw === 'function') {
+                sprite.draw(this.ctx, this.camera);
+            }
+        }
+
+        this.ctx.restore();
+    }
+
+    static renderSpacecraft() {
+        if (!window.spacecraftSprites || window.spacecraftSprites.length === 0) return;
+
+        this.ctx.save();
+        // Apply camera transform so spacecraft sprites are drawn in world space
+        this.applyTransform();
+
+        for (const sprite of window.spacecraftSprites) {
             if (typeof sprite.draw === 'function') {
                 sprite.draw(this.ctx, this.camera);
             }
@@ -61,6 +74,7 @@ class Rendering {
         // Apply camera transform after background rendering
         this.applyTransform(); 
         this.renderCelestials();
+        this.renderSpacecraft();
     }
 }
 

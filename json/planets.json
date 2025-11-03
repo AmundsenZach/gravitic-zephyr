@@ -1,0 +1,40 @@
+{
+  "celestials": [
+    {
+    "id": "0000",
+      "name": "sun",
+      "radius": 80,
+      "mass": 5000,
+      "color": "#ffaa00",
+      "stationary": true,
+      "x": 0,
+      "y": 0
+    },
+    {
+      "id": "0001",
+      "name": "planet-blue",
+      "radius": 40,
+      "mass": 1000,
+      "color": "#396aff",
+      "orbit": {
+        "parentId": "0000",
+        "height": 300,
+        "speed": 0.001,
+        "startAngle": 0
+      }
+    },
+    {
+      "id": "0002",
+      "name": "planet-red",
+      "radius": 35,
+      "mass": 800,
+      "color": "#ff3366",
+      "orbit": {
+        "parentId": "0000",
+        "height": 500,
+        "speed": 0.0007,
+        "startAngle": 180
+      }
+    }
+  ]
+}

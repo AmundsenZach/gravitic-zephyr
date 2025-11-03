@@ -24,21 +24,21 @@ class CelestialSprite {
         ctx.fill();
 
         // Draw the planet's outline
+        ctx.lineWidth = camera.zoom;
         ctx.strokeStyle = this.color;
         ctx.beginPath();
         ctx.arc(screenX, screenY, this.radius * camera.zoom, 0, Math.PI * 2);
         ctx.stroke();
 
-        //ctx.setLineDash([5, 15]); // Dashed line pattern
-        //ctx.lineWidth = 1;
-        // increase stroke weight (scaled by camera.zoom so it stays proportional)
-        const prevLineWidth = ctx.lineWidth;
-        ctx.lineWidth = Math.max(1, 3 * camera.zoom); // adjust "3" to taste
-        ctx.strokeStyle = this.color + '44'; // Semi-transparent
+
+
+
+        ctx.lineWidth = 2 / camera.zoom;
+        ctx.strokeStyle = this.color + '75'; // Semi-transparent
+        ctx.setLineDash([10, 10]); // Dashed line pattern
         ctx.beginPath();
-        ctx.arc(screenX, screenY, this.sphereOfInfluence * camera.zoom, 0, Math.PI * 2);
+        ctx.arc(screenX, screenY, this.sphereOfInfluence * camera.zoom, Math.PI / 2, -Math.PI * 3 / 2);
         ctx.stroke();
-        ctx.lineWidth = prevLineWidth; // restore previous width
         ctx.setLineDash([]); // Reset line style
     }
 }

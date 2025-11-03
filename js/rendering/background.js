@@ -1,4 +1,4 @@
-class RenderStarfield {
+class Background {
     // Draws a parallax scrolling starfield background
     static drawStarfield(ctx, camera) {
         ctx.save(); // Save current canvas state
@@ -29,4 +29,4 @@ class RenderStarfield {
     }
 }
 
-window.RenderStarfield = RenderStarfield;
+window.Background = Background;
