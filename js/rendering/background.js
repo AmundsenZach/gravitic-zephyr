@@ -1,15 +1,15 @@
-class RenderStarfield {
+class Background {
     // Draws a parallax scrolling starfield background
     static drawStarfield(ctx, camera) {
         ctx.save(); // Save current canvas state
     
-        const numStars = 800; // Set number of stars to render
+        const density = 1000; // Set number of stars to render
     
         // Set star color to white
         ctx.fillStyle = 'white';
 
         // Generate each star
-        for (let i = 0; i < numStars; i++) {
+        for (let i = 0; i < density; i++) {
             // Calculate x position with parallax effect based on camera position
             // Uses sine wave and modulo to create wrapping effect
             const x = ((Math.sin(i) * 10000 - camera.x * 0.1) % ctx.canvas.width + ctx.canvas.width) % ctx.canvas.width;
@@ -29,4 +29,4 @@ class RenderStarfield {
     }
 }
 
-window.RenderStarfield = RenderStarfield;
+window.Background = Background;

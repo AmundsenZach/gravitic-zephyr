@@ -1,0 +1,120 @@
+{
+  "celestials": [
+    {
+      "id": "0000",
+      "name": "sun",
+
+      "radius": 200,
+      "mass": 3500,
+
+      "outerColor": "#ffff00",
+      "innerColor": "#ffff00",
+
+      "stationary": true,
+      "x": -500,
+      "y": -750
+    },
+    {
+      "id": "0001",
+      "name": "planet-blue",
+
+      "radius": 10,
+      "mass": 1000,
+
+      "outerColor": "#396aff",
+      "innerColor": "#396aff",
+
+      "orbit": {
+        "parentId": "0000",
+
+        "height": 500,
+        "startAngle": 0
+      }
+    },
+    {
+      "id": "0002",
+      "name": "planet-red",
+
+      "radius": 20,
+      "mass": 800,
+
+      "outerColor": "#ff3366",
+      "innerColor": "#ff3366",
+
+      "orbit": {
+        "parentId": "0000",
+
+        "height": 800,
+        "startAngle": 90
+      }
+    },
+    {
+      "id": "0003",
+      "name": "planet-purple",
+      
+      "radius": 30,
+      "mass": 800,
+
+      "outerColor": "#a020f0",
+      "innerColor": "#a020f0",
+
+      "orbit": {
+        "parentId": "0000",
+
+        "height": 1000,
+        "startAngle": 180
+      }
+    },
+    {
+      "id": "0004",
+      "name": "planet-green",
+
+      "radius": 40,
+      "mass": 800,
+
+      "outerColor": "#00ff00",
+      "innerColor": "#00ff00",
+
+      "orbit": {
+        "parentId": "0000",
+        
+        "height": 1200,
+        "startAngle": 270
+      }
+    },
+    {
+      "id": "0005",
+      "name": "planet-aqua",
+
+      "radius": 15,
+      "mass": 200,
+
+      "outerColor": "#00ffff",
+      "innerColor": "#00ffff",
+
+      "orbit": {
+        "parentId": "0004",
+        
+        "height": 225,
+        "startAngle": 270
+      }
+    },
+    {
+      "id": "0006",
+      "name": "planet-brown",
+
+      "radius": 5,
+      "mass": 100,
+
+      "outerColor": "#8B4513",
+      "innerColor": "#8B4513",
+
+      "orbit": {
+        "parentId": "0005",
+        
+        "height": 95,
+        "startAngle": 270
+      }
+    }
+  ]
+}
