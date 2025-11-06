@@ -46,12 +46,12 @@ class CelestialUtilities {
                 asset.updatePosition = function(dt = 0) {
                     if (!this.parent) return;
                     if (this.angularSpeed) this.angle += this.angularSpeed * dt;
-                    const a = this.height;
-                    const e = this.eccentricity || 0;
-                    const b = a * Math.sqrt(1 - e * e);
+                    const b = this.height * Math.sqrt(1 - this.eccentricity ** 2);
+
                     const px = this.parent.x || 0;
                     const py = this.parent.y || 0;
-                    this.x = px + a * Math.cos(this.angle);
+
+                    this.x = px + this.height * Math.cos(this.angle);
                     this.y = py + b * Math.sin(this.angle);
                 };
             }

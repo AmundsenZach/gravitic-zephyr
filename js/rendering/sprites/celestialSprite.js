@@ -36,8 +36,6 @@ class CelestialSprite {
         const screenX = (this.x - camera.x) * camera.zoom + ctx.canvas.width / 2;
         const screenY = (this.y - camera.y) * camera.zoom + ctx.canvas.height / 2;
 
-        if (!this.sphereOfInfluence) return;
-
         // Draw sphere of influence as dashed circle
         ctx.lineWidth = 2 / camera.zoom;
         ctx.strokeStyle = this.outerColor + '75'; // Semi-transparent
@@ -46,11 +44,6 @@ class CelestialSprite {
         ctx.arc(screenX, screenY, this.sphereOfInfluence * camera.zoom, Math.PI / 2, -Math.PI * 3 / 2);
         ctx.stroke();
         ctx.setLineDash([]); // Reset line style
-    }
-
-    // Backwards-compatible single-call draw (optional: draws body only)
-    draw(ctx, camera) {
-        this.drawBody(ctx, camera);
     }
 }
 
