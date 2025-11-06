@@ -74,9 +74,6 @@ class Rendering {
         // Render celestial objects in two layers: bodies first, then SOI
         this.renderCelestialBodies();
         this.renderCelestialSOIs();
-
-        // Then spacecraft
-        //this.renderSpacecraft();
     }
 }
 
