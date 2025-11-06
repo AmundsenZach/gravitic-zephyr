@@ -5,7 +5,7 @@
       "name": "sun",
 
       "radius": 200,
-      "mass": 5000,
+      "mass": 3500,
 
       "outerColor": "#ffff00",
       "innerColor": "#ffff00",

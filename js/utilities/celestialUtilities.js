@@ -61,10 +61,14 @@ class CelestialUtilities {
             
             // Create sprite and link it to the asset
             const sprite = new CelestialSprite({ id: asset.id });
+
             sprite.x = asset.x;
             sprite.y = asset.y;
+
+            sprite.innerColor = asset.innerColor;
+            sprite.outerColor = asset.outerColor;
+
             sprite.radius = asset.radius;
-            sprite.color = asset.innerColor || asset.outerColor;
             sprite.sphereOfInfluence = asset.sphereOfInfluence || (asset.radius * 10);
             
             this.sprites.push(sprite);
@@ -85,8 +89,11 @@ class CelestialUtilities {
             if (sprite) {
                 sprite.x = asset.x;
                 sprite.y = asset.y;
+
+                sprite.outerColor = asset.outerColor;
+                sprite.innerColor = asset.innerColor; 
+
                 sprite.radius = asset.radius;
-                sprite.color = asset.innerColor || asset.outerColor;
                 sprite.sphereOfInfluence = asset.sphereOfInfluence || (asset.radius * 10);
             }
         });
