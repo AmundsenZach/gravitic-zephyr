@@ -32,16 +32,29 @@ class Rendering {
         Background.drawStarfield(this.ctx, this.camera);
     }
 
-    static renderCelestials() {
+    // Render all celestial bodies
+    static renderCelestialBodies() {
         if (!window.celestialSprites || window.celestialSprites.length === 0) return;
 
         for (const sprite of window.celestialSprites) {
-            if (typeof sprite.draw === 'function') {
-                sprite.draw(this.ctx, this.camera);
+            if (typeof sprite.drawBody === 'function') {
+                sprite.drawBody(this.ctx, this.camera);
             }
         }
     }
 
+    // Render all celestial spheres of influence
+    static renderCelestialSOIs() {
+        if (!window.celestialSprites || window.celestialSprites.length === 0) return;
+
+        for (const sprite of window.celestialSprites) {
+            if (typeof sprite.drawSOI === 'function') {
+                sprite.drawSOI(this.ctx, this.camera);
+            }
+        }
+    }
+
+    // Render all spacecraft
     static renderSpacecraft() {
         if (!window.spacecraftSprites || window.spacecraftSprites.length === 0) return;
 
@@ -58,9 +71,12 @@ class Rendering {
         this.renderBackground();
         this.applyTransform(); 
 
-        // Render celestial objects and spacecraft
-        this.renderCelestials();
-        this.renderSpacecraft();
+        // Render celestial objects in two layers: bodies first, then SOI
+        this.renderCelestialBodies();
+        this.renderCelestialSOIs();
+
+        // Then spacecraft
+        //this.renderSpacecraft();
     }
 }
 

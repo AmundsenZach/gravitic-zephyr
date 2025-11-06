@@ -23,14 +23,19 @@ class CelestialAsset {
     }
 
     // Creates orbital characteristics of orbiting bodies
-    setOrbitalBody(parent, height, speed, startAngle = 0, eccentricity = 0) {
+    setOrbitalBody(parent, height, startAngle = 0, eccentricity = 0) {
         this.parent = parent;
 
         // Orbital parameters
         this.height = height; // semi-major axis (pixels)
-        this.angularSpeed = speed; // radians per second
         this.angle = (startAngle % 360) * Math.PI / 180; // stored in radians
-        //this.eccentricity = Math.max(0, Math.min(0.999, eccentricity));
+        this.eccentricity = 0; // simplifies the logic for circular orbits only
+
+        // Calculate orbital speed from physics: v = sqrt(GM/r)
+        const G = 0.1; // Gravitational constant (tune for gameplay)
+        const tempMultiplier = 50; // Time scaling factor
+        const linearSpeed = Math.sqrt(G * parent.mass / height);
+        this.angularSpeed = linearSpeed / height * tempMultiplier; // radians per second
 
         // initialize position
         this.updatePosition(0);

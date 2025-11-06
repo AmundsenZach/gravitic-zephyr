@@ -3,6 +3,7 @@ class CelestialUtilities {
         this.assets = [];
         this.sprites = [];
         this.assetMap = new Map(); // ID -> asset lookup
+        this.spriteMap = new Map(); // asset -> sprite lookup
     }
 
     // Load celestials from JSON data
@@ -13,19 +14,16 @@ class CelestialUtilities {
         celestials.forEach(data => {
             const asset = new CelestialAsset({ id: data.id });
             asset.name = data.name;
-            asset.setVisibleBody(data.radius, data.mass, data.color, data.color);
+            asset.setVisibleBody(data.radius, data.mass, data.outerColor, data.innerColor);
             
             // Store for parent resolution
             this.assetMap.set(data.id, asset);
             this.assets.push(asset);
-            
-            // Temporarily store the raw data for second pass
-            asset._rawData = data;
         });
         
         // Second pass: set up positions/orbits (now all parents exist)
-        this.assets.forEach(asset => {
-            const data = asset._rawData;
+        celestials.forEach((data, index) => {
+            const asset = this.assets[index];
             
             if (data.stationary) {
                 asset.setOrbitalStationary(data.x || 0, data.y || 0);
@@ -35,7 +33,6 @@ class CelestialUtilities {
                     asset.setOrbitalBody(
                         parent,
                         data.orbit.height,
-                        data.orbit.speed,
                         data.orbit.startAngle || 0,
                         data.orbit.eccentricity || 0
                     );
@@ -62,19 +59,16 @@ class CelestialUtilities {
             // Initialize position
             asset.updatePosition(0);
             
-            // Create sprite
+            // Create sprite and link it to the asset
             const sprite = new CelestialSprite({ id: asset.id });
             sprite.x = asset.x;
             sprite.y = asset.y;
             sprite.radius = asset.radius;
-            sprite.color = asset.innerColor || asset.outerColor; // Use innerColor first, fallback to outerColor
+            sprite.color = asset.innerColor || asset.outerColor;
             sprite.sphereOfInfluence = asset.sphereOfInfluence || (asset.radius * 10);
             
-            asset._sprite = sprite;
             this.sprites.push(sprite);
-            
-            // Clean up temp data
-            delete asset._rawData;
+            this.spriteMap.set(asset, sprite);
         });
         
         return this;
@@ -87,12 +81,12 @@ class CelestialUtilities {
                 asset.updatePosition(dt);
             }
             
-            const sprite = asset._sprite;
+            const sprite = this.spriteMap.get(asset);
             if (sprite) {
                 sprite.x = asset.x;
                 sprite.y = asset.y;
                 sprite.radius = asset.radius;
-                sprite.color = asset.innerColor || asset.outerColor; // Use innerColor first, fallback to outerColor
+                sprite.color = asset.innerColor || asset.outerColor;
                 sprite.sphereOfInfluence = asset.sphereOfInfluence || (asset.radius * 10);
             }
         });
@@ -106,6 +100,11 @@ class CelestialUtilities {
     // Get asset by name
     getAssetByName(name) {
         return this.assets.find(a => a.name === name);
+    }
+    
+    // Get sprite for an asset
+    getSprite(asset) {
+        return this.spriteMap.get(asset);
     }
 }
 
