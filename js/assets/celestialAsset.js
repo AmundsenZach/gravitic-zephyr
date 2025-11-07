@@ -15,6 +15,10 @@ class CelestialAsset {
         this.innerColor = innerColor; // Color of body
     }
 
+    setNullBody(mass) {
+        this.mass = mass;
+    }
+
     // Sets the position of stationary bodies (like a star)
     setOrbitalStationary(x, y) {
         this.x = x;
@@ -33,7 +37,7 @@ class CelestialAsset {
 
         // Calculate orbital speed from physics: v = sqrt(GM/r)
         const G = 0.1; // Gravitational constant (tune for gameplay)
-        const tempMultiplier = 50; // Time scaling factor
+        const tempMultiplier = 500; // Time scaling factor
         const linearSpeed = Math.sqrt(G * parent.mass / height);
         this.angularSpeed = linearSpeed / height * tempMultiplier; // radians per second
 

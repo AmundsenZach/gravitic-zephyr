@@ -3,7 +3,7 @@ class Rendering {
         this.ctx = EngineStart.ctx;
         this.canvas = EngineStart.canvas;
         this.camera = new Camera();
-        
+
         // Single listener for rendering - triggered by gameTick
         window.engineEvent.on('gameTick', () => {
             this.render();
@@ -26,7 +26,7 @@ class Rendering {
         this.ctx.scale(this.camera.zoom, this.camera.zoom);
         this.ctx.translate(-this.camera.x, -this.camera.y);
     }
-    
+
     // Renders the starfield background
     static renderBackground() {
         Background.drawStarfield(this.ctx, this.camera);
@@ -34,7 +34,9 @@ class Rendering {
 
     // Render all celestial bodies
     static renderCelestialBodies() {
-        if (!window.celestialSprites || window.celestialSprites.length === 0) return;
+        if (!window.celestialSprites || window.celestialSprites.length === 0) {
+            return;
+        }
 
         for (const sprite of window.celestialSprites) {
             if (typeof sprite.drawBody === 'function') {
@@ -45,7 +47,9 @@ class Rendering {
 
     // Render all celestial spheres of influence
     static renderCelestialSOIs() {
-        if (!window.celestialSprites || window.celestialSprites.length === 0) return;
+        if (!window.celestialSprites || window.celestialSprites.length === 0) {
+            return;
+        }
 
         for (const sprite of window.celestialSprites) {
             if (typeof sprite.drawSOI === 'function') {
@@ -56,7 +60,9 @@ class Rendering {
 
     // Render all spacecraft
     static renderSpacecraft() {
-        if (!window.spacecraftSprites || window.spacecraftSprites.length === 0) return;
+        if (!window.spacecraftSprites || window.spacecraftSprites.length === 0) {
+            return;
+        }
 
         for (const sprite of window.spacecraftSprites) {
             if (typeof sprite.draw === 'function') {
@@ -69,7 +75,7 @@ class Rendering {
         // Clear screen, apply camera transform
         this.clearScreen();
         this.renderBackground();
-        this.applyTransform(); 
+        this.applyTransform();
 
         // Render celestial objects in two layers: bodies first, then SOI
         this.renderCelestialBodies();

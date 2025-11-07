@@ -4,7 +4,7 @@ class Camera {
         this.setupEventListeners();
     }
 
-    initProperties() {
+    initProperties() { // Move to separate configuration method?
         this.x = 0;
         this.y = 0;
 
@@ -60,7 +60,7 @@ class Camera {
         });
     }
     
-    handleContinuousAction(action) {
+    handleContinuousAction(action) {// Move to dedicated input handler later
         // Camera movement
         if (action === 'cameraMoveUp') this.y -= this.adjustedMoveSpeed;
         if (action === 'cameraMoveDown') this.y += this.adjustedMoveSpeed;

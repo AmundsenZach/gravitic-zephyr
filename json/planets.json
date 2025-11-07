@@ -5,7 +5,7 @@
       "name": "sun",
 
       "radius": 200,
-      "mass": 3500,
+      "mass": 50000,
 
       "outerColor": "#ffff00",
       "innerColor": "#ffff00",
@@ -16,13 +16,13 @@
     },
     {
       "id": "0001",
-      "name": "planet-blue",
+      "name": "mercury",
 
       "radius": 10,
       "mass": 1000,
 
-      "outerColor": "#396aff",
-      "innerColor": "#396aff",
+      "outerColor": "#ff9966",
+      "innerColor": "#ff9966",
 
       "orbit": {
         "parentId": "0000",
@@ -33,86 +33,120 @@
     },
     {
       "id": "0002",
-      "name": "planet-red",
+      "name": "venus",
 
       "radius": 20,
       "mass": 800,
 
-      "outerColor": "#ff3366",
-      "innerColor": "#ff3366",
-
-      "orbit": {
-        "parentId": "0000",
-
-        "height": 800,
-        "startAngle": 90
-      }
-    },
-    {
-      "id": "0003",
-      "name": "planet-purple",
-      
-      "radius": 30,
-      "mass": 800,
-
-      "outerColor": "#a020f0",
-      "innerColor": "#a020f0",
+      "outerColor": "#ff6600",
+      "innerColor": "#ff6600",
 
       "orbit": {
         "parentId": "0000",
 
         "height": 1000,
+        "startAngle": 90
+      }
+    },
+    {
+      "id": "0003",
+      "name": "earth",
+      
+      "radius": 30,
+      "mass": 800,
+
+      "outerColor": "#3399ff",
+      "innerColor": "#3399ff",
+
+      "orbit": {
+        "parentId": "0000",
+
+        "height": 2000,
         "startAngle": 180
       }
     },
     {
       "id": "0004",
-      "name": "planet-green",
+      "name": "mars",
 
-      "radius": 40,
+      "radius": 20,
       "mass": 800,
 
-      "outerColor": "#00ff00",
-      "innerColor": "#00ff00",
+      "outerColor": "#cc5200",
+      "innerColor": "#cc5200",
 
       "orbit": {
         "parentId": "0000",
         
-        "height": 1200,
+        "height": 4000,
         "startAngle": 270
       }
     },
     {
       "id": "0005",
-      "name": "planet-aqua",
+      "name": "jupiter",
 
-      "radius": 15,
+      "radius": 150,
       "mass": 200,
 
-      "outerColor": "#00ffff",
-      "innerColor": "#00ffff",
+      "outerColor": "#cc6600",
+      "innerColor": "#cc6600",
 
       "orbit": {
-        "parentId": "0004",
+        "parentId": "0000",
         
-        "height": 225,
+        "height": 8000,
         "startAngle": 270
       }
     },
     {
       "id": "0006",
-      "name": "planet-brown",
+      "name": "saturn",
 
-      "radius": 5,
+      "radius": 100,
       "mass": 100,
 
-      "outerColor": "#8B4513",
-      "innerColor": "#8B4513",
+      "outerColor": "#ff9933",
+      "innerColor": "#ff9933",
 
       "orbit": {
-        "parentId": "0005",
+        "parentId": "0000",
         
-        "height": 95,
+        "height": 16000,
+        "startAngle": 270
+      }
+    },
+    {
+      "id": "0007",
+      "name": "uranus",
+
+      "radius": 75,
+      "mass": 50,
+
+      "outerColor": "#33ccff",
+      "innerColor": "#33ccff",
+
+      "orbit": {
+        "parentId": "0000",
+
+        "height": 32000,
+        "startAngle": 270
+      }
+    },
+    {
+      "id": "0008",
+      "name": "neptune",
+
+      "radius": 65,
+      "mass": 25,
+
+      "outerColor": "#0000ff",
+      "innerColor": "#0000ff",
+
+      "orbit": {
+        "parentId": "0000",
+
+        "height": 64000,
         "startAngle": 270
       }
     }
