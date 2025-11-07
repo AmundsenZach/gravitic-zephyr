@@ -9,7 +9,7 @@ class CelestialUtilities {
     // Load celestials from JSON data
     loadFromJSON(jsonData) {
         const celestials = jsonData.celestials || [];
-        
+
         // First pass: create all assets
         celestials.forEach(data => {
             const asset = new CelestialAsset({id: data.id});
@@ -52,13 +52,14 @@ class CelestialUtilities {
                         this.angle += this.angularSpeed * dt;
                     }
 
-                    const b = this.height * Math.sqrt(1 - this.eccentricity ** 2);
+                    // Calculate position in orbit
+                    const offset = MathUtilities.Vector2.fromAngle(this.angle, this.height);
+                    offset.y *= Math.sqrt(1 - (this.eccentricity || 0) ** 2);
+                    const utilitiesVector = MathUtilities.Vector2.add(this.parent, offset);
 
-                    const px = this.parent.x || 0;
-                    const py = this.parent.y || 0;
-
-                    this.x = px + this.height * Math.cos(this.angle);
-                    this.y = py + b * Math.sin(this.angle);
+                    this.x = utilitiesVector.x; // Maintain for backward compatibility
+                    this.y = utilitiesVector.y;
+                    this.utilitiesVector = utilitiesVector; // Will use Vector2 in future
                 };
             }
 
@@ -93,8 +94,10 @@ class CelestialUtilities {
 
             const sprite = this.spriteMap.get(asset);
             if (sprite) {
-                sprite.x = asset.x;
+                sprite.x = asset.x; // Maintain for backward compatibility
                 sprite.y = asset.y;
+
+                sprite.vector = new MathUtilities.Vector2(asset.x, asset.y);
 
                 sprite.outerColor = asset.outerColor;
                 sprite.innerColor = asset.innerColor;

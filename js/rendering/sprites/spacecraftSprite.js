@@ -8,7 +8,6 @@ class SpacecraftSprite {
         const screenX = (this.asset.x - camera.x) * camera.zoom + ctx.canvas.width / 2;
         const screenY = (this.asset.y - camera.y) * camera.zoom + ctx.canvas.height / 2;
 
-        ctx.save();
         ctx.translate(screenX, screenY);
         ctx.rotate(this.asset.rotation);
     
@@ -21,8 +20,6 @@ class SpacecraftSprite {
         ctx.lineTo(-5 * camera.zoom, -5 * camera.zoom);
         ctx.closePath();
         ctx.stroke();
-        
-        ctx.restore();
     }
 }
 

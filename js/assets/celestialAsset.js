@@ -57,24 +57,20 @@ class CelestialAsset {
     updatePosition(dt) {
         // Stationary bodies don't move
         if (!this.parent) return;
-        
+
         // Update angle based on angular speed
         if (this.angularSpeed) {
             this.angle += this.angularSpeed * dt;
         }
-        
+
         // Calculate elliptical orbit
-        const a = this.height; // semi-major axis
-        const e = this.eccentricity || 0; // eccentricity
-        const b = a * Math.sqrt(1 - e * e); // semi-minor axis
-        
-        // Get parent position
-        const px = this.parent.x || 0;
-        const py = this.parent.y || 0;
-        
-        // Calculate position on ellipse
-        this.x = px + a * Math.cos(this.angle);
-        this.y = py + b * Math.sin(this.angle);
+        const offset = MathUtilities.Vector2.fromAngle(this.angle, this.height);
+        offset.y *= Math.sqrt(1 - (this.eccentricity || 0) ** 2);
+        const assetVector = MathUtilities.Vector2.add(this.parent, offset);
+
+        this.x = assetVector.x; // Maintain for backward compatibility
+        this.y = assetVector.y; // Will use Vector2 in future
+        this.assetVector = assetVector;
     }
 }
 
