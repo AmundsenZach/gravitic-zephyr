@@ -28,7 +28,7 @@
         "parentId": "0000",
 
         "height": 500,
-        "startAngle": 0
+        "startAngle": 270
       }
     },
     {
@@ -45,7 +45,7 @@
         "parentId": "0000",
 
         "height": 1000,
-        "startAngle": 90
+        "startAngle": 270
       }
     },
     {
@@ -62,7 +62,7 @@
         "parentId": "0000",
 
         "height": 2000,
-        "startAngle": 180
+        "startAngle": 270
       }
     },
     {

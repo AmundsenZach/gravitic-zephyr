@@ -33,7 +33,7 @@ class CelestialAsset {
         // Orbital parameters
         this.height = height; // semi-major axis (pixels)
         this.angle = (startAngle % 360) * Math.PI / 180; // stored in radians
-        this.eccentricity = 0; // simplifies the logic for circular orbits only
+        this.eccentricity = eccentricity; // simplifies the logic for circular orbits only
 
         // Calculate orbital speed from physics: v = sqrt(GM/r)
         const G = 0.1; // Gravitational constant (tune for gameplay)

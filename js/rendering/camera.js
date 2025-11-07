@@ -60,7 +60,7 @@ class Camera {
         });
     }
     
-    handleContinuousAction(action) {// Move to dedicated input handler later
+    handleContinuousAction(action) {
         // Camera movement
         if (action === 'cameraMoveUp') this.y -= this.adjustedMoveSpeed;
         if (action === 'cameraMoveDown') this.y += this.adjustedMoveSpeed;
