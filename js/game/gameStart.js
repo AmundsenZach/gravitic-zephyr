@@ -15,8 +15,7 @@ class GameStart {
             
             // Create spacecraft
             window.spacecraftAsset = new SpacecraftAsset(0, -200);
-            window.spacecraftAsset.vx = 1;
-            window.spacecraftAsset.vy = 0;
+            window.spacecraftAsset.vector = new MathUtilities.Vector2(1, 0);
             window.spacecraftAsset.rotation = Math.PI / 2;
             
             window.spacecraftSprite = new SpacecraftSprite(window.spacecraftAsset);

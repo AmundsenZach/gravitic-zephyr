@@ -55,11 +55,7 @@ class CelestialUtilities {
                     // Calculate position in orbit
                     const offset = MathUtilities.Vector2.fromAngle(this.angle, this.height);
                     offset.y *= Math.sqrt(1 - (this.eccentricity || 0) ** 2);
-                    const utilitiesVector = MathUtilities.Vector2.add(this.parent, offset);
-
-                    this.x = utilitiesVector.x; // Maintain for backward compatibility
-                    this.y = utilitiesVector.y;
-                    this.utilitiesVector = utilitiesVector; // Will use Vector2 in future
+                    this.utilitiesVector = MathUtilities.Vector2.add(this.parent, offset);
                 };
             }
 
@@ -69,8 +65,7 @@ class CelestialUtilities {
             // Create sprite and link it to the asset
             const sprite = new CelestialSprite({ id: asset.id });
 
-            sprite.x = asset.x;
-            sprite.y = asset.y;
+            sprite.spriteVector = new MathUtilities.Vector2(asset.x, asset.y);
 
             sprite.innerColor = asset.innerColor;
             sprite.outerColor = asset.outerColor;
@@ -94,10 +89,7 @@ class CelestialUtilities {
 
             const sprite = this.spriteMap.get(asset);
             if (sprite) {
-                sprite.x = asset.x; // Maintain for backward compatibility
-                sprite.y = asset.y;
-
-                sprite.vector = new MathUtilities.Vector2(asset.x, asset.y);
+                sprite.spriteVector = new MathUtilities.Vector2(asset.x, asset.y);
 
                 sprite.outerColor = asset.outerColor;
                 sprite.innerColor = asset.innerColor;

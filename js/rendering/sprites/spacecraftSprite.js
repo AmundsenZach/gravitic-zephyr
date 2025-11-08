@@ -5,10 +5,12 @@ class SpacecraftSprite {
 
     draw(ctx, camera) {
         // Convert world coordinates to screen coordinates
-        const screenX = (this.asset.x - camera.cameraVector.x) * camera.zoom + ctx.canvas.width / 2;
-        const screenY = (this.asset.y - camera.cameraVector.y) * camera.zoom + ctx.canvas.height / 2;
+        const worldPos = this.spriteVector || new MathUtilities.Vector2(this.asset.x, this.asset.y);
+        const worldDelta = MathUtilities.Vector2.subtract(worldPos, camera.cameraVector);
+        const scaled = MathUtilities.Vector2.multiply(worldDelta, camera.zoom);
+        const screenPos = MathUtilities.Vector2.add(scaled, MathUtilities.Vector2.duplicate(ctx.canvas.width / 2));
 
-        ctx.translate(screenX, screenY);
+        ctx.translate(screenPos.x, screenPos.y);
         ctx.rotate(this.asset.rotation);
     
         // Draw triangular spacecraft shape

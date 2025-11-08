@@ -1,7 +1,7 @@
 const MathUtilities = {
     Vector2: class Vector2 {
         // CONSTRUCTION & INITIALIZATION
-        
+
         // Creates a new Vector2 with x and y coordinates (default: 0, 0)
         constructor(x = 0, y = 0) {
             this.x = x;
@@ -25,6 +25,11 @@ const MathUtilities = {
         // Creates a copy of this vector
         clone() {
             return new Vector2(this.x, this.y);
+        }
+
+        // Creates a vector with both components set to the same scalar `w`
+        static duplicate(scalar) {
+            return new Vector2(scalar, scalar);
         }
 
         // Creates a vector from an angle (radians) and length
@@ -344,7 +349,7 @@ const MathUtilities = {
 
         // Checks if this vector equals another vector (with tolerance for floating point)
         equals(v, epsilon = 0.0001) {
-            return Math.abs(this.x - v.x) < epsilon && 
+            return Math.abs(this.x - v.x) < epsilon &&
                    Math.abs(this.y - v.y) < epsilon;
         }
 
