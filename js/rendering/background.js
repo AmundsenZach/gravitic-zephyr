@@ -9,8 +9,8 @@ class Background {
         // Generate each star
         for (let loop = 0; loop < density; loop++) {
             // Calculate star position with parallax effect
-            const x = ((Math.sin(loop) * 10000 - camera.x * 0.1) % ctx.canvas.width + ctx.canvas.width) % ctx.canvas.width;
-            const y = ((Math.cos(loop) * 10000 - camera.y * 0.1) % ctx.canvas.height + ctx.canvas.height) % ctx.canvas.height;
+            const x = ((Math.sin(loop) * 10000 - camera.cameraVector.x * 0.1) % ctx.canvas.width + ctx.canvas.width) % ctx.canvas.width;
+            const y = ((Math.cos(loop) * 10000 - camera.cameraVector.y * 0.1) % ctx.canvas.height + ctx.canvas.height) % ctx.canvas.height;
 
             // 0.5% chance for a larger 3px star, otherwise 1px
             const size = Math.random() < 0.005 ? 3 : 1;

@@ -5,8 +5,8 @@ class CelestialSprite {
 
     drawBody(ctx, camera) {
         // Convert world coordinates to screen coordinates
-        const screenX = (this.x - camera.x) * camera.zoom + ctx.canvas.width / 2;
-        const screenY = (this.y - camera.y) * camera.zoom + ctx.canvas.height / 2;
+        const screenX = (this.x - camera.cameraVector.x) * camera.zoom + ctx.canvas.width / 2; // Use Vector2 in future
+        const screenY = (this.y - camera.cameraVector.y) * camera.zoom + ctx.canvas.height / 2;
 
         // Create glowing effect using radial gradient
         const gradient = ctx.createRadialGradient(
@@ -33,8 +33,8 @@ class CelestialSprite {
 
     drawSOI(ctx, camera) {
         // Convert world coordinates to screen coordinates
-        const screenX = (this.x - camera.x) * camera.zoom + ctx.canvas.width / 2;
-        const screenY = (this.y - camera.y) * camera.zoom + ctx.canvas.height / 2;
+        const screenX = (this.x - camera.cameraVector.x) * camera.zoom + ctx.canvas.width / 2;
+        const screenY = (this.y - camera.cameraVector.y) * camera.zoom + ctx.canvas.height / 2;
 
         // Draw sphere of influence as dashed circle
         ctx.lineWidth = 2 / camera.zoom;
