@@ -33,9 +33,7 @@ class Camera {
         // Main update loop - runs every frame
         window.engineEvent.on('gameTick', () => {
             // If following a target, update camera position
-            if (this.isFollowing && this.target) {
-                this.follow(this.target);
-            }
+            if (this.isFollowing && this.target) this.follow(this.target);
 
             // Always update zoom (works in both modes)
             this.updateZoom();
@@ -43,9 +41,7 @@ class Camera {
 
         // Continuous actions (held keys) - only process if not following
         window.engineEvent.on('actionActive', (data) => {
-            if (!this.isFollowing) {
-                this.handleContinuousAction(data.action);
-            }
+            if (!this.isFollowing) this.handleContinuousAction(data.action);
         });
 
         // One-shot actions (key press events)
@@ -59,9 +55,9 @@ class Camera {
         });
     }
 
+    // Continuous actions
     handleContinuousAction(action) {
         // Camera movement
-        //if (action === 'cameraMoveUp') this.y -= this.adjustedMoveSpeed;
         if (action === 'cameraMoveUp') this.cameraVector.y -= this.adjustedMoveSpeed;
         if (action === 'cameraMoveDown') this.cameraVector.y += this.adjustedMoveSpeed;
         if (action === 'cameraMoveLeft') this.cameraVector.x -= this.adjustedMoveSpeed;
@@ -72,21 +68,14 @@ class Camera {
         if (action === 'zoomOut') this.targetZoom *= this.keyboardZoomOut;
     }
 
+    // One-shot actions
     handleAction(action) {
-        // Camera reset works in both modes
-        if (action === 'cameraReset') {
-            this.reset();
-        }
-
-        // Toggle following mode
-        if (action === 'toggleFollow') {
-            this.isFollowing = !this.isFollowing;
-            console.log(`Camera following: ${this.isFollowing}`);
-        }
+        if (action === 'cameraReset') this.reset();
+        if (action === 'toggleFollow') this.isFollowing = !this.isFollowing;
     }
 
+    // Smooth zoom interpolation
     updateZoom() {
-        // Smooth zoom interpolation
         this.targetZoom = Math.max(this.minZoom, Math.min(this.targetZoom, this.maxZoom));
         this.zoom += (this.targetZoom - this.zoom) * this.zoomSpeed;
         this.zoom = Math.max(this.minZoom, Math.min(this.zoom, this.maxZoom));
@@ -113,31 +102,16 @@ class Camera {
         }
     }
 
-    // Handle mouse wheel zoom
+    // Zoom in when scrolling up (negative deltaY), zoom out when scrolling down (positive deltaY)
     handleMouseWheel(deltaY) {
-        // Zoom in when scrolling up (negative deltaY), zoom out when scrolling down (positive deltaY)
         this.targetZoom *= deltaY > 0 ? this.mouseZoomOut : this.mouseZoomIn;
     }
 
     // Get screen position from world position
-    worldToScreen(worldVector, canvas) {
-        const screenVector = (worldVector - this.cameraVector) * MathUtilities.Vector2.duplicate(this.zoom + canvas.width / 2);
-
-        return {
-            x: screenVector.x,
-            y: screenVector.y
-        };
-    }
-
-    // Get world position from screen position
-    screenToWorld(screenVector, canvas) {
-        const worldX = (screenVector.x - canvas.width / 2) / this.zoom + this.cameraVector.x;
-        const worldY = (screenVector.y - canvas.height / 2) / this.zoom + this.cameraVector.y;
-
-        return {
-            x: worldX,
-            y: worldY
-        };
+    worldToScreen(vector, canvas) {
+        const worldDelta = MathUtilities.Vector2.subtract(vector, this.cameraVector);
+        const scaled = MathUtilities.Vector2.multiply(worldDelta, this.zoom);
+        return MathUtilities.Vector2.add(scaled, new MathUtilities.Vector2(canvas.width / 2, canvas.height / 2));
     }
 }
 

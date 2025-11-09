@@ -198,11 +198,6 @@ const MathUtilities = {
             );
         }
 
-        // Returns a perpendicular vector (rotated 90° counterclockwise)
-        perpendicular() {
-            return new Vector2(-this.y, this.x);
-        }
-
         // CONSTRAINTS & LIMITS
 
         // Clamps the vector's length between min and max
@@ -248,12 +243,6 @@ const MathUtilities = {
 
         static offset(eccentricity) {
             return Math.sqrt(1 - (eccentricity ** 2));
-        }
-
-        static screenPosition(vector, cameraVector, cameraZoom) {
-            const worldDelta = MathUtilities.Vector2.subtract(vector, cameraVector);
-            const scaled = MathUtilities.Vector2.multiply(worldDelta, cameraZoom);
-            return MathUtilities.Vector2.add(scaled, new MathUtilities.Vector2(ctx.canvas.width, ctx.canvas.height));
         }
     }
 };

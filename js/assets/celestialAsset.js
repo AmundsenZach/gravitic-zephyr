@@ -14,12 +14,10 @@ class CelestialAsset {
     }
 
     // Sets the position of stationary bodies (like a star)
-    setOrbitalStationary(assetVector) {
+    setOrbitalStationary(position) {
         // No parent body
         this.parentId = null;
-
-        // Direct position assignment
-        this.assetVector = assetVector; // Vector2 position
+        this.position = position; // Vector2 position
     }
 
     // Creates orbital characteristics of orbiting bodies
@@ -37,7 +35,7 @@ class CelestialAsset {
     // Returns the position of body, for parent-child coordination
     getOrbitalPosition() {
         return {
-            assetVector: this.assetVector
+            position: this.position
         }
     }
 
@@ -54,7 +52,7 @@ class CelestialAsset {
         // Calculate elliptical orbit TODO cleanup
         const offset = MathUtilities.Vector2.fromAngle(this.argumentOfPeriapsis, this.semiMajorAxis);
         offset.y *= MathUtilities.Operations.offset(this.eccentricity);
-        this.assetVector = MathUtilities.Vector2.add(this.parentId, offset);
+        this.position = MathUtilities.Vector2.add(this.parentId, offset);
     }
 }
 

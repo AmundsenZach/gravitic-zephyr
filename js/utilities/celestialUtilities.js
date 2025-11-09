@@ -54,17 +54,10 @@ class CelestialUtilities {
             // Add updatePosition if missing
             if (typeof asset.updatePosition !== 'function') {
                 asset.updatePosition = function(dt = 0) {
-                    // require an actual parent asset object
-                    if (!this.parent) {
-                        return;
-                    }
-
-                    if (this.angularSpeed) {
-                        this.angle += this.angularSpeed * dt;
-                    }
-
+                    // Require an actual parent asset object
+                    if (!this.parent) return;
+                    if (this.angularSpeed) this.angle += this.angularSpeed * dt;
                     // Calculate position in orbit as a Vector2
-
                 };
             }
 
@@ -75,7 +68,7 @@ class CelestialUtilities {
             const sprite = new CelestialSprite({ id: asset.id });
 
             // Convert to Vector2 - use the asset's utilitiesVector (vector-first)
-            sprite.spriteVector = (asset.utilitiesVector && asset.utilitiesVector.clone) ? asset.utilitiesVector.clone() : new MathUtilities.Vector2(asset.x || 0, asset.y || 0);
+            sprite.position = (asset.position && asset.position.clone) ? asset.position.clone() : new MathUtilities.Vector2(asset.x || 0, asset.y || 0);
 
             sprite.innerColor = asset.innerColor;
             sprite.outerColor = asset.outerColor;
@@ -93,18 +86,14 @@ class CelestialUtilities {
     // Update all celestial positions and sync to sprites
     update(dt) {
         this.assets.forEach(asset => {
-            if (typeof asset.updatePosition === 'function') {
-                asset.updatePosition(dt);
-            }
+            if (typeof asset.updatePosition === 'function') asset.updatePosition(dt);
 
             const sprite = this.spriteMap.get(asset);
+
             if (sprite) {
                 // use the vector representation instead of direct x/y
-                if (asset.utilitiesVector) {
-                    sprite.spriteVector = asset.utilitiesVector.clone();
-                } else {
-                    sprite.spriteVector = new MathUtilities.Vector2(asset.x || 0, asset.y || 0);
-                }
+                if (asset.utilitiesVector) sprite.position = asset.position.clone();
+                else sprite.position = new MathUtilities.Vector2(asset.x || 0, asset.y || 0);
 
                 sprite.outerColor = asset.outerColor;
                 sprite.innerColor = asset.innerColor;
