@@ -4,7 +4,7 @@
       "id": "0000",
       "name": "sun",
 
-      "radius": 200,
+      "radius": 700,
       "mass": 50000,
 
       "outerColor": "#ffff00",
@@ -18,7 +18,7 @@
       "id": "0001",
       "name": "mercury",
 
-      "radius": 10,
+      "radius": 25,
       "mass": 1000,
 
       "outerColor": "#ff9966",
@@ -27,7 +27,7 @@
       "orbit": {
         "parentId": "0000",
 
-        "height": 500,
+        "height": 5800,
         "startAngle": 270
       }
     },
@@ -35,7 +35,7 @@
       "id": "0002",
       "name": "venus",
 
-      "radius": 20,
+      "radius": 60,
       "mass": 800,
 
       "outerColor": "#ff6600",
@@ -44,7 +44,7 @@
       "orbit": {
         "parentId": "0000",
 
-        "height": 1000,
+        "height": 10800,
         "startAngle": 270
       }
     },
@@ -52,7 +52,7 @@
       "id": "0003",
       "name": "earth",
       
-      "radius": 30,
+      "radius":65,
       "mass": 800,
 
       "outerColor": "#3399ff",
@@ -61,7 +61,7 @@
       "orbit": {
         "parentId": "0000",
 
-        "height": 2000,
+        "height": 15000,
         "startAngle": 270
       }
     },
@@ -69,7 +69,7 @@
       "id": "0004",
       "name": "mars",
 
-      "radius": 20,
+      "radius": 35,
       "mass": 800,
 
       "outerColor": "#cc5200",
@@ -78,75 +78,7 @@
       "orbit": {
         "parentId": "0000",
         
-        "height": 4000,
-        "startAngle": 270
-      }
-    },
-    {
-      "id": "0005",
-      "name": "jupiter",
-
-      "radius": 150,
-      "mass": 200,
-
-      "outerColor": "#cc6600",
-      "innerColor": "#cc6600",
-
-      "orbit": {
-        "parentId": "0000",
-        
-        "height": 8000,
-        "startAngle": 270
-      }
-    },
-    {
-      "id": "0006",
-      "name": "saturn",
-
-      "radius": 100,
-      "mass": 100,
-
-      "outerColor": "#ff9933",
-      "innerColor": "#ff9933",
-
-      "orbit": {
-        "parentId": "0000",
-        
-        "height": 16000,
-        "startAngle": 270
-      }
-    },
-    {
-      "id": "0007",
-      "name": "uranus",
-
-      "radius": 75,
-      "mass": 50,
-
-      "outerColor": "#33ccff",
-      "innerColor": "#33ccff",
-
-      "orbit": {
-        "parentId": "0000",
-
-        "height": 32000,
-        "startAngle": 270
-      }
-    },
-    {
-      "id": "0008",
-      "name": "neptune",
-
-      "radius": 65,
-      "mass": 25,
-
-      "outerColor": "#0000ff",
-      "innerColor": "#0000ff",
-
-      "orbit": {
-        "parentId": "0000",
-
-        "height": 64000,
+        "height": 22800,
         "startAngle": 270
       }
     }

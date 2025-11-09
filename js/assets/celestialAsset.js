@@ -1,5 +1,4 @@
 class CelestialAsset {
-    // Hard-coded bodies will be stored in "celestialDebug"
     constructor(config) {
         this.id = config.id; // Identifying name of body
     }
@@ -63,7 +62,7 @@ class CelestialAsset {
             this.angle += this.angularSpeed * dt;
         }
 
-        // Calculate elliptical orbit
+        // Calculate elliptical orbit TODO cleanup
         const offset = MathUtilities.Vector2.fromAngle(this.angle, this.height);
         offset.y *= Math.sqrt(1 - (this.eccentricity || 0) ** 2);
         const assetVector = MathUtilities.Vector2.add(this.parent, offset);
