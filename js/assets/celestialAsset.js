@@ -1,61 +1,47 @@
 class CelestialAsset {
     constructor(config) {
         this.id = config.id; // Identifying name of body
+        this.name = config.name || "Unnamed Celestial"; // Fallback, but unnecessary
+        this.mass = config.mass; // Should be a constructor characteristic, as mass can exist without a visible body
     }
 
     // Creates a visible body
-    setVisibleBody(radius, mass, outerColor, innerColor) {
-        // Base body characteristics
-        this.radius = radius;
-        this.mass = mass;
-
+    setVisibleBody(outerColor, innerColor, radius) {
         // Base visual characteristics
-        this.outerColor = outerColor; // Color of crust
+        this.outerColor = outerColor; // Color of crust and SOI
         this.innerColor = innerColor; // Color of body
-    }
-
-    setNullBody(mass) {
-        this.mass = mass;
+        this.radius = radius; // Visual radius (pixels)
     }
 
     // Sets the position of stationary bodies (like a star)
-    setOrbitalStationary(x, y) {
-        this.x = x;
-        this.y = y;
-        this.parent = null;
+    setOrbitalStationary(assetVector) {
+        this.assetVector = assetVector; // Vector2 position
+        this.parentId = null;
     }
 
     // Creates orbital characteristics of orbiting bodies
-    setOrbitalBody(parent, height, startAngle = 0, eccentricity = 0) {
-        this.parent = parent;
+    setOrbitalBody(parentId, semiMajorAxis, argumentOfPeriapsis, eccentricity, meanAnomaly) {
+        // Parent body - can reference another orbiting body
+        this.parentId = parentId;
 
-        // Orbital parameters
-        this.height = height; // semi-major axis (pixels)
-        this.angle = (startAngle % 360) * Math.PI / 180; // stored in radians
-        this.eccentricity = eccentricity; // simplifies the logic for circular orbits only
-
-        // Calculate orbital speed from physics: v = sqrt(GM/r)
-        const G = 0.1; // Gravitational constant (tune for gameplay)
-        const tempMultiplier = 500; // Time scaling factor
-        const linearSpeed = Math.sqrt(G * parent.mass / height);
-        this.angularSpeed = linearSpeed / height * tempMultiplier; // radians per second
-
-        // initialize position
-        this.updatePosition(0);
+        // Orbital characteristics for elliptical orbits
+        this.semiMajorAxis = semiMajorAxis;
+        this.argumentOfPeriapsis = MathUtilities.Operations.convertToRadians(argumentOfPeriapsis); // Converted and stored in radians
+        this.eccentricity = eccentricity;
+        this.meanAnomaly = MathUtilities.Operations.convertToRadians(meanAnomaly); // Converted and stored in radians
     }
 
     // Returns the position of body, for parent-child coordination
     getOrbitalPosition() {
         return {
-            x: this.x,
-            y: this.y
+            assetVector: this.assetVector
         }
     }
 
     // Updates the position of orbiting bodies based on time
     updatePosition(dt) {
         // Stationary bodies don't move
-        if (!this.parent) return;
+        if (!this.parentId) return;
 
         // Update angle based on angular speed
         if (this.angularSpeed) {
@@ -63,13 +49,9 @@ class CelestialAsset {
         }
 
         // Calculate elliptical orbit TODO cleanup
-        const offset = MathUtilities.Vector2.fromAngle(this.angle, this.height);
+        const offset = MathUtilities.Vector2.fromAngle(this.argumentOfPeriapsis, this.semiMajorAxis);
         offset.y *= Math.sqrt(1 - (this.eccentricity || 0) ** 2);
-        const assetVector = MathUtilities.Vector2.add(this.parent, offset);
-
-        this.x = assetVector.x; // Maintain for backward compatibility
-        this.y = assetVector.y; // Will use Vector2 in future
-        this.assetVector = assetVector;
+        this.assetVector = MathUtilities.Vector2.add(this.parentId, offset);
     }
 }
 

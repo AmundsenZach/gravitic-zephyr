@@ -3,83 +3,57 @@
     {
       "id": "0000",
       "name": "sun",
-
-      "radius": 700,
       "mass": 50000,
 
-      "outerColor": "#ffff00",
-      "innerColor": "#ffff00",
+      "setVisibleBody": {
+        "outerColor": "#ffff00",
+        "innerColor": "#ffff00",
+        "radius": 700
+      },
 
-      "stationary": true,
-      "x": -500,
-      "y": -750
+      "setOrbitalStationary": {
+        "x": 0,
+        "y": 0
+      }
     },
     {
       "id": "0001",
       "name": "mercury",
+      "mass": 500,
 
-      "radius": 25,
-      "mass": 1000,
+      "setVisibleBody": {
+        "outerColor": "#ff9966",
+        "innerColor": "#ff9966",
+        "radius": 25
+      },
 
-      "outerColor": "#ff9966",
-      "innerColor": "#ff9966",
-
-      "orbit": {
+      "setOrbitalBody": {
         "parentId": "0000",
 
-        "height": 5800,
-        "startAngle": 270
+        "semiMajorAxis": 5800,
+        "argumentOfPeriapsis": 90,
+        "eccentricity": 0,
+        "meanAnomaly": 270
       }
     },
     {
       "id": "0002",
       "name": "venus",
-
-      "radius": 60,
       "mass": 800,
 
-      "outerColor": "#ff6600",
-      "innerColor": "#ff6600",
+      "setVisibleBody": {
+        "outerColor": "#ff6600",
+        "innerColor": "#ff6600",
+        "radius": 60
+      },
 
-      "orbit": {
+      "setOrbitalBody": {
         "parentId": "0000",
 
-        "height": 10800,
-        "startAngle": 270
-      }
-    },
-    {
-      "id": "0003",
-      "name": "earth",
-      
-      "radius":65,
-      "mass": 800,
-
-      "outerColor": "#3399ff",
-      "innerColor": "#3399ff",
-
-      "orbit": {
-        "parentId": "0000",
-
-        "height": 15000,
-        "startAngle": 270
-      }
-    },
-    {
-      "id": "0004",
-      "name": "mars",
-
-      "radius": 35,
-      "mass": 800,
-
-      "outerColor": "#cc5200",
-      "innerColor": "#cc5200",
-
-      "orbit": {
-        "parentId": "0000",
-        
-        "height": 22800,
-        "startAngle": 270
+        "semiMajorAxis": 6500,
+        "argumentOfPeriapsis": 90,
+        "eccentricity": 0,
+        "meanAnomaly": 270
       }
     }
   ]

@@ -12,9 +12,10 @@ class CelestialUtilities {
 
         // First pass: create all assets
         celestials.forEach(data => {
-            const asset = new CelestialAsset({id: data.id});
+            const asset = new CelestialAsset({ id: data.id });
             asset.name = data.name;
-            asset.setVisibleBody(data.radius, data.mass, data.outerColor, data.innerColor);
+            asset.setVisibleBody(data.outerColor, data.innerColor, data.radius);
+            // TODO Add fallback for non-visible bodies that still have mass properties
 
             // Store for parent resolution
             this.assetMap.set(data.id, asset);
@@ -25,16 +26,17 @@ class CelestialUtilities {
         celestials.forEach((data, index) => {
             const asset = this.assets[index];
 
-            if (data.stationary) {
+            if (data.setOrbitalStationary) {
                 asset.setOrbitalStationary(data.x || 0, data.y || 0);
-            } else if (data.orbit) {
-                const parent = this.assetMap.get(data.orbit.parentId);
-                if (parent) {
+            } else if (data.setOrbitalBody) {
+                const parentId = this.assetMap.get(data.orbit.parentId);
+                if (parentId) {
                     asset.setOrbitalBody(
-                        parent,
-                        data.orbit.height,
-                        data.orbit.startAngle || 0,
-                        data.orbit.eccentricity || 0
+                        parentId,
+                        data.setOrbitalBody.semiMajorAxis,
+                        data.argumentOfPeriapsis || 0,
+                        data.orbit.eccentricity || 0,
+                        data.orbit.meanAnomaly || 0
                     );
                 } else {
                     console.warn(`Parent ${data.orbit.parentId} not found for ${data.id}`);
@@ -44,7 +46,7 @@ class CelestialUtilities {
             // Add updatePosition if missing
             if (typeof asset.updatePosition !== 'function') {
                 asset.updatePosition = function(dt = 0) {
-                    if (!this.parent) {
+                    if (!this.parentId) {
                         return;
                     }
 
@@ -65,12 +67,13 @@ class CelestialUtilities {
             // Create sprite and link it to the asset
             const sprite = new CelestialSprite({ id: asset.id });
 
+            // Convert to Vector2
             sprite.spriteVector = new MathUtilities.Vector2(asset.x, asset.y);
 
             sprite.innerColor = asset.innerColor;
             sprite.outerColor = asset.outerColor;
-
             sprite.radius = asset.radius;
+
             sprite.sphereOfInfluence = asset.sphereOfInfluence || (asset.radius * 10);
 
             this.sprites.push(sprite);

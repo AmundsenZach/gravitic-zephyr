@@ -242,15 +242,12 @@ const MathUtilities = {
         isZero(epsilon = 0.0001) {
             return Math.abs(this.x) < epsilon && Math.abs(this.y) < epsilon;
         }
+    },
 
-        // Converts the vector to an array [x, y]
-        toArray() {
-            return [this.x, this.y];
-        }
-
-        // Converts the vector to an object {x, y}
-        toObject() {
-            return { x: this.x, y: this.y };
+    // Additional math utilities can be added here
+    Operations: class Operations {
+        static convertToRadians(degrees) {
+            return (degrees % 360) * Math.PI / 180;
         }
     }
 };
