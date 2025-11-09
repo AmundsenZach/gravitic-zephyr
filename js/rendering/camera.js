@@ -5,7 +5,7 @@ class Camera {
     }
 
     initProperties() { // Move to separate configuration method?
-        this.cameraVector = new MathUtilities.Vector2(0, 0);
+        this.vector = new MathUtilities.Vector2(0, 0);
 
         this.zoom = 1;
         this.minZoom = 0.1;
@@ -58,10 +58,10 @@ class Camera {
     // Continuous actions
     handleContinuousAction(action) {
         // Camera movement
-        if (action === 'cameraMoveUp') this.cameraVector.y -= this.adjustedMoveSpeed;
-        if (action === 'cameraMoveDown') this.cameraVector.y += this.adjustedMoveSpeed;
-        if (action === 'cameraMoveLeft') this.cameraVector.x -= this.adjustedMoveSpeed;
-        if (action === 'cameraMoveRight') this.cameraVector.x += this.adjustedMoveSpeed;
+        if (action === 'cameraMoveUp') this.vector.y -= this.adjustedMoveSpeed;
+        if (action === 'cameraMoveDown') this.vector.y += this.adjustedMoveSpeed;
+        if (action === 'cameraMoveLeft') this.vector.x -= this.adjustedMoveSpeed;
+        if (action === 'cameraMoveRight') this.vector.x += this.adjustedMoveSpeed;
 
         // Zoom
         if (action === 'zoomIn') this.targetZoom *= this.keyboardZoomIn;
@@ -82,7 +82,7 @@ class Camera {
     }
 
     reset() {
-        this.cameraVector = new MathUtilities.Vector2(0, 0);
+        this.vector = new MathUtilities.Vector2(0, 0);
         this.targetZoom = 1;
         console.log('Camera reset to origin');
     }
@@ -98,7 +98,7 @@ class Camera {
     // Moves camera to target position (when following)
     follow(target) {
         if (target && target.x !== undefined && target.y !== undefined) {
-            this.cameraVector = new MathUtilities.Vector2(target.x, target.y);
+            this.vector = new MathUtilities.Vector2(target.x, target.y);
         }
     }
 
@@ -109,7 +109,7 @@ class Camera {
 
     // Get screen position from world position
     worldToScreen(vector, canvas) {
-        const worldDelta = MathUtilities.Vector2.subtract(vector, this.cameraVector);
+        const worldDelta = MathUtilities.Vector2.subtract(vector, this.vector);
         const scaled = MathUtilities.Vector2.multiply(worldDelta, this.zoom);
         return MathUtilities.Vector2.add(scaled, new MathUtilities.Vector2(canvas.width / 2, canvas.height / 2));
     }

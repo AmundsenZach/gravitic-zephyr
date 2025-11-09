@@ -14,8 +14,7 @@ class GameStart {
             window.celestialSprites = window.celestialSystem.sprites;
             
             // Create spacecraft
-            window.spacecraftAsset = new SpacecraftAsset(0, -200);
-            window.spacecraftAsset.vector = new MathUtilities.Vector2(1, 0);
+            window.spacecraftAsset = new SpacecraftAsset(new MathUtilities.Vector2(0, -200));
             window.spacecraftAsset.rotation = Math.PI / 2;
             
             window.spacecraftSprite = new SpacecraftSprite(window.spacecraftAsset);

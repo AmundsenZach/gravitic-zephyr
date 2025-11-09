@@ -24,7 +24,7 @@ class Rendering {
         this.ctx.setTransform(1, 0, 0, 1, 0, 0);
         this.ctx.translate(canvasWidth / 2, canvasHeight / 2);
         this.ctx.scale(this.camera.zoom, this.camera.zoom);
-        this.ctx.translate(-this.camera.cameraVector.x, -this.camera.cameraVector.y);
+        this.ctx.translate(-this.camera.vector.x, -this.camera.vector.y);
     }
 
     // Renders the starfield background

@@ -33,8 +33,10 @@ class CelestialUtilities {
 
             if (data.setOrbitalStationary) {
                 asset.setOrbitalStationary(
-                    data.setOrbitalStationary.x,
-                    data.setOrbitalStationary.y
+                    new MathUtilities.Vector2(
+                        data.setOrbitalStationary.x,
+                        data.setOrbitalStationary.y
+                    )
                 );
             } else if (data.setOrbitalBody) {
                 const parentAsset = this.assetMap.get(data.setOrbitalBody.parentId);
@@ -68,13 +70,13 @@ class CelestialUtilities {
             const sprite = new CelestialSprite({ id: asset.id });
 
             // Convert to Vector2 - use the asset's utilitiesVector (vector-first)
-            sprite.position = (asset.position && asset.position.clone) ? asset.position.clone() : new MathUtilities.Vector2(asset.x || 0, asset.y || 0);
+            sprite.position = asset.position;
 
             sprite.innerColor = asset.innerColor;
             sprite.outerColor = asset.outerColor;
             sprite.radius = asset.radius;
 
-            sprite.sphereOfInfluence = asset.sphereOfInfluence || (asset.radius * 10);
+            sprite.sphereOfInfluence = asset.radius * 10;
 
             this.sprites.push(sprite);
             this.spriteMap.set(asset, sprite);
@@ -92,14 +94,13 @@ class CelestialUtilities {
 
             if (sprite) {
                 // use the vector representation instead of direct x/y
-                if (asset.utilitiesVector) sprite.position = asset.position.clone();
-                else sprite.position = new MathUtilities.Vector2(asset.x || 0, asset.y || 0);
+                sprite.position = asset.position;
 
                 sprite.outerColor = asset.outerColor;
                 sprite.innerColor = asset.innerColor;
 
                 sprite.radius = asset.radius;
-                sprite.sphereOfInfluence = asset.sphereOfInfluence || (asset.radius * 10);
+                sprite.sphereOfInfluence = asset.radius * 10;
             }
         });
     }

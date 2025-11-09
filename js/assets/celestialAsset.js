@@ -7,7 +7,6 @@ class CelestialAsset {
 
     // Creates a visible body
     setVisibleBody(outerColor, innerColor, radius) {
-        // Base visual characteristics
         this.outerColor = outerColor; // Color of crust and SOI
         this.innerColor = innerColor; // Color of body
         this.radius = radius; // Visual radius (pixels)
@@ -15,20 +14,17 @@ class CelestialAsset {
 
     // Sets the position of stationary bodies (like a star)
     setOrbitalStationary(position) {
-        // No parent body
         this.parentId = null;
         this.position = position; // Vector2 position
     }
 
     // Creates orbital characteristics of orbiting bodies
     setOrbitalBody(parentId, semiMajorAxis, argumentOfPeriapsis, eccentricity, meanAnomaly) {
-        // Parent body - can reference another orbiting body
         this.parentId = parentId;
 
-        // Orbital characteristics for elliptical orbits
         this.semiMajorAxis = semiMajorAxis;
         this.argumentOfPeriapsis = MathUtilities.Operations.convertToRadians(argumentOfPeriapsis); // Converted and stored in radians
-        this.eccentricity = eccentricity;
+        this.eccentricity = eccentricity || 0; // Default to circular if no value provided
         this.meanAnomaly = MathUtilities.Operations.convertToRadians(meanAnomaly); // Converted and stored in radians
     }
 
@@ -52,7 +48,7 @@ class CelestialAsset {
         // Calculate elliptical orbit TODO cleanup
         const offset = MathUtilities.Vector2.fromAngle(this.argumentOfPeriapsis, this.semiMajorAxis);
         offset.y *= MathUtilities.Operations.offset(this.eccentricity);
-        this.position = MathUtilities.Vector2.add(this.parentId, offset);
+        this.position = MathUtilities.Vector2.add(this.parentId.position, offset);
     }
 }
 

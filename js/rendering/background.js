@@ -11,8 +11,8 @@ class Background {
             // Calculate star position with parallax effect
             const angleVector = MathUtilities.Vector2.fromAngle(loop, 10000);
             const canvasVector = new MathUtilities.Vector2(ctx.canvas.width, ctx.canvas.height);
-            const x = ((angleVector.x - camera.cameraVector.x * 0.1) % canvasVector.x + canvasVector.x) % canvasVector.x;
-            const y = ((angleVector.y - camera.cameraVector.y * 0.1) % canvasVector.y + canvasVector.y) % canvasVector.y;
+            const x = ((angleVector.x - camera.vector.x * 0.1) % canvasVector.x + canvasVector.x) % canvasVector.x;
+            const y = ((angleVector.y - camera.vector.y * 0.1) % canvasVector.y + canvasVector.y) % canvasVector.y;
 
             // 0.5% chance for a larger 3px star, otherwise 1px
             const size = Math.random() < 0.005 ? 3 : 1;
