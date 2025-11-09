@@ -1,8 +1,8 @@
 class CelestialAsset {
     constructor(config) {
         this.id = config.id; // Identifying name of body
-        this.name = config.name || "Unnamed Celestial"; // Fallback, but unnecessary
-        this.mass = config.mass; // Should be a constructor characteristic, as mass can exist without a visible body
+        this.name = config.name;
+        this.mass = config.mass;
     }
 
     // Creates a visible body
@@ -15,8 +15,11 @@ class CelestialAsset {
 
     // Sets the position of stationary bodies (like a star)
     setOrbitalStationary(assetVector) {
-        this.assetVector = assetVector; // Vector2 position
+        // No parent body
         this.parentId = null;
+
+        // Direct position assignment
+        this.assetVector = assetVector; // Vector2 position
     }
 
     // Creates orbital characteristics of orbiting bodies
@@ -50,7 +53,7 @@ class CelestialAsset {
 
         // Calculate elliptical orbit TODO cleanup
         const offset = MathUtilities.Vector2.fromAngle(this.argumentOfPeriapsis, this.semiMajorAxis);
-        offset.y *= Math.sqrt(1 - (this.eccentricity || 0) ** 2);
+        offset.y *= MathUtilities.Operations.offset(this.eccentricity);
         this.assetVector = MathUtilities.Vector2.add(this.parentId, offset);
     }
 }

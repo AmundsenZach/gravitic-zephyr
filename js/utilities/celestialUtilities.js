@@ -14,12 +14,17 @@ class CelestialUtilities {
         celestials.forEach(data => {
             const asset = new CelestialAsset({ id: data.id });
             asset.name = data.name;
-            asset.setVisibleBody(data.outerColor, data.innerColor, data.radius);
-            // TODO Add fallback for non-visible bodies that still have mass properties
 
-            // Store for parent resolution
             this.assetMap.set(data.id, asset);
             this.assets.push(asset);
+
+            if (data.setVisibleBody) {
+                asset.setVisibleBody(
+                    data.setVisibleBody.outerColor,
+                    data.setVisibleBody.innerColor,
+                    data.setVisibleBody.radius
+                );
+            }
         });
 
         // Second pass: set up positions/orbits (now all parents exist)
@@ -27,26 +32,30 @@ class CelestialUtilities {
             const asset = this.assets[index];
 
             if (data.setOrbitalStationary) {
-                asset.setOrbitalStationary(data.x || 0, data.y || 0);
+                asset.setOrbitalStationary(
+                    data.setOrbitalStationary.x,
+                    data.setOrbitalStationary.y
+                );
             } else if (data.setOrbitalBody) {
-                const parentId = this.assetMap.get(data.orbit.parentId);
-                if (parentId) {
+                const parentAsset = this.assetMap.get(data.setOrbitalBody.parentId);
+                if (parentAsset) {
                     asset.setOrbitalBody(
-                        parentId,
+                        parentAsset,
                         data.setOrbitalBody.semiMajorAxis,
-                        data.argumentOfPeriapsis || 0,
-                        data.orbit.eccentricity || 0,
-                        data.orbit.meanAnomaly || 0
+                        data.setOrbitalBody.argumentOfPeriapsis || 0,
+                        data.setOrbitalBody.eccentricity || 0,
+                        data.setOrbitalBody.meanAnomaly || 0
                     );
                 } else {
-                    console.warn(`Parent ${data.orbit.parentId} not found for ${data.id}`);
+                    console.warn(`Parent ${data.setOrbitalBody.parentId} not found for ${data.id}`);
                 }
             }
 
             // Add updatePosition if missing
             if (typeof asset.updatePosition !== 'function') {
                 asset.updatePosition = function(dt = 0) {
-                    if (!this.parentId) {
+                    // require an actual parent asset object
+                    if (!this.parent) {
                         return;
                     }
 
@@ -54,10 +63,8 @@ class CelestialUtilities {
                         this.angle += this.angularSpeed * dt;
                     }
 
-                    // Calculate position in orbit
-                    const offset = MathUtilities.Vector2.fromAngle(this.angle, this.height);
-                    offset.y *= Math.sqrt(1 - (this.eccentricity || 0) ** 2);
-                    this.utilitiesVector = MathUtilities.Vector2.add(this.parent, offset);
+                    // Calculate position in orbit as a Vector2
+
                 };
             }
 
@@ -67,8 +74,8 @@ class CelestialUtilities {
             // Create sprite and link it to the asset
             const sprite = new CelestialSprite({ id: asset.id });
 
-            // Convert to Vector2
-            sprite.spriteVector = new MathUtilities.Vector2(asset.x, asset.y);
+            // Convert to Vector2 - use the asset's utilitiesVector (vector-first)
+            sprite.spriteVector = (asset.utilitiesVector && asset.utilitiesVector.clone) ? asset.utilitiesVector.clone() : new MathUtilities.Vector2(asset.x || 0, asset.y || 0);
 
             sprite.innerColor = asset.innerColor;
             sprite.outerColor = asset.outerColor;
@@ -92,7 +99,12 @@ class CelestialUtilities {
 
             const sprite = this.spriteMap.get(asset);
             if (sprite) {
-                sprite.spriteVector = new MathUtilities.Vector2(asset.x, asset.y);
+                // use the vector representation instead of direct x/y
+                if (asset.utilitiesVector) {
+                    sprite.spriteVector = asset.utilitiesVector.clone();
+                } else {
+                    sprite.spriteVector = new MathUtilities.Vector2(asset.x || 0, asset.y || 0);
+                }
 
                 sprite.outerColor = asset.outerColor;
                 sprite.innerColor = asset.innerColor;

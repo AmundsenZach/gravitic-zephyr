@@ -15,13 +15,6 @@ const MathUtilities = {
             return this;
         }
 
-        // Resets the vector to (0, 0)
-        reset() {
-            this.x = 0;
-            this.y = 0;
-            return this;
-        }
-
         // Creates a copy of this vector
         clone() {
             return new Vector2(this.x, this.y);
@@ -234,8 +227,7 @@ const MathUtilities = {
 
         // Checks if this vector equals another vector (with tolerance for floating point)
         equals(v, epsilon = 0.0001) {
-            return Math.abs(this.x - v.x) < epsilon &&
-                   Math.abs(this.y - v.y) < epsilon;
+            return Math.abs(this.x - v.x) < epsilon && Math.abs(this.y - v.y) < epsilon;
         }
 
         // Checks if this vector is zero (with tolerance for floating point)
@@ -244,10 +236,24 @@ const MathUtilities = {
         }
     },
 
-    // Additional math utilities can be added here
+    Physics: class Physics {
+        // Placeholder for future physics-related vector operations, like Keplerian elements, gravitational calculations, etc.
+    },
+
+    // Additional math utilities can be added here. This is meant to consolidate common math functions.
     Operations: class Operations {
         static convertToRadians(degrees) {
             return (degrees % 360) * Math.PI / 180;
+        }
+
+        static offset(eccentricity) {
+            return Math.sqrt(1 - (eccentricity ** 2));
+        }
+
+        static screenPosition(vector, cameraVector, cameraZoom) {
+            const worldDelta = MathUtilities.Vector2.subtract(vector, cameraVector);
+            const scaled = MathUtilities.Vector2.multiply(worldDelta, cameraZoom);
+            return MathUtilities.Vector2.add(scaled, new MathUtilities.Vector2(ctx.canvas.width, ctx.canvas.height));
         }
     }
 };
