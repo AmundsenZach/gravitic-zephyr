@@ -31,6 +31,8 @@ class Rendering {
 
     // Render all celestial bodies
     static renderCelestialBodies() {
+        if (!window.celestialSprites) return;
+
         for (const sprite of window.celestialSprites) {
             if (typeof sprite.drawBody === 'function') {
                 sprite.drawBody(this.ctx, this.camera);
@@ -40,6 +42,8 @@ class Rendering {
 
     // Render all celestial spheres of influence
     static renderCelestialSOIs() {
+        if (!window.celestialSprites) return;
+
         for (const sprite of window.celestialSprites) {
             if (typeof sprite.drawSOI === 'function') {
                 sprite.drawSOI(this.ctx, this.camera);

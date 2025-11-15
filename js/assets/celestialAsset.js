@@ -7,9 +7,12 @@ class CelestialAsset {
 
     // Creates a visible body
     setVisibleBody(outerColor, innerColor, radius) {
-        this.outerColor = outerColor; // Color of crust and SOI
-        this.innerColor = innerColor; // Color of body
-        this.radius = radius; // Visual radius (pixels)
+        this.outerColor = outerColor;
+        this.innerColor = innerColor;
+        this.radius = radius;
+
+        // Approximate sphere of influence as 10x radius
+        this.sphereOfInfluence = radius * 10;
     }
 
     // Sets the position of stationary bodies (like a star)

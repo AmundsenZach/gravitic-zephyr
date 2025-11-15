@@ -67,16 +67,7 @@ class CelestialUtilities {
             asset.updatePosition(0);
 
             // Create sprite and link it to the asset
-            const sprite = new CelestialSprite({ id: asset.id });
-
-            // Convert to Vector2 - use the asset's utilitiesVector (vector-first)
-            sprite.position = asset.position;
-
-            sprite.innerColor = asset.innerColor;
-            sprite.outerColor = asset.outerColor;
-            sprite.radius = asset.radius;
-
-            sprite.sphereOfInfluence = asset.radius * 10;
+            const sprite = new CelestialSprite(asset);
 
             this.sprites.push(sprite);
             this.spriteMap.set(asset, sprite);
@@ -88,20 +79,7 @@ class CelestialUtilities {
     // Update all celestial positions and sync to sprites
     update(dt) {
         this.assets.forEach(asset => {
-            if (typeof asset.updatePosition === 'function') asset.updatePosition(dt);
-
-            const sprite = this.spriteMap.get(asset);
-
-            if (sprite) {
-                // use the vector representation instead of direct x/y
-                sprite.position = asset.position;
-
-                sprite.outerColor = asset.outerColor;
-                sprite.innerColor = asset.innerColor;
-
-                sprite.radius = asset.radius;
-                sprite.sphereOfInfluence = asset.radius * 10;
-            }
+            asset.updatePosition(dt);
         });
     }
 

@@ -106,13 +106,6 @@ class Camera {
     handleMouseWheel(deltaY) {
         this.targetZoom *= deltaY > 0 ? this.mouseZoomOut : this.mouseZoomIn;
     }
-
-    // Get screen position from world position
-    worldToScreen(vector, canvas) {
-        const worldDelta = MathUtilities.Vector2.subtract(vector, this.vector);
-        const scaled = MathUtilities.Vector2.multiply(worldDelta, this.zoom);
-        return MathUtilities.Vector2.add(scaled, new MathUtilities.Vector2(canvas.width / 2, canvas.height / 2));
-    }
 }
 
 window.Camera = Camera;

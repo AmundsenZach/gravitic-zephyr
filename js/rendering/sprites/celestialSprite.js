@@ -1,44 +1,31 @@
 class CelestialSprite {
-    constructor(config) {
-        this.id = config.id;
+    constructor(asset) {
+        this.asset = asset;  // Just store reference
     }
 
     drawBody(ctx, camera) {
-        // Convert world coordinates to screen coordinates
-        const screenPosition = camera.worldToScreen(this.position, ctx.canvas); // TODO: Only use ctx methods
-
-        // Create glowing effect using radial gradient
-        const gradient = ctx.createRadialGradient(
-            screenPosition.x, screenPosition.y, this.radius * camera.zoom * 0.5,
-            screenPosition.x, screenPosition.y, this.radius * camera.zoom
-        );
-
-        gradient.addColorStop(0, this.innerColor + '75'); // Semi-transparent inner
-        gradient.addColorStop(1, this.innerColor + '50'); // Transparent outer
-
-        // Draw the glow
-        ctx.fillStyle = gradient;
+        ctx.fillStyle = this.asset.innerColor + '75';
         ctx.beginPath();
-        ctx.arc(screenPosition.x, screenPosition.y, this.radius * camera.zoom, 0, Math.PI * 2);
+        ctx.arc(this.asset.position.x, this.asset.position.y, this.asset.radius, 0, Math.PI * 2);
         ctx.fill();
 
-        // Draw the planet's outline
         ctx.lineWidth = 2 / camera.zoom;
-        ctx.strokeStyle = this.outerColor;
+        ctx.strokeStyle = this.asset.outerColor;
         ctx.beginPath();
-        ctx.arc(screenPosition.x, screenPosition.y, this.radius * camera.zoom, 0, Math.PI * 2);
+        ctx.arc(this.asset.position.x, this.asset.position.y, this.asset.radius, 0, Math.PI * 2);
         ctx.stroke();
     }
 
     drawSOI(ctx, camera) {
-        const screenPosition = camera.worldToScreen(this.position, ctx.canvas); // TODO: Only use ctx methods
-
-        // Draw sphere of influence as dashed circle
         ctx.lineWidth = 2 / camera.zoom;
-        ctx.strokeStyle = this.outerColor + '75'; // Semi-transparent
-        ctx.setLineDash([10, 10]); // Dashed line pattern
+        ctx.strokeStyle = this.asset.outerColor + '75';
+
+        // Scale dashes with zoom - smaller dashes when zoomed out, larger when zoomed in
+        const dashSize = 10 / camera.zoom;
+        ctx.setLineDash([dashSize, dashSize]);
+
         ctx.beginPath();
-        ctx.arc(screenPosition.x, screenPosition.y, this.sphereOfInfluence * camera.zoom, Math.PI / 2, -Math.PI * 3 / 2);
+        ctx.arc(this.asset.position.x, this.asset.position.y, this.asset.sphereOfInfluence, Math.PI / 2, -Math.PI * 3 / 2);
         ctx.stroke();
         ctx.setLineDash([]); // Reset line style
     }
