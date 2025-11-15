@@ -6,16 +6,25 @@
     </head>
     <body>
         <canvas id="gameCanvas"></canvas>
-        
+
         <div class="userInterface">
             <div id="userStats">
                 Flight:<br>
             </div>
+            <div id="gameDebug">
+                Frame Rate: <span id="frameRate">0.00</span><br>
+                Frame Time: <span id="frameTime">0.00</span><br>
+                Average Frame Rate: <span id="averageFrameRate">0.00</span><br>
+                Average Frame Time: <span id="averageFrameTime">0.00</span><br>
+            </div>
             <div id="userControls">
                 Controls:<br>
             </div>
+            <div id="github">
+                <a id="githubLink" href="https://github.com/AmundsenZach/gravitic-zephyr/" target="blank">VISIT THE GITHUB PROJECT PAGE</a>
+            </div>
         </div>
-        
+
         <div id="scripts">
             <!-- assets -->
             <script src="js/assets/celestialAsset.js"></script>
@@ -41,12 +50,13 @@
 
             <script src="js/rendering/background.js"></script>
             <script src="js/rendering/camera.js"></script>
+            <script src="js/rendering/interface.js"></script>
             <script src="js/rendering/rendering.js"></script>
 
             <!-- utilites -->
             <script src="js/utilities/celestialUtilities.js"></script>
             <script src="js/utilities/mathUtilities.js"></script>
-            
+
             <!-- main -->
             <script src="js/main.js"></script>
         </div>

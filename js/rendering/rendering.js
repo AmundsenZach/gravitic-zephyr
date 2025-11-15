@@ -25,7 +25,7 @@ class Rendering {
     }
 
     // Renders the starfield background
-    static renderBackground() {
+    static renderBackground() { // TODO: Scrolling too fast, fix parallax calculation
         Background.drawStarfield(this.ctx, this.camera);
     }
 

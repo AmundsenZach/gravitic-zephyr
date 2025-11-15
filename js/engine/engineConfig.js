@@ -2,7 +2,7 @@ class EngineConfig {
     // Physics and simulation constants
     static TEMP_MULTIPLIER = 500; // Temporary gravitational constant multiplier for testing
     static G = 1;
-    static BACKGROUND_DENSITY = 1000;
+    static BACKGROUND_DENSITY = 2000;
 
     // Key mappings for actions
     static ACTION_MAPPINGS = {

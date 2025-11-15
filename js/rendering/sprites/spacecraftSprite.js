@@ -6,7 +6,7 @@ class SpacecraftSprite {
     draw(ctx, camera) {
         // Convert world coordinates to screen coordinates
         const position = this.asset.position
-        const screenPosition = MathUtilities.Vector2.screenPosition(position);
+        const screenPosition = camera.worldToScreen(position, ctx.canvas); // TODO: Only use ctx methods
 
         ctx.translate(screenPosition.x, screenPosition.y);
         ctx.rotate(this.asset.rotation);
