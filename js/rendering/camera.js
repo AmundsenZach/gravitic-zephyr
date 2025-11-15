@@ -5,7 +5,7 @@ class Camera {
     }
 
     initProperties() { // Move to separate configuration method?
-        this.cameraVector = new MathUtilities.Vector2(0, 0);
+        this.vector = new MathUtilities.Vector2(0, 0);
 
         this.zoom = 1;
         this.minZoom = 0.1;
@@ -62,10 +62,10 @@ class Camera {
     handleContinuousAction(action) {
         // Camera movement
         //if (action === 'cameraMoveUp') this.y -= this.adjustedMoveSpeed;
-        if (action === 'cameraMoveUp') this.cameraVector.y -= this.adjustedMoveSpeed;
-        if (action === 'cameraMoveDown') this.cameraVector.y += this.adjustedMoveSpeed;
-        if (action === 'cameraMoveLeft') this.cameraVector.x -= this.adjustedMoveSpeed;
-        if (action === 'cameraMoveRight') this.cameraVector.x += this.adjustedMoveSpeed;
+        if (action === 'cameraMoveUp') this.vector.y -= this.adjustedMoveSpeed;
+        if (action === 'cameraMoveDown') this.vector.y += this.adjustedMoveSpeed;
+        if (action === 'cameraMoveLeft') this.vector.x -= this.adjustedMoveSpeed;
+        if (action === 'cameraMoveRight') this.vector.x += this.adjustedMoveSpeed;
 
         // Zoom
         if (action === 'zoomIn') this.targetZoom *= this.keyboardZoomIn;
@@ -93,7 +93,7 @@ class Camera {
     }
 
     reset() {
-        this.cameraVector = new MathUtilities.Vector2(0, 0);
+        this.vector = new MathUtilities.Vector2(0, 0);
         this.targetZoom = 1;
         console.log('Camera reset to origin');
     }
@@ -109,7 +109,7 @@ class Camera {
     // Moves camera to target position (when following)
     follow(target) {
         if (target && target.x !== undefined && target.y !== undefined) {
-            this.cameraVector = new MathUtilities.Vector2(target.x, target.y);
+            this.vector = new MathUtilities.Vector2(target.x, target.y);
         }
     }
 
@@ -121,7 +121,7 @@ class Camera {
 
     // Get screen position from world position
     worldToScreen(worldVector, canvas) {
-        const screenVector = (worldVector - this.cameraVector) * MathUtilities.Vector2.duplicate(this.zoom + canvas.width / 2);
+        const screenVector = (worldVector - this.vector) * MathUtilities.Vector2.duplicate(this.zoom + canvas.width / 2);
 
         return {
             x: screenVector.x,
@@ -131,8 +131,8 @@ class Camera {
 
     // Get world position from screen position
     screenToWorld(screenVector, canvas) {
-        const worldX = (screenVector.x - canvas.width / 2) / this.zoom + this.cameraVector.x;
-        const worldY = (screenVector.y - canvas.height / 2) / this.zoom + this.cameraVector.y;
+        const worldX = (screenVector.x - canvas.width / 2) / this.zoom + this.vector.x;
+        const worldY = (screenVector.y - canvas.height / 2) / this.zoom + this.vector.y;
 
         return {
             x: worldX,

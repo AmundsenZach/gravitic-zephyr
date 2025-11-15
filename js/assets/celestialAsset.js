@@ -66,11 +66,11 @@ class CelestialAsset {
         // Calculate elliptical orbit
         const offset = MathUtilities.Vector2.fromAngle(this.angle, this.height);
         offset.y *= Math.sqrt(1 - (this.eccentricity || 0) ** 2);
-        const assetVector = MathUtilities.Vector2.add(this.parent, offset);
+        const vector = MathUtilities.Vector2.add(this.parent, offset);
 
-        this.x = assetVector.x; // Maintain for backward compatibility
-        this.y = assetVector.y; // Will use Vector2 in future
-        this.assetVector = assetVector;
+        this.x = vector.x; // Maintain for backward compatibility
+        this.y = vector.y; // Will use Vector2 in future
+        this.vector = vector;
     }
 }
 

@@ -1,7 +1,9 @@
 class SpacecraftAsset {
-    constructor(x, y) {
-        this.x = x;
-        this.y = y;
+    constructor(vector) {
+        this.x = vector.x;
+        this.y = vector.y;
+        this.vector = vector;
+
         this.rotation = 0;
     }
 }

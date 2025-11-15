@@ -5,7 +5,7 @@ class CelestialSprite {
 
     drawBody(ctx, camera) {
         const worldPos = this.spriteVector || new MathUtilities.Vector2(this.x, this.y);
-        const worldDelta = MathUtilities.Vector2.subtract(worldPos, camera.cameraVector);
+        const worldDelta = MathUtilities.Vector2.subtract(worldPos, camera.vector);
         const scaled = MathUtilities.Vector2.multiply(worldDelta, camera.zoom);
         const screenPos = MathUtilities.Vector2.add(scaled, MathUtilities.Vector2.duplicate(ctx.canvas.width / 2));
 
@@ -34,7 +34,7 @@ class CelestialSprite {
 
     drawSOI(ctx, camera) {
         const worldPos = this.spriteVector || new MathUtilities.Vector2(this.x, this.y);
-        const worldDelta = MathUtilities.Vector2.subtract(worldPos, camera.cameraVector);
+        const worldDelta = MathUtilities.Vector2.subtract(worldPos, camera.vector);
         const scaled = MathUtilities.Vector2.multiply(worldDelta, camera.zoom);
         const screenPos = MathUtilities.Vector2.add(scaled, MathUtilities.Vector2.duplicate(ctx.canvas.width / 2));
 

@@ -6,7 +6,7 @@ class SpacecraftSprite {
     draw(ctx, camera) {
         // Convert world coordinates to screen coordinates
         const worldPos = this.spriteVector || new MathUtilities.Vector2(this.asset.x, this.asset.y);
-        const worldDelta = MathUtilities.Vector2.subtract(worldPos, camera.cameraVector);
+        const worldDelta = MathUtilities.Vector2.subtract(worldPos, camera.vector);
         const scaled = MathUtilities.Vector2.multiply(worldDelta, camera.zoom);
         const screenPos = MathUtilities.Vector2.add(scaled, MathUtilities.Vector2.duplicate(ctx.canvas.width / 2));
 
