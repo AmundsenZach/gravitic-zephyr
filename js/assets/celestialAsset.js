@@ -45,10 +45,11 @@ class CelestialAsset {
             this.angle += this.angularSpeed * dt;
         }
 
+        this.position = this.parentId.position;
         // Calculate elliptical orbit TODO cleanup
-        const offset = MathUtilities.Vector2.fromAngle(this.argumentOfPeriapsis, this.semiMajorAxis);
-        offset.y *= MathUtilities.Operations.offset(this.eccentricity);
-        this.position = MathUtilities.Vector2.add(this.parentId.position, offset);
+        //const offset = MathUtilities.Vector2.fromAngle(this.argumentOfPeriapsis, this.semiMajorAxis);
+        //offset.y *= MathUtilities.Operations.offset(this.eccentricity);
+        //this.position = MathUtilities.Vector2.add(this.parentId.position, offset);
     }
 }
 

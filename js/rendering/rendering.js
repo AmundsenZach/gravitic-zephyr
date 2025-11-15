@@ -17,12 +17,9 @@ class Rendering {
     }
 
     static applyTransform() {
-        const canvasWidth = this.canvas.width;
-        const canvasHeight = this.canvas.height;
-        
         // Reset and apply camera transform
         this.ctx.setTransform(1, 0, 0, 1, 0, 0);
-        this.ctx.translate(canvasWidth / 2, canvasHeight / 2);
+        this.ctx.translate(this.canvas.width / 2, this.canvas.height / 2);
         this.ctx.scale(this.camera.zoom, this.camera.zoom);
         this.ctx.translate(-this.camera.vector.x, -this.camera.vector.y);
     }
@@ -34,10 +31,6 @@ class Rendering {
 
     // Render all celestial bodies
     static renderCelestialBodies() {
-        if (!window.celestialSprites || window.celestialSprites.length === 0) {
-            return;
-        }
-
         for (const sprite of window.celestialSprites) {
             if (typeof sprite.drawBody === 'function') {
                 sprite.drawBody(this.ctx, this.camera);
@@ -47,26 +40,9 @@ class Rendering {
 
     // Render all celestial spheres of influence
     static renderCelestialSOIs() {
-        if (!window.celestialSprites || window.celestialSprites.length === 0) {
-            return;
-        }
-
         for (const sprite of window.celestialSprites) {
             if (typeof sprite.drawSOI === 'function') {
                 sprite.drawSOI(this.ctx, this.camera);
-            }
-        }
-    }
-
-    // Render all spacecraft
-    static renderSpacecraft() {
-        if (!window.spacecraftSprites || window.spacecraftSprites.length === 0) {
-            return;
-        }
-
-        for (const sprite of window.spacecraftSprites) {
-            if (typeof sprite.draw === 'function') {
-                sprite.draw(this.ctx, this.camera);
             }
         }
     }
