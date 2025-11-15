@@ -5,10 +5,10 @@ class EngineConfig {
     static BACKGROUND_DENSITY = 2000;
 
     // Key mappings for actions
-    static ACTION_MAPPINGS = {
-        'thrustForward': ['ArrowUp', 'w'],
-        'rotateLeft': ['ArrowLeft', 'a'],
-        'rotateRight': ['ArrowRight', 'd'],
+    static KEYBOARD_PROPERTIES = {
+        'thrustForward': ['ArrowUp', 'w', 'W'],
+        'rotateLeft': ['ArrowLeft', 'a', 'A'],
+        'rotateRight': ['ArrowRight', 'd', 'D'],
 
         'cameraMoveUp': ['i', 'I'],
         'cameraMoveDown': ['k', 'K'],
@@ -21,6 +21,25 @@ class EngineConfig {
 
         'toggleFollow': ['f', 'F'],
         'toggleDebug': ['`', '~']
+    };
+
+    static CAMERA_PROPERTIES = {
+        zoom: 1,
+        minZoom: 0.1,
+        maxZoom: 5,
+
+        keyboardZoomIn: 1.02,
+        keyboardZoomOut: 0.98,
+
+        mouseZoomIn: 1.05,
+        mouseZoomOut: 0.8,
+
+        targetZoom: 1,
+        zoomSpeed: 0.025,
+
+        moveSpeed: 5,
+        isFollowing: false,
+        target: null
     };
 }
 

@@ -1,7 +1,7 @@
 class KeyboardInput {
     constructor() {
         this.keys = {};
-        this.actionMappings = EngineConfig.ACTION_MAPPINGS;
+        this.properties = EngineConfig.KEYBOARD_PROPERTIES;
         this.setupEventListeners();
     }
 
@@ -54,7 +54,7 @@ class KeyboardInput {
 
     // Check if this key maps to an action and emit the appropriate event
     emitActionEvent(key, eventType) {
-        for (const [action, keys] of Object.entries(this.actionMappings)) {
+        for (const [action, keys] of Object.entries(this.properties)) {
             if (keys.includes(key)) {
                 window.engineEvent.emit(eventType, { action, key });
             }
@@ -63,7 +63,7 @@ class KeyboardInput {
 
     // Determine if we should prevent default browser behavior
     shouldPreventDefault(key, event) {
-        const mappedKeys = Object.values(this.actionMappings).flat();
+        const mappedKeys = Object.values(this.properties).flat();
         return mappedKeys.includes(key) && !event.ctrlKey && !event.metaKey;
     }
 
