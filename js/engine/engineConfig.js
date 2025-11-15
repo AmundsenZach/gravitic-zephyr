@@ -24,7 +24,6 @@ class EngineConfig {
     };
 
     static CAMERA_PROPERTIES = {
-        zoom: 1,
         minZoom: 0.1,
         maxZoom: 5,
 
@@ -33,13 +32,9 @@ class EngineConfig {
 
         mouseZoomIn: 1.05,
         mouseZoomOut: 0.8,
-
-        targetZoom: 1,
         zoomSpeed: 0.025,
 
         moveSpeed: 5,
-        isFollowing: false,
-        target: null
     };
 }
 

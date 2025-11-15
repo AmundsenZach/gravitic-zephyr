@@ -1,20 +1,28 @@
 class Camera {
     constructor() {
-        ///this.initProperties();
+        this.constructorProperties();
         this.setupEventListeners();
         this.properties = EngineConfig.CAMERA_PROPERTIES;
         this.vector = new MathUtilities.Vector2(0, 0);
     }
 
+    constructorProperties() {
+        this.zoom = 1;
+        this.targetZoom = 1;
+
+        this.isFollowing = false;
+        this.target = null;
+    }
+
     get adjustedMoveSpeed() {
-        return this.properties.moveSpeed / this.properties.zoom;
+        return this.properties.moveSpeed / this.zoom;
     }
 
     setupEventListeners() {
         // Main update loop - runs every frame
         window.engineEvent.on('gameTick', () => {
             // If following a target, update camera position
-            if (this.properties.isFollowing && this.properties.target) this.follow(this.properties.target);
+            if (this.isFollowing && this.target) this.follow(this.target);
 
             // Always update zoom (works in both modes)
             this.updateZoom();
@@ -22,7 +30,7 @@ class Camera {
 
         // Continuous actions (held keys) - only process if not following
         window.engineEvent.on('actionActive', (data) => {
-            if (!this.properties.isFollowing) this.handleContinuousAction(data.action);
+            if (!this.isFollowing) this.handleContinuousAction(data.action);
         });
 
         // One-shot actions (key press events)
@@ -45,35 +53,35 @@ class Camera {
         if (action === 'cameraMoveRight') this.vector.x += this.adjustedMoveSpeed;
 
         // Zoom
-        if (action === 'zoomIn') this.properties.targetZoom *= this.properties.keyboardZoomIn;
-        if (action === 'zoomOut') this.properties.targetZoom *= this.properties.keyboardZoomOut;
+        if (action === 'zoomIn') this.targetZoom *= this.properties.keyboardZoomIn;
+        if (action === 'zoomOut') this.targetZoom *= this.properties.keyboardZoomOut;
     }
 
     // One-shot actions
     handleAction(action) {
         if (action === 'cameraReset') this.reset();
-        if (action === 'toggleFollow') this.properties.isFollowing = !this.properties.isFollowing;
+        if (action === 'toggleFollow') this.isFollowing = !this.isFollowing;
     }
 
     // Smooth zoom interpolation
     updateZoom() {
-        this.properties.targetZoom = Math.max(this.properties.minZoom, Math.min(this.properties.targetZoom, this.properties.maxZoom));
-        this.properties.zoom += (this.properties.targetZoom - this.properties.zoom) * this.properties.zoomSpeed;
-        this.properties.zoom = Math.max(this.properties.minZoom, Math.min(this.properties.zoom, this.properties.maxZoom));
+        this.targetZoom = Math.max(this.properties.minZoom, Math.min(this.targetZoom, this.properties.maxZoom));
+        this.zoom += (this.targetZoom - this.zoom) * this.properties.zoomSpeed;
+        this.zoom = Math.max(this.properties.minZoom, Math.min(this.zoom, this.properties.maxZoom));
     }
 
     reset() {
         this.vector = new MathUtilities.Vector2(0, 0);
-        this.properties.targetZoom = 1;
+        this.targetZoom = 1;
         console.log('Camera reset to origin');
     }
 
     setTarget(target) {
-        this.properties.target = target;
+        this.target = target;
     }
 
     setFollowing(following) {
-        this.properties.isFollowing = following;
+        this.isFollowing = following;
     }
 
     // Moves camera to target position (when following)
@@ -85,7 +93,7 @@ class Camera {
 
     // Zoom in when scrolling up (negative deltaY), zoom out when scrolling down (positive deltaY)
     handleMouseWheel(deltaY) {
-        this.properties.targetZoom *= deltaY > 0 ? this.properties.mouseZoomOut : this.properties.mouseZoomIn;
+        this.targetZoom *= deltaY > 0 ? this.properties.mouseZoomOut : this.properties.mouseZoomIn;
     }
 }
 
