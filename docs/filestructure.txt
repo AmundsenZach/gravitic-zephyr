@@ -13,23 +13,32 @@ gravitic-zephyr/
 │   │   └── spacecraftAsset.js
 │   ├── engine/
 │   │   ├── engineAssets.js
+│   │   ├── engineCongfig.js
 │   │   ├── engineEvent.js
 │   │   ├── engineLoop.js
 │   │   └── engineStart.js
 │   ├── game/
+│   │   ├── gameConfig.js
 │   │   └── gameStart.js
 │   ├── input/
 │   │   ├── keyboardInput.js
 │   │   └── mouseInput.js
+│   ├── managers/
+│   │   ├── assetManager.js
+│   │   └── spriteManager.js
 │   ├── rendering/
+│   │   ├── systems/
+│   │   │   ├── background.js
+│   │   │   ├── camera.js
+│   │   │   └── interface.js
 │   │   ├── sprites/
 │   │   │   ├── celestialSprite.js
 │   │   │   └── spacecraftSprite.js
-│   │   ├── background.js
-│   │   ├── camera.js
 │   │   └── rendering.js
-│   ├── /utilities
-│   │   └── mathUtils.js
+│   ├── utilities/
+│   │   ├── mathUtilities.js
+│   │   ├── physicsUtilities
+│   │   └── vectorUtilities.js
 │   └── main.js
 └── json/
     └── planets.json

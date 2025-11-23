@@ -1,37 +1,33 @@
-// Game initialization - loads assets and sets up game state
 class GameStart {
     static async init() {
         try {
-            // Load planets data
+            // Load JSON
             const planetsData = await window.EngineAssets.loadJsonFile('planets', 'json/planets.json');
             
-            // Initialize celestial system
-            window.celestialSystem = new CelestialUtilities();
-            window.celestialSystem.loadFromJSON(planetsData);
+            // Create managers
+            window.assetManager = new AssetManager();
+            window.spriteManager = new SpriteManager();
             
-            // Expose to rendering system
-            window.celestialAssets = window.celestialSystem.assets;
-            window.celestialSprites = window.celestialSystem.sprites;
+            // Load assets (game state)
+            const assets = window.assetManager.loadFromJSON(planetsData);
             
-            // Create spacecraft
-            window.spacecraftAsset = new SpacecraftAsset(new MathUtilities.Vector2(0, -200));
-            window.spacecraftAsset.rotation = Math.PI / 2;
+            // Create sprites for those assets (visuals)
+            window.spriteManager.createSpritesFor(assets);
             
-            window.spacecraftSprite = new SpacecraftSprite(window.spacecraftAsset);
-            window.spacecraftSprites = [window.spacecraftSprite];
-            
-            // Setup camera to follow spacecraft
-            if (window.Rendering && window.Rendering.camera) {
-                window.Rendering.camera.setTarget(window.spacecraftAsset);
-                window.Rendering.camera.setFollowing(true);
-            }
-            
-            // Setup update loop for celestials
+            // Setup update loop
             window.engineEvent.on('gameTick', (data) => {
-                const dt = data.deltaTime / 1000; // Convert ms to seconds
-                window.celestialSystem.update(dt);
+                const dt = data.deltaTime / 1000;
+
+                // Update physics
+                window.assetManager.update(dt);
+
+                // Sync sprites to assets
+                window.spriteManager.update();
             });
             
+            // Expose for rendering
+            window.celestialSprites = window.spriteManager.getSprites();
+
             console.log('Game initialized successfully!');
         } catch (error) {
             console.error('Failed to initialize game:', error);

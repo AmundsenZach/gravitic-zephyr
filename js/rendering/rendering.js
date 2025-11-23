@@ -25,13 +25,16 @@ class Rendering {
     }
 
     // Renders the starfield background
-    static renderBackground() { // TODO: Scrolling too fast, fix parallax calculation
+    static renderBackground() { // TODO: Scrolling too fast, fix parallax calculation. Reevaluate when spacecraft object exists.
         Background.drawStarfield(this.ctx, this.camera);
     }
 
     // Render all celestial bodies
     static renderCelestialBodies() {
-        if (!window.celestialSprites) return;
+        // Guard: Don't render if sprites not loaded yet
+        if (!window.celestialSprites || window.celestialSprites.length === 0) {
+            return;
+        }
 
         for (const sprite of window.celestialSprites) {
             if (typeof sprite.drawBody === 'function') {
@@ -40,9 +43,11 @@ class Rendering {
         }
     }
 
-    // Render all celestial spheres of influence
     static renderCelestialSOIs() {
-        if (!window.celestialSprites) return;
+        // Same guard here
+        if (!window.celestialSprites || window.celestialSprites.length === 0) {
+            return;
+        }
 
         for (const sprite of window.celestialSprites) {
             if (typeof sprite.drawSOI === 'function') {
