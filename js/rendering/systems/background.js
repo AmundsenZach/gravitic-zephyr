@@ -3,12 +3,12 @@ class Background {
     static drawStarfield(ctx, camera) {
         ctx.save();
 
-        const position = new MathUtilities.Vector2(ctx.canvas.width, ctx.canvas.height);
+        const position = new VectorUtilities(ctx.canvas.width, ctx.canvas.height);
         ctx.fillStyle = 'white';
 
         for (let loop = 0; loop < EngineConfig.BACKGROUND_DENSITY; loop++) {
             // Parallax factor - adjust as needed
-            const vector = MathUtilities.Vector2.fromAngle(loop, 10000);
+            const vector = VectorUtilities.fromAngle(loop, 10000);
             const parallax = 0.1;
 
             const x = ((vector.x - camera.vector.x * parallax) % position.x + position.x) % position.x;

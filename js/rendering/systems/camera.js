@@ -3,7 +3,7 @@ class Camera {
         this.constructorProperties();
         this.setupEventListeners();
         this.properties = EngineConfig.CAMERA_PROPERTIES;
-        this.vector = new MathUtilities.Vector2(0, 0);
+        this.vector = new VectorUtilities(0, 0);
     }
 
     constructorProperties() {
@@ -71,7 +71,7 @@ class Camera {
     }
 
     reset() {
-        this.vector = new MathUtilities.Vector2(0, 0);
+        this.vector = new VectorUtilities(0, 0);
         this.targetZoom = 1;
         console.log('Camera reset to origin');
     }
@@ -87,7 +87,7 @@ class Camera {
     // Moves camera to target position (when following)
     follow(target) {
         if (target && target.x !== undefined && target.y !== undefined) {
-            this.vector = new MathUtilities.Vector2(target.x, target.y);
+            this.vector = new VectorUtilities(target.x, target.y);
         }
     }
 

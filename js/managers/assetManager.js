@@ -35,7 +35,7 @@ class AssetManager {
             
             if (data.setOrbitalStationary) {
                 asset.setOrbitalStationary(
-                    new MathUtilities.Vector2(data.setOrbitalStationary.x, data.setOrbitalStationary.y)
+                    new VectorUtilities(data.setOrbitalStationary.x, data.setOrbitalStationary.y)
                 );
             } else if (data.setOrbitalBody) {
                 const parent = this.assetMap.get(data.setOrbitalBody.parentId);

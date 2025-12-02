@@ -26,9 +26,9 @@ class CelestialAsset {
         this.parentId = parentId;
 
         this.semiMajorAxis = semiMajorAxis;
-        this.argumentOfPeriapsis = MathUtilities.Operations.convertToRadians(argumentOfPeriapsis); // Converted and stored in radians
+        this.argumentOfPeriapsis = MathUtilities.convertToRadians(argumentOfPeriapsis); // Converted and stored in radians
         this.eccentricity = eccentricity || 0; // Default to circular if no value provided
-        this.meanAnomaly = MathUtilities.Operations.convertToRadians(meanAnomaly); // Converted and stored in radians
+        this.meanAnomaly = MathUtilities.convertToRadians(meanAnomaly); // Converted and stored in radians
     }
 
     // Returns the position of body, for parent-child coordination
