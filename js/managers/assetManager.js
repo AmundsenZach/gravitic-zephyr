@@ -49,7 +49,7 @@ class AssetManager {
             }
             
             // Initialize position
-            asset.updatePosition(0);
+            //asset.updatePosition(0);
         });
         
         return this.assets;

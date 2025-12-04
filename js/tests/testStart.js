@@ -31,6 +31,7 @@ class TestStart {
         console.log('\n--- Test 2: Managers ---');
         const managerTests = {
             'AssetManager': typeof window.assetManager !== 'undefined',
+            'SimulationManager': typeof window.simulationManager !== 'undefined',
             'SpriteManager': typeof window.spriteManager !== 'undefined'
         };
 

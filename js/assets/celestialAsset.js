@@ -37,19 +37,6 @@ class CelestialAsset {
             position: this.position
         }
     }
-
-    // Updates the position of orbiting bodies based on time
-    updatePosition(dt) {
-        // Stationary bodies don't move
-        if (!this.parentId) return;
-
-        // Update angle based on angular speed
-        if (this.angularSpeed) {
-            this.angle += this.angularSpeed * dt;
-        }
-
-        this.position = this.parentId.position;
-    }
 }
 
 window.CelestialAsset = CelestialAsset;

@@ -1,33 +1,42 @@
 class CelestialSprite {
-    constructor(asset) {
-        this.asset = asset;  // Just store reference
+    constructor(config) {
+        this.id = config.id;
+        this.asset = null; // Will be set by SpriteManager
+
+        // Visual properties (synced from asset)
+        this.position = null;
+        this.innerColor = null;
+        this.outerColor = null;
+        this.radius = null;
+        this.sphereOfInfluence = null;
     }
 
     drawBody(ctx, camera) {
-        ctx.fillStyle = this.asset.innerColor + '75';
+        // Guard: don't draw if position isn't set yet
+        if (!this.position) return;
+
+        ctx.fillStyle = this.innerColor + '75';
         ctx.beginPath();
-        ctx.arc(this.asset.position.x, this.asset.position.y, this.asset.radius, 0, Math.PI * 2);
+        ctx.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
         ctx.fill();
 
         ctx.lineWidth = 2 / camera.zoom;
-        ctx.strokeStyle = this.asset.outerColor;
+        ctx.strokeStyle = this.outerColor;
         ctx.beginPath();
-        ctx.arc(this.asset.position.x, this.asset.position.y, this.asset.radius, 0, Math.PI * 2);
+        ctx.arc(this.position.x, this.position.y, this.radius, 0, Math.PI * 2);
         ctx.stroke();
     }
 
     drawSOI(ctx, camera) {
-        ctx.lineWidth = 2 / camera.zoom;
-        ctx.strokeStyle = this.asset.outerColor + '75';
+        if (!this.position) return;
 
-        // Reexamine the performance impact of this dashed line
-        //const dashSize = 7 / camera.zoom;
-        //ctx.setLineDash([dashSize, dashSize]);
+        ctx.lineWidth = 2 / camera.zoom;
+        ctx.strokeStyle = this.outerColor + '75';
 
         ctx.beginPath();
-        ctx.arc(this.asset.position.x, this.asset.position.y, this.asset.sphereOfInfluence, Math.PI / 2, -Math.PI * 3 / 2);
+        ctx.arc(this.position.x, this.position.y, this.sphereOfInfluence, Math.PI / 2, -Math.PI * 3 / 2);
         ctx.stroke();
-        ctx.setLineDash([]); // Reset line style
+        ctx.setLineDash([]);
     }
 }
 
