@@ -14,6 +14,7 @@ class UIManager {
     static updateTimeWarp(value) {
         document.getElementById('timeWarp').textContent = value.toFixed(2) + 'x';
     }
+
     static updateStatus(text) {
         const statusElement = document.getElementById('status');
         statusElement.textContent = text;

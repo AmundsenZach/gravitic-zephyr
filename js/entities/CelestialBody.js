@@ -36,6 +36,7 @@ class CelestialBody {
         // Convert world coordinates to screen coordinates
         const screenX = (this.x - camera.x) * camera.zoom + ctx.canvas.width / 2;
         const screenY = (this.y - camera.y) * camera.zoom + ctx.canvas.height / 2;
+        ctx.lineWidth = 3 - (camera.zoom * 0.25);
 
         // Create glowing effect using radial gradient
         const gradient = ctx.createRadialGradient(
@@ -59,15 +60,14 @@ class CelestialBody {
         ctx.stroke();
 
         // Make dashed sphere-of-influence ring bolder
-        const prevLineWidth = ctx.lineWidth;
+        const dashSize = 7 / camera.zoom;
+        ctx.setLineDash([dashSize, dashSize]);
         ctx.setLineDash([5, 15]); // Dashed line pattern
-        ctx.lineWidth = Math.max(2, 3 * camera.zoom); // Thicker line (scaled with zoom)
-        ctx.strokeStyle = this.color + '88'; // More opaque dashed ring
+        ctx.strokeStyle = this.color + '75'; // More opaque dashed ring
         ctx.beginPath();
-        ctx.arc(screenX, screenY, this.sphereOfInfluence * camera.zoom, 0, Math.PI * 2);
+        ctx.arc(screenX, screenY, this.sphereOfInfluence * camera.zoom, Math.PI / 2, -Math.PI * 3 / 2);
         ctx.stroke();
         ctx.setLineDash([]); // Reset line style
-        ctx.lineWidth = prevLineWidth; // Restore previous width
     }
 
     // Check if spacecraft has collided with this body
