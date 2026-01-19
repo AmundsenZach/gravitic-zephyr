@@ -10,6 +10,7 @@ class Rendering {
         });
     }
 
+    // Layer 0
     static clearScreen() {
         this.ctx.setTransform(1, 0, 0, 1, 0, 0);  // Reset transform first
         this.ctx.fillStyle = 'black';
@@ -24,11 +25,13 @@ class Rendering {
         this.ctx.translate(-this.camera.vector.x, -this.camera.vector.y);
     }
 
+    //Layer 1
     // Renders the starfield background
     static renderBackground() { // TODO: Scrolling too fast, fix parallax calculation. Reevaluate when spacecraft object exists.
         Background.drawStarfield(this.ctx, this.camera);
     }
 
+    // Layer 2
     // Render all celestial bodies
     static renderCelestialBodies() {
         // Guard: Don't render if sprites not loaded yet
@@ -43,6 +46,7 @@ class Rendering {
         }
     }
 
+    // Layer 3
     static renderCelestialSOIs() {
         // Same guard here
         if (!window.celestialSprites || window.celestialSprites.length === 0) {

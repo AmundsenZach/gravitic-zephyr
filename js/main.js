@@ -1,4 +1,9 @@
 // main.js
+
+import { EngineStart } from "./engine/core/engineStart.js";
+import { GameStart } from "./game/core/gameStart.js";
+import { TestStart } from "./tests/testStart.js";
+
 (async function() {
     // Initialize engine
     EngineStart.init();

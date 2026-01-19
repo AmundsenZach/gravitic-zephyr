@@ -12,6 +12,7 @@ class MouseInput {
             window.engineEvent.emit('mouseWheel', {
                 deltaY: e.deltaY,
                 deltaX: e.deltaX,
+
                 clientX: e.clientX,
                 clientY: e.clientY
             });

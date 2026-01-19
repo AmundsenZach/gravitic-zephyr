@@ -11,7 +11,7 @@ gravitic-zephyr/
 │   ├── engine/
 │   │   ├── core/
 │   │   │   ├── engineAssets.js
-│   │   │   ├── engineCongfig.js
+│   │   │   ├── engineConfig.js
 │   │   │   ├── engineEvent.js
 │   │   │   ├── engineLoop.js
 │   │   │   └── engineStart.js

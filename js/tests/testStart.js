@@ -1,4 +1,15 @@
-// testStart.js - Post-initialization validation
+import { EngineEvent } from '../engine/core/engineEvent.js';
+import { EngineStart } from '../engine/core/engineStart.js';
+
+import { KeyboardInput } from "../engine/input/keyboardInput.js"
+import { MouseInput } from "../engine/input/mouseInput.js"
+
+import { Rendering } from '../engine/rendering/rendering.js';
+
+import { AssetManager } from "../game/managers/assetManager.js";
+import { SimulationManager } from "../game/managers/simulationManager.js";
+import { SpriteManager } from "../game/managers/spriteManager.js";
+
 class TestStart {
     static init() {
         console.log('=== POST-INITIALIZATION TEST ===');
@@ -12,9 +23,9 @@ class TestStart {
             'EngineStart': typeof EngineStart !== 'undefined',
             'EngineStart.canvas': !!EngineStart.canvas,
             'EngineStart.ctx': !!EngineStart.ctx,
-            'engineEvent': typeof window.engineEvent !== 'undefined',
-            'keyboardInput': typeof window.keyboardInput !== 'undefined',
-            'mouseInput': typeof window.mouseInput !== 'undefined'
+            'EngineEvent': typeof EngineEvent !== 'undefined',
+            'KeyboardInput': typeof KeyboardInput !== 'undefined',
+            'MouseInput': typeof MouseInput !== 'undefined'
         };
 
         for (const [name, result] of Object.entries(engineTests)) {
@@ -30,9 +41,9 @@ class TestStart {
         // Test 2: Managers exist
         console.log('\n--- Test 2: Managers ---');
         const managerTests = {
-            'AssetManager': typeof window.assetManager !== 'undefined',
-            'SimulationManager': typeof window.simulationManager !== 'undefined',
-            'SpriteManager': typeof window.spriteManager !== 'undefined'
+            'AssetManager': typeof AssetManager !== 'undefined',
+            'SimulationManager': typeof SimulationManager !== 'undefined',
+            'SpriteManager': typeof SpriteManager !== 'undefined'
         };
 
         for (const [name, result] of Object.entries(managerTests)) {
@@ -47,7 +58,7 @@ class TestStart {
 
         // Test 3: Assets loaded
         console.log('\n--- Test 3: Assets ---');
-        const assets = window.assetManager?.getAssets() || [];
+        const assets = AssetManager?.getAssets() || [];
         console.log(`Assets loaded: ${assets.length}`);
 
         if (assets.length > 0) {
@@ -57,9 +68,10 @@ class TestStart {
             let validAssets = 0;
             assets.forEach(asset => {
                 const valid = asset.position &&
-                             asset.outerColor &&
-                             asset.innerColor &&
-                             asset.radius;
+                            asset.outerColor &&
+                            asset.innerColor &&
+                            asset.radius;
+
                 if (valid) {
                     validAssets++;
                 } else {
@@ -87,7 +99,7 @@ class TestStart {
 
         // Test 4: Sprites created
         console.log('\n--- Test 4: Sprites ---');
-        const sprites = window.spriteManager?.getSprites() || [];
+        const sprites = SpriteManager?.getSprites() || [];
         console.log(`Sprites created: ${sprites.length}`);
 
         if (sprites.length > 0) {
@@ -97,11 +109,11 @@ class TestStart {
             let validSprites = 0;
             sprites.forEach(sprite => {
                 const valid = sprite.position &&
-                             sprite.innerColor &&
-                             sprite.outerColor &&
-                             sprite.radius &&
-                             sprite.asset &&
-                             typeof sprite.drawBody === 'function';
+                            sprite.innerColor &&
+                            sprite.outerColor &&
+                            sprite.radius &&
+                            sprite.asset &&
+                            typeof sprite.drawBody === 'function';
 
                 if (valid) {
                     validSprites++;
@@ -135,7 +147,7 @@ class TestStart {
         if (assets.length > 0 && sprites.length > 0) {
             let linkedCount = 0;
             assets.forEach(asset => {
-                const sprite = window.spriteManager.getSprite(asset.id);
+                const sprite = SpriteManager.getSprite(asset.id);
                 if (sprite && sprite.asset === asset) {
                     linkedCount++;
                 } else {
@@ -156,9 +168,9 @@ class TestStart {
         // Test 6: Rendering system
         console.log('\n--- Test 6: Rendering ---');
         const renderTests = {
-            'Rendering exists': typeof window.Rendering !== 'undefined',
-            'Rendering.camera': !!window.Rendering?.camera,
-            'celestialSprites': !!window.celestialSprites && window.celestialSprites.length > 0
+            'Rendering exists': typeof Rendering !== 'undefined',
+            'Rendering.camera': !!Rendering?.camera,
+            'celestialSprites': !!celestialSprites && celestialSprites.length > 0
         };
 
         for (const [name, result] of Object.entries(renderTests)) {
@@ -173,8 +185,8 @@ class TestStart {
 
         // Test 7: Camera state
         console.log('\n--- Test 7: Camera ---');
-        if (window.Rendering?.camera) {
-            const camera = window.Rendering.camera;
+        if (Rendering?.camera) {
+            const camera = Rendering.camera;
             console.log(`Camera position: (${camera.vector?.x}, ${camera.vector?.y})`);
             console.log(`Camera zoom: ${camera.zoom}`);
 
@@ -192,8 +204,8 @@ class TestStart {
 
         // Test 8: Event system
         console.log('\n--- Test 8: Event System ---');
-        if (window.engineEvent) {
-            const listenerCount = window.engineEvent.listenerCount('gameTick');
+        if (EngineEvent) {
+            const listenerCount = EngineEvent.listenerCount('gameTick');
             console.log(`gameTick listeners: ${listenerCount}`);
 
             if (listenerCount > 0) {
@@ -223,5 +235,3 @@ class TestStart {
         }
     }
 }
-
-window.TestStart = TestStart;
