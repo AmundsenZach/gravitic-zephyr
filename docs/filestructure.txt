@@ -8,37 +8,42 @@ gravitic-zephyr/
 │   ├── LICENSE
 │   └── README.md
 ├── js/
-│   ├── assets/
-│   │   ├── celestialAsset.js
-│   │   └── spacecraftAsset.js
 │   ├── engine/
-│   │   ├── engineAssets.js
-│   │   ├── engineCongfig.js
-│   │   ├── engineEvent.js
-│   │   ├── engineLoop.js
-│   │   └── engineStart.js
+│   │   ├── core/
+│   │   │   ├── engineAssets.js
+│   │   │   ├── engineCongfig.js
+│   │   │   ├── engineEvent.js
+│   │   │   ├── engineLoop.js
+│   │   │   └── engineStart.js
+│   │   ├── input/
+│   │   │   ├── keyboardInput.js
+│   │   │   └── mouseInput.js
+│   │   ├── rendering/
+│   │   │   └── rendering.js
+│   │   └── utilities/
+│   │       ├── mathUtilities.js
+│   │       ├── physicsUtilities.js
+│   │       └── vectorUtilities.js
 │   ├── game/
-│   │   ├── gameConfig.js
-│   │   └── gameStart.js
-│   ├── input/
-│   │   ├── keyboardInput.js
-│   │   └── mouseInput.js
-│   ├── managers/
-│   │   ├── assetManager.js
-│   │   └── spriteManager.js
-│   ├── rendering/
-│   │   ├── systems/
-│   │   │   ├── background.js
-│   │   │   ├── camera.js
-│   │   │   └── interface.js
-│   │   ├── sprites/
-│   │   │   ├── celestialSprite.js
-│   │   │   └── spacecraftSprite.js
-│   │   └── rendering.js
-│   ├── utilities/
-│   │   ├── mathUtilities.js
-│   │   ├── physicsUtilities
-│   │   └── vectorUtilities.js
-│   └── main.js
+│   │   ├── assets/
+│   │   │   ├── celestialAsset.js
+│   │   │   └── spacecraftAsset.js
+│   │   ├── core/
+│   │   │   ├── gameConfig.js
+│   │   │   └── gameStart.js
+│   │   ├── managers/
+│   │   │   ├── assetManager.js
+│   │   │   ├── simulationManager.js
+│   │   │   └── spriteManager.js
+│   │   └── rendering/
+│   │       ├── sprites/
+│   │       │   ├── celestialSprite.js
+│   │       │   └── spacecraftSprite.js
+│   │       └── systems/
+│   │           ├── background.js
+│   │           ├── camera.js
+│   │           └── interface.js
+│   └── utilities/
+│       └── testStart.js
 └── json/
     └── planets.json
