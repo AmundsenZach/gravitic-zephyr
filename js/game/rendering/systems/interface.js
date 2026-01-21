@@ -16,4 +16,4 @@ class Interface {
     }
 }
 
-window.Interface = Interface;
+export { Interface };

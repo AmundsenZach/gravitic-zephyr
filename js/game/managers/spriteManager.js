@@ -1,15 +1,17 @@
+import { CelestialSprite } from '../rendering/sprites/celestialSprite.js';
+
 class SpriteManager {
     constructor() {
         this.sprites = [];
         this.spriteMap = new Map(); // asset.id → sprite
     }
-    
+
     // Create sprites for assets
     createSpritesFor(assets) {
         assets.forEach(asset => {
             // Don't create duplicates
             if (this.spriteMap.has(asset.id)) return;
-            
+
             const sprite = new CelestialSprite({ id: asset.id });
             
             // Copy visual properties from asset
@@ -70,4 +72,4 @@ class SpriteManager {
     }
 }
 
-window.SpriteManager = SpriteManager;
+export { SpriteManager };

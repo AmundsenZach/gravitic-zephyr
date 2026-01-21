@@ -8,4 +8,4 @@ class MathUtilities {
     }
 }
 
-window.MathUtilities = MathUtilities;
+export { MathUtilities };

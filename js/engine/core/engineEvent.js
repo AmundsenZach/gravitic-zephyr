@@ -15,17 +15,17 @@ class EngineEvent {
         // Return unsubscribe function
         return () => this.off(eventName, callback);
     }
-    
+
     // Register a one-time listener
     once(eventName, callback) {
         const wrapper = (data) => {
             callback(data);
             this.off(eventName, wrapper);
         };
-        
+
         this.on(eventName, wrapper);
     }
-    
+
     // Unsubscribe a listener
     off(eventName, callback) {
         const listeners = this.listeners.get(eventName);
@@ -36,7 +36,7 @@ class EngineEvent {
             }
         }
     }
-    
+
     // Remove all listeners for an event
     removeAllListeners(eventName) {
         if (eventName) {
@@ -51,7 +51,7 @@ class EngineEvent {
         if (this.debug) {
             console.log(`[Event] ${eventName}`, data);
         }
-        
+
         const listeners = this.listeners.get(eventName);
         if (listeners) {
             // Clone array to prevent issues if listeners modify the array
@@ -64,12 +64,12 @@ class EngineEvent {
             });
         }
     }
-    
+
     // Get list of all event names (debugging)
     getEventNames() {
         return Array.from(this.listeners.keys());
     }
-    
+
     // Get listener count for an event (debugging)
     listenerCount(eventName) {
         const listeners = this.listeners.get(eventName);
@@ -77,4 +77,5 @@ class EngineEvent {
     }
 }
 
-window.EngineEvent = EngineEvent;
+export const engineEvent = new EngineEvent();
+export { EngineEvent };

@@ -1,28 +1,40 @@
+import { engineAssets } from '../../engine/core/engineAssets.js';
+import { engineEvent } from '../../engine/core/engineEvent.js';
+import { AssetManager } from '../managers/assetManager.js';
+import { SpriteManager } from '../managers/spriteManager.js';
+import { SimulationManager } from '../managers/simulationManager.js';
+
+// Export manager instances for use in other modules
+export let assetManager;
+export let spriteManager;
+export let simulationManager;
+export let celestialSprites;
+
 class GameStart {
     static async init() {
         try {
-            const planetsData = await window.EngineAssets.loadJsonFile('planets', 'json/planets.json');
-            
-            window.assetManager = new AssetManager();
-            window.spriteManager = new SpriteManager();
-            window.simulationManager = new SimulationManager();
-            
-            const assets = window.assetManager.loadFromJSON(planetsData);
-            window.simulationManager.init(assets);
+            const planetsData = await engineAssets.loadJsonFile('planets', 'json/planets.json');
+
+            assetManager = new AssetManager();
+            spriteManager = new SpriteManager();
+            simulationManager = new SimulationManager();
+
+            const assets = assetManager.loadFromJSON(planetsData);
+            simulationManager.init(assets);
 
             // Calculate initial positions before creating sprites
-            window.simulationManager.update(0);
+            simulationManager.update(0);
 
-            window.spriteManager.createSpritesFor(assets);
-            
-            window.engineEvent.on('gameTick', (data) => {
+            spriteManager.createSpritesFor(assets);
+
+            engineEvent.on('gameTick', (data) => {
                 const dt = data.deltaTime / 1000;
 
-                window.simulationManager.update(dt);
-                window.spriteManager.update();
+                simulationManager.update(dt);
+                spriteManager.update();
             });
-            
-            window.celestialSprites = window.spriteManager.getSprites();
+
+            celestialSprites = spriteManager.getSprites();
             console.log('Game initialized successfully!');
         } catch (error) {
             console.error('Failed to initialize game:', error);
@@ -30,4 +42,4 @@ class GameStart {
     }
 }
 
-window.GameStart = GameStart;
+export { GameStart };

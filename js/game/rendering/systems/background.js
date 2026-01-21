@@ -1,3 +1,6 @@
+import { GameConfig } from '../../../game/core/gameConfig.js';
+import { VectorUtilities } from '../../../engine/utilities/vectorUtilities.js';
+
 class Background {
     // Draws a parallax scrolling starfield background
     static drawStarfield(ctx, camera) {
@@ -6,7 +9,7 @@ class Background {
         const position = new VectorUtilities(ctx.canvas.width, ctx.canvas.height);
         ctx.fillStyle = 'white';
 
-        for (let loop = 0; loop < EngineConfig.BACKGROUND_DENSITY; loop++) {
+        for (let loop = 0; loop < GameConfig.BACKGROUND_DENSITY; loop++) {
             // Parallax factor - adjust as needed
             const vector = VectorUtilities.fromAngle(loop, 10000);
             const parallax = 0.1;
@@ -22,4 +25,4 @@ class Background {
     }
 }
 
-window.Background = Background;
+export { Background };

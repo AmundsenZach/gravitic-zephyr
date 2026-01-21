@@ -22,4 +22,4 @@ class SpacecraftSprite {
     }
 }
 
-window.SpacecraftSprite = SpacecraftSprite;
+export { SpacecraftSprite };

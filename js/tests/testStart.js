@@ -1,14 +1,18 @@
-import { EngineEvent } from '../engine/core/engineEvent.js';
+import { engineEvent, EngineEvent } from '../engine/core/engineEvent.js';
 import { EngineStart } from '../engine/core/engineStart.js';
 
-import { KeyboardInput } from "../engine/input/keyboardInput.js"
-import { MouseInput } from "../engine/input/mouseInput.js"
+import { KeyboardInput } from '../engine/input/keyboardInput.js';
+import { MouseInput } from '../engine/input/mouseInput.js';
 
 import { Rendering } from '../engine/rendering/rendering.js';
 
-import { AssetManager } from "../game/managers/assetManager.js";
-import { SimulationManager } from "../game/managers/simulationManager.js";
-import { SpriteManager } from "../game/managers/spriteManager.js";
+import { assetManager } from '../game/core/gameStart.js';
+import { spriteManager } from '../game/core/gameStart.js';
+import { celestialSprites } from '../game/core/gameStart.js';
+
+import { AssetManager } from '../game/managers/assetManager.js';
+import { SimulationManager } from '../game/managers/simulationManager.js';
+import { SpriteManager } from '../game/managers/spriteManager.js';
 
 class TestStart {
     static init() {
@@ -58,7 +62,7 @@ class TestStart {
 
         // Test 3: Assets loaded
         console.log('\n--- Test 3: Assets ---');
-        const assets = AssetManager?.getAssets() || [];
+        const assets = assetManager?.getAssets() || [];
         console.log(`Assets loaded: ${assets.length}`);
 
         if (assets.length > 0) {
@@ -99,7 +103,7 @@ class TestStart {
 
         // Test 4: Sprites created
         console.log('\n--- Test 4: Sprites ---');
-        const sprites = SpriteManager?.getSprites() || [];
+        const sprites = spriteManager?.getSprites() || [];
         console.log(`Sprites created: ${sprites.length}`);
 
         if (sprites.length > 0) {
@@ -147,7 +151,7 @@ class TestStart {
         if (assets.length > 0 && sprites.length > 0) {
             let linkedCount = 0;
             assets.forEach(asset => {
-                const sprite = SpriteManager.getSprite(asset.id);
+                const sprite = spriteManager.getSprite(asset.id);
                 if (sprite && sprite.asset === asset) {
                     linkedCount++;
                 } else {
@@ -204,8 +208,8 @@ class TestStart {
 
         // Test 8: Event system
         console.log('\n--- Test 8: Event System ---');
-        if (EngineEvent) {
-            const listenerCount = EngineEvent.listenerCount('gameTick');
+        if (engineEvent) {
+            const listenerCount = engineEvent.listenerCount('gameTick');
             console.log(`gameTick listeners: ${listenerCount}`);
 
             if (listenerCount > 0) {
@@ -235,3 +239,5 @@ class TestStart {
         }
     }
 }
+
+export { TestStart };

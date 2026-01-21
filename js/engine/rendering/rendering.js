@@ -1,3 +1,9 @@
+import { engineEvent } from '../core/engineEvent.js';
+import { EngineStart } from '../core/engineStart.js';
+import { Camera } from '../../game/rendering/systems/camera.js';
+import { Background } from '../../game/rendering/systems/background.js';
+import { celestialSprites } from '../../game/core/gameStart.js';
+
 class Rendering {
     static init() {
         this.ctx = EngineStart.ctx;
@@ -5,7 +11,7 @@ class Rendering {
         this.camera = new Camera();
 
         // Single listener for rendering - triggered by gameTick
-        window.engineEvent.on('gameTick', () => {
+        engineEvent.on('gameTick', () => {
             this.render();
         });
     }
@@ -35,11 +41,11 @@ class Rendering {
     // Render all celestial bodies
     static renderCelestialBodies() {
         // Guard: Don't render if sprites not loaded yet
-        if (!window.celestialSprites || window.celestialSprites.length === 0) {
+        if (!celestialSprites || celestialSprites.length === 0) {
             return;
         }
 
-        for (const sprite of window.celestialSprites) {
+        for (const sprite of celestialSprites) {
             if (typeof sprite.drawBody === 'function') {
                 sprite.drawBody(this.ctx, this.camera);
             }
@@ -49,11 +55,11 @@ class Rendering {
     // Layer 3
     static renderCelestialSOIs() {
         // Same guard here
-        if (!window.celestialSprites || window.celestialSprites.length === 0) {
+        if (!celestialSprites || celestialSprites.length === 0) {
             return;
         }
 
-        for (const sprite of window.celestialSprites) {
+        for (const sprite of celestialSprites) {
             if (typeof sprite.drawSOI === 'function') {
                 sprite.drawSOI(this.ctx, this.camera);
             }
@@ -72,4 +78,4 @@ class Rendering {
     }
 }
 
-window.Rendering = Rendering;
+export { Rendering };

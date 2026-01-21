@@ -1,3 +1,5 @@
+import { MathUtilities } from '../../engine/utilities/mathUtilities.js';
+
 class CelestialAsset {
     constructor(config) {
         this.id = config.id; // Identifying name of body
@@ -39,4 +41,4 @@ class CelestialAsset {
     }
 }
 
-window.CelestialAsset = CelestialAsset;
+export { CelestialAsset };

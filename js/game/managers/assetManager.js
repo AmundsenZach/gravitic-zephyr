@@ -1,13 +1,16 @@
+import { CelestialAsset } from '../assets/celestialAsset.js';
+import { VectorUtilities } from '../../engine/utilities/vectorUtilities.js';
+
 class AssetManager {
     constructor() {
         this.assets = [];
         this.assetMap = new Map(); // id → asset
     }
-    
+
     // Load assets from JSON
     loadFromJSON(jsonData) {
         const celestials = jsonData.celestials || [];
-        
+
         // First pass: Create all assets
         celestials.forEach(data => {
             const asset = new CelestialAsset({
@@ -80,4 +83,4 @@ class AssetManager {
     }
 }
 
-window.AssetManager = AssetManager;
+export { AssetManager };

@@ -1,3 +1,7 @@
+import { CelestialAsset } from '../assets/celestialAsset.js';
+import { VectorUtilities } from '../../engine/utilities/vectorUtilities.js';
+import { PhysicsUtilities } from '../../engine/utilities/physicsUtilities.js';
+
 class SimulationManager {
     constructor() {
         this.celestialBodies = [];
@@ -106,4 +110,4 @@ class SimulationManager {
     }
 }
 
-window.SimulationManager = SimulationManager;
+export { SimulationManager };

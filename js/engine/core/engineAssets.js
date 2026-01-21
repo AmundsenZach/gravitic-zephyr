@@ -2,7 +2,7 @@ class EngineAssets {
     constructor() {
         this.jsonFiles = new Map();
     }
-    
+
     // Loads a json file and stores it in memory
     loadJsonFile(name, path) {
         return fetch(path)
@@ -19,4 +19,7 @@ class EngineAssets {
     }
 }
 
-window.EngineAssets = new EngineAssets();
+// Export singleton instance
+const engineAssets = new EngineAssets();
+
+export { engineAssets, EngineAssets };

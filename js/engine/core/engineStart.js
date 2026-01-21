@@ -1,3 +1,12 @@
+import { engineEvent } from './engineEvent.js'; // Singleton event emitter
+import { EngineLoop } from './engineLoop.js';
+
+import { KeyboardInput } from '../input/keyboardInput.js';
+import { MouseInput } from '../input/mouseInput.js';
+
+export let keyboardInput;
+export let mouseInput;
+
 const EngineStart = {
     init() {
         // Canvas Initiation
@@ -5,9 +14,8 @@ const EngineStart = {
         this.ctx = this.canvas.getContext('2d');
 
         // Create global instances
-        window.engineEvent = new EngineEvent();
-        window.keyboardInput = new KeyboardInput();
-        window.mouseInput = new MouseInput(this.canvas);
+        keyboardInput = new KeyboardInput();
+        mouseInput = new MouseInput(this.canvas);
 
         // Set initial canvas size and emit event
         this.updateCanvasSize();
@@ -29,8 +37,8 @@ const EngineStart = {
         EngineStart.canvas.height = height;
         
         // Emit so camera and rendering can adjust
-        window.engineEvent.emit('canvasResize', { width, height });
+        engineEvent.emit('canvasResize', { width, height });
     }
 }
 
-window.EngineStart = EngineStart;
+export { EngineStart };

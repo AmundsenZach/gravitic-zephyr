@@ -40,4 +40,4 @@ class CelestialSprite {
     }
 }
 
-window.CelestialSprite = CelestialSprite;
+export { CelestialSprite };

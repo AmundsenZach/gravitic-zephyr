@@ -1,7 +1,10 @@
+import { engineEvent } from '../core/engineEvent.js';
+import { GameConfig } from '../../game/core/gameConfig.js';
+
 class KeyboardInput {
     constructor() {
         this.keys = {};
-        this.properties = EngineConfig.KEYBOARD_PROPERTIES;
+        this.properties = GameConfig.KEYBOARD_PROPERTIES;
         this.setupEventListeners();
     }
 
@@ -27,7 +30,7 @@ class KeyboardInput {
         });
 
         // Handle continuous input - emit actionActive every frame
-        window.engineEvent.on('gameTick', () => {
+        engineEvent.on('gameTick', () => {
             this.emitHeldActions();
         });
 
@@ -56,7 +59,7 @@ class KeyboardInput {
     emitActionEvent(key, eventType) {
         for (const [action, keys] of Object.entries(this.properties)) {
             if (keys.includes(key)) {
-                window.engineEvent.emit(eventType, { action, key });
+                engineEvent.emit(eventType, { action, key });
             }
         }
     }
@@ -78,4 +81,4 @@ class KeyboardInput {
     }
 }
 
-window.KeyboardInput = KeyboardInput;
+export { KeyboardInput };

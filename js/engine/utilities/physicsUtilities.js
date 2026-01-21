@@ -1,3 +1,5 @@
+import { GameConfig } from '../../game/core/gameConfig.js';
+
 class PhysicsUtilities {
     // --- CONSTANTS ---
 
@@ -92,4 +94,4 @@ class PhysicsUtilities {
     }
 }
 
-window.PhysicsUtilities = PhysicsUtilities;
+export { PhysicsUtilities };

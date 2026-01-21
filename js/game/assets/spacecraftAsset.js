@@ -5,4 +5,4 @@ class SpacecraftAsset {
     }
 }
 
-window.SpacecraftAsset = SpacecraftAsset;
+export { SpacecraftAsset };
