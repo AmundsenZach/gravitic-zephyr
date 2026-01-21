@@ -1,4 +1,4 @@
-import { engineEvent } from './engineEvent.js';
+import { EngineEvent } from './engineEvent.js';
 import { Rendering } from '../rendering/rendering.js';
 
 class EngineLoop {
@@ -15,7 +15,7 @@ class EngineLoop {
         this.lastTime = currentTime;
 
         // Emit gameTick event with accurate delta time
-        engineEvent.emit('gameTick', {
+        EngineEvent.emit('gameTick', {
             deltaTime: deltaTime
         });
 

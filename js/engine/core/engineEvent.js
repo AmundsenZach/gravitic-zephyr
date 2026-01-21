@@ -1,23 +1,21 @@
 class EngineEvent {
-    constructor() {
-        this.listeners = new Map();
-        this.debug = false;
-    }
+    static listeners = new Map();
+    static debug = false;
 
     // Register an event listener
-    on(eventName, callback) {
+    static on(eventName, callback) {
         if (!this.listeners.has(eventName)) {
             this.listeners.set(eventName, []);
         }
-        
+
         this.listeners.get(eventName).push(callback);
-        
+
         // Return unsubscribe function
         return () => this.off(eventName, callback);
     }
 
     // Register a one-time listener
-    once(eventName, callback) {
+    static once(eventName, callback) {
         const wrapper = (data) => {
             callback(data);
             this.off(eventName, wrapper);
@@ -27,7 +25,7 @@ class EngineEvent {
     }
 
     // Unsubscribe a listener
-    off(eventName, callback) {
+    static off(eventName, callback) {
         const listeners = this.listeners.get(eventName);
         if (listeners) {
             const index = listeners.indexOf(callback);
@@ -38,7 +36,7 @@ class EngineEvent {
     }
 
     // Remove all listeners for an event
-    removeAllListeners(eventName) {
+    static removeAllListeners(eventName) {
         if (eventName) {
             this.listeners.delete(eventName);
         } else {
@@ -47,7 +45,7 @@ class EngineEvent {
     }
 
     // Emit an event
-    emit(eventName, data) {
+    static emit(eventName, data) {
         if (this.debug) {
             console.log(`[Event] ${eventName}`, data);
         }
@@ -66,16 +64,15 @@ class EngineEvent {
     }
 
     // Get list of all event names (debugging)
-    getEventNames() {
+    static getEventNames() {
         return Array.from(this.listeners.keys());
     }
 
     // Get listener count for an event (debugging)
-    listenerCount(eventName) {
+    static listenerCount(eventName) {
         const listeners = this.listeners.get(eventName);
         return listeners ? listeners.length : 0;
     }
 }
 
-export const engineEvent = new EngineEvent();
 export { EngineEvent };

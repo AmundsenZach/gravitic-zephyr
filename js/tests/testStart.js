@@ -1,4 +1,4 @@
-import { engineEvent, EngineEvent } from '../engine/core/engineEvent.js';
+import { EngineEvent } from '../engine/core/engineEvent.js';
 import { EngineStart } from '../engine/core/engineStart.js';
 
 import { KeyboardInput } from '../engine/input/keyboardInput.js';
@@ -208,8 +208,8 @@ class TestStart {
 
         // Test 8: Event system
         console.log('\n--- Test 8: Event System ---');
-        if (engineEvent) {
-            const listenerCount = engineEvent.listenerCount('gameTick');
+        if (EngineEvent) {
+            const listenerCount = EngineEvent.listenerCount('gameTick');
             console.log(`gameTick listeners: ${listenerCount}`);
 
             if (listenerCount > 0) {

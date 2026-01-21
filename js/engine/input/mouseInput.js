@@ -1,4 +1,4 @@
-import { engineEvent } from '../core/engineEvent.js';
+import { EngineEvent } from '../core/engineEvent.js';
 
 class MouseInput {
     constructor(canvas) {
@@ -11,7 +11,7 @@ class MouseInput {
             e.preventDefault();
 
             // Just emit the event with the delta
-            engineEvent.emit('mouseWheel', {
+            EngineEvent.emit('mouseWheel', {
                 deltaY: e.deltaY,
                 deltaX: e.deltaX,
 

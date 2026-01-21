@@ -11,7 +11,6 @@ gravitic-zephyr/
 │   ├── engine/
 │   │   ├── core/
 │   │   │   ├── engineAssets.js
-│   │   │   ├── engineConfig.js
 │   │   │   ├── engineEvent.js
 │   │   │   ├── engineLoop.js
 │   │   │   └── engineStart.js
@@ -43,7 +42,7 @@ gravitic-zephyr/
 │   │           ├── background.js
 │   │           ├── camera.js
 │   │           └── interface.js
-│   └── utilities/
+│   └── tests/
 │       └── testStart.js
 └── json/
     └── planets.json

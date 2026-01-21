@@ -4,7 +4,7 @@ import { VectorUtilities } from '../../engine/utilities/vectorUtilities.js';
 class AssetManager {
     constructor() {
         this.assets = [];
-        this.assetMap = new Map(); // id → asset
+        this.assetMap = new Map(); // id -> asset
     }
 
     // Load assets from JSON

@@ -1,4 +1,4 @@
-import { engineEvent } from '../../../engine/core/engineEvent.js';
+import { EngineEvent } from '../../../engine/core/engineEvent.js';
 import { GameConfig } from '../../core/gameConfig.js';
 import { VectorUtilities } from '../../../engine/utilities/vectorUtilities.js';
 
@@ -24,7 +24,7 @@ class Camera {
 
     setupEventListeners() {
         // Main update loop - runs every frame
-        engineEvent.on('gameTick', () => {
+        EngineEvent.on('gameTick', () => {
             // If following a target, update camera position
             if (this.isFollowing && this.target) this.follow(this.target);
 
@@ -33,17 +33,17 @@ class Camera {
         });
 
         // Continuous actions (held keys) - only process if not following
-        engineEvent.on('actionActive', (data) => {
+        EngineEvent.on('actionActive', (data) => {
             if (!this.isFollowing) this.handleContinuousAction(data.action);
         });
 
         // One-shot actions (key press events)
-        engineEvent.on('actionStart', (data) => {
+        EngineEvent.on('actionStart', (data) => {
             this.handleAction(data.action);
         });
 
         // Mouse wheel zoom
-        engineEvent.on('mouseWheel', (data) => {
+        EngineEvent.on('mouseWheel', (data) => {
             this.handleMouseWheel(data.deltaY);
         });
     }

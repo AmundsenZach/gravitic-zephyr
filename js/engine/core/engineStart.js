@@ -1,4 +1,4 @@
-import { engineEvent } from './engineEvent.js'; // Singleton event emitter
+import { EngineEvent } from './engineEvent.js'; // Singleton event emitter
 import { EngineLoop } from './engineLoop.js';
 
 import { KeyboardInput } from '../input/keyboardInput.js';
@@ -37,7 +37,7 @@ const EngineStart = {
         EngineStart.canvas.height = height;
         
         // Emit so camera and rendering can adjust
-        engineEvent.emit('canvasResize', { width, height });
+        EngineEvent.emit('canvasResize', { width, height });
     }
 }
 

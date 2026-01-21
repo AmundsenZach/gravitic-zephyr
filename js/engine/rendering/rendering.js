@@ -1,4 +1,4 @@
-import { engineEvent } from '../core/engineEvent.js';
+import { EngineEvent } from '../core/engineEvent.js';
 import { EngineStart } from '../core/engineStart.js';
 import { Camera } from '../../game/rendering/systems/camera.js';
 import { Background } from '../../game/rendering/systems/background.js';
@@ -11,7 +11,7 @@ class Rendering {
         this.camera = new Camera();
 
         // Single listener for rendering - triggered by gameTick
-        engineEvent.on('gameTick', () => {
+        EngineEvent.on('gameTick', () => {
             this.render();
         });
     }

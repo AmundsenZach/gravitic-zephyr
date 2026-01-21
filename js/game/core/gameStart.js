@@ -1,5 +1,5 @@
 import { engineAssets } from '../../engine/core/engineAssets.js';
-import { engineEvent } from '../../engine/core/engineEvent.js';
+import { EngineEvent } from '../../engine/core/engineEvent.js';
 import { AssetManager } from '../managers/assetManager.js';
 import { SpriteManager } from '../managers/spriteManager.js';
 import { SimulationManager } from '../managers/simulationManager.js';
@@ -15,9 +15,9 @@ class GameStart {
         try {
             const planetsData = await engineAssets.loadJsonFile('planets', 'json/planets.json');
 
-            assetManager = new AssetManager();
-            spriteManager = new SpriteManager();
-            simulationManager = new SimulationManager();
+            assetManager = new AssetManager(); // Remove singleton instance
+            spriteManager = new SpriteManager(); // Remove singleton instance
+            simulationManager = new SimulationManager(); // Remove singleton instance
 
             const assets = assetManager.loadFromJSON(planetsData);
             simulationManager.init(assets);
@@ -27,7 +27,7 @@ class GameStart {
 
             spriteManager.createSpritesFor(assets);
 
-            engineEvent.on('gameTick', (data) => {
+            EngineEvent.on('gameTick', (data) => {
                 const dt = data.deltaTime / 1000;
 
                 simulationManager.update(dt);

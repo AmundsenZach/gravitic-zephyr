@@ -1,4 +1,4 @@
-import { engineEvent } from '../core/engineEvent.js';
+import { EngineEvent } from '../core/engineEvent.js';
 import { GameConfig } from '../../game/core/gameConfig.js';
 
 class KeyboardInput {
@@ -30,7 +30,7 @@ class KeyboardInput {
         });
 
         // Handle continuous input - emit actionActive every frame
-        engineEvent.on('gameTick', () => {
+        EngineEvent.on('gameTick', () => {
             this.emitHeldActions();
         });
 
@@ -59,7 +59,7 @@ class KeyboardInput {
     emitActionEvent(key, eventType) {
         for (const [action, keys] of Object.entries(this.properties)) {
             if (keys.includes(key)) {
-                engineEvent.emit(eventType, { action, key });
+                EngineEvent.emit(eventType, { action, key });
             }
         }
     }
