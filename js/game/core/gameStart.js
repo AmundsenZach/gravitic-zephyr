@@ -1,11 +1,10 @@
-import { engineAssets } from '../../engine/core/engineAssets.js';
+import { EngineAssets } from '../../engine/core/engineAssets.js';
 import { EngineEvent } from '../../engine/core/engineEvent.js';
 import { AssetManager } from '../managers/assetManager.js';
 import { SpriteManager } from '../managers/spriteManager.js';
 import { SimulationManager } from '../managers/simulationManager.js';
 
 // Export manager instances for use in other modules
-export let assetManager;
 export let spriteManager;
 export let simulationManager;
 export let celestialSprites;
@@ -13,13 +12,12 @@ export let celestialSprites;
 class GameStart {
     static async init() {
         try {
-            const planetsData = await engineAssets.loadJsonFile('planets', 'json/planets.json');
+            const planetsData = await EngineAssets.loadJsonFile('planets', 'json/planets.json');
 
-            assetManager = new AssetManager(); // Remove singleton instance
             spriteManager = new SpriteManager(); // Remove singleton instance
             simulationManager = new SimulationManager(); // Remove singleton instance
 
-            const assets = assetManager.loadFromJSON(planetsData);
+            const assets = AssetManager.loadFromJSON(planetsData);
             simulationManager.init(assets);
 
             // Calculate initial positions before creating sprites

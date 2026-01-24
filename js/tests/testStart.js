@@ -6,7 +6,6 @@ import { MouseInput } from '../engine/input/mouseInput.js';
 
 import { Rendering } from '../engine/rendering/rendering.js';
 
-import { assetManager } from '../game/core/gameStart.js';
 import { spriteManager } from '../game/core/gameStart.js';
 import { celestialSprites } from '../game/core/gameStart.js';
 
@@ -62,7 +61,7 @@ class TestStart {
 
         // Test 3: Assets loaded
         console.log('\n--- Test 3: Assets ---');
-        const assets = assetManager?.getAssets() || [];
+        const assets = AssetManager?.getAssets() || [];
         console.log(`Assets loaded: ${assets.length}`);
 
         if (assets.length > 0) {

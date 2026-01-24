@@ -1,10 +1,8 @@
 class EngineAssets {
-    constructor() {
-        this.jsonFiles = new Map();
-    }
+    static jsonFiles = new Map();
 
     // Loads a json file and stores it in memory
-    loadJsonFile(name, path) {
+    static loadJsonFile(name, path) {
         return fetch(path)
             .then(response => response.json())
             .then(json => {
@@ -14,12 +12,9 @@ class EngineAssets {
     }
 
     // Retrieves a loaded json file by name
-    getJsonFile(name) {
+    static getJsonFile(name) {
         return this.jsonFiles.get(name) || null;
     }
 }
 
-// Export singleton instance
-const engineAssets = new EngineAssets();
-
-export { engineAssets, EngineAssets };
+export { EngineAssets };

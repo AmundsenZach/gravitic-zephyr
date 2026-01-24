@@ -2,13 +2,11 @@ import { CelestialAsset } from '../assets/celestialAsset.js';
 import { VectorUtilities } from '../../engine/utilities/vectorUtilities.js';
 
 class AssetManager {
-    constructor() {
-        this.assets = [];
-        this.assetMap = new Map(); // id -> asset
-    }
+    static assets = [];
+    static assetMap = new Map(); // id -> asset
 
     // Load assets from JSON
-    loadFromJSON(jsonData) {
+    static loadFromJSON(jsonData) {
         const celestials = jsonData.celestials || [];
 
         // First pass: Create all assets
@@ -59,7 +57,7 @@ class AssetManager {
     }
     
     // Update all assets (physics)
-    update(dt) {
+    static update(dt) {
         this.assets.forEach(asset => {
             if (typeof asset.updatePosition === 'function') {
                 asset.updatePosition(dt);
@@ -68,16 +66,16 @@ class AssetManager {
     }
 
     // Access
-    getAssets() {
+    static getAssets() {
         return this.assets;
     }
 
-    getAsset(id) {
+    static getAsset(id) {
         return this.assetMap.get(id);
     }
 
     // Cleanup (for reset/reload)
-    clear() {
+    static clear() {
         this.assets = [];
         this.assetMap.clear();
     }
