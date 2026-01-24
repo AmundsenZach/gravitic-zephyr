@@ -1,16 +1,14 @@
 import { CelestialSprite } from '../rendering/sprites/celestialSprite.js';
 
 class SpriteManager {
-    constructor() {
-        this.sprites = [];
-        this.spriteMap = new Map(); // asset.id → sprite
-    }
+    static sprites = [];
+    static spriteMap = new Map(); // asset.id → sprite
 
     // Create sprites for assets
-    createSpritesFor(assets) {
+    static createSpritesFor(assets) {
         assets.forEach(asset => {
             // Don't create duplicates
-            if (this.spriteMap.has(asset.id)) return;
+            if (SpriteManager.spriteMap.has(asset.id)) return;
 
             const sprite = new CelestialSprite({ id: asset.id });
             
@@ -24,14 +22,14 @@ class SpriteManager {
             // Store reference to asset (for updates)
             sprite.asset = asset;
             
-            this.sprites.push(sprite);
-            this.spriteMap.set(asset.id, sprite);
+            SpriteManager.sprites.push(sprite);
+            SpriteManager.spriteMap.set(asset.id, sprite);
         });
     }
     
     // Update sprites from assets (sync visual state)
-    update() {
-        this.sprites.forEach(sprite => {
+    static update() {
+        SpriteManager.sprites.forEach(sprite => {
             if (sprite.asset) {
                 // Read from asset (single source of truth)
                 sprite.position = sprite.asset.position;
@@ -43,32 +41,32 @@ class SpriteManager {
     }
     
     // Destroy specific sprites (for chunk unloading later)
-    destroySpritesFor(assets) {
+    static destroySpritesFor(assets) {
         assets.forEach(asset => {
-            const sprite = this.spriteMap.get(asset.id);
+            const sprite = SpriteManager.spriteMap.get(asset.id);
             if (sprite) {
-                const index = this.sprites.indexOf(sprite);
+                const index = SpriteManager.sprites.indexOf(sprite);
                 if (index > -1) {
-                    this.sprites.splice(index, 1);
+                    SpriteManager.sprites.splice(index, 1);
                 }
-                this.spriteMap.delete(asset.id);
+                SpriteManager.spriteMap.delete(asset.id);
             }
         });
     }
     
     // Access
-    getSprites() {
-        return this.sprites;
+    static getSprites() {
+        return SpriteManager.sprites;
     }
     
-    getSprite(assetId) {
-        return this.spriteMap.get(assetId);
+    static getSprite(assetId) {
+        return SpriteManager.spriteMap.get(assetId);
     }
     
     // Cleanup
-    clear() {
-        this.sprites = [];
-        this.spriteMap.clear();
+    static clear() {
+        SpriteManager.sprites = [];
+        SpriteManager.spriteMap.clear();
     }
 }
 

@@ -6,7 +6,6 @@ import { MouseInput } from '../engine/input/mouseInput.js';
 
 import { Rendering } from '../engine/rendering/rendering.js';
 
-import { spriteManager } from '../game/core/gameStart.js';
 import { celestialSprites } from '../game/core/gameStart.js';
 
 import { AssetManager } from '../game/managers/assetManager.js';
@@ -102,7 +101,7 @@ class TestStart {
 
         // Test 4: Sprites created
         console.log('\n--- Test 4: Sprites ---');
-        const sprites = spriteManager?.getSprites() || [];
+        const sprites = SpriteManager?.getSprites() || [];
         console.log(`Sprites created: ${sprites.length}`);
 
         if (sprites.length > 0) {
@@ -150,7 +149,7 @@ class TestStart {
         if (assets.length > 0 && sprites.length > 0) {
             let linkedCount = 0;
             assets.forEach(asset => {
-                const sprite = spriteManager.getSprite(asset.id);
+                const sprite = SpriteManager.getSprite(asset.id);
                 if (sprite && sprite.asset === asset) {
                     linkedCount++;
                 } else {
